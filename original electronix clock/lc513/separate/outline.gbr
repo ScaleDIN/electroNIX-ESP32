@@ -1,0 +1,27 @@
+G04 Gerber generated with imageToPcb software. jesquerradevelopment *
+%FSLAX44Y44*%
+%MOMM*%
+%MIA0B0*%
+%IPPOS*%
+%ADD10C,0.001*%
+%LNGerberFromImage*%
+G01*
+G04 Dark polarity*
+%LPD*%
+G36*
+X-211Y350288D02*
+Y-211D01*
+X1320988D01*
+Y350288D01*
+X-211D01*
+G37*
+G04 Clear polarity*
+%LPC*%
+G36*
+X634Y349441D02*
+Y634D01*
+X1320141D01*
+Y349441D01*
+X634D01*
+G37*
+M02*
