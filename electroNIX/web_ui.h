@@ -100,7 +100,7 @@ body:not(.cap-rtc)     .cap-rtc { display:none }
    brightness control in the Colon LEDs fieldset. */
 body.cap-ws2812 .cap-neon-colon { display:none }
 </style></head><body><div class="wrap">
-<h1 id="boardname">electroNIX</h1><div class="sub">nixie clock &middot; esp32</div>
+<h1 id="hostname">electroNIX</h1><div class="sub" id="boardname">nixie clock &middot; esp32</div>
 
 <div class="tubes">
  <div class="tube" id="t0"><span>0</span></div>
@@ -433,8 +433,9 @@ async function load(){
  const c=await(await fetch('/api/config')).json();
  NT=c.tubes; buildTrims(NT); buildTest();
  (c.caps||[]).forEach(cap=>document.body.classList.add('cap-'+cap));
+ $('hostname').textContent=c.host;
  $('boardname').textContent=c.board;
- document.title=c.board;
+ document.title=c.host;
 
 // to make the seconds the same size on the electronix 4+S
 if (c.board === 'electroNIX 4+S') {

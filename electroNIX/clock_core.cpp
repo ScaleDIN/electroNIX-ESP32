@@ -524,8 +524,12 @@ static void serviceClock() {
     // useful input this early: it hasn't settled, and the user chose manual
     // brightness for a reason.  Full brightness policy (night mode, auto
     // sensor, smooth ramping) resumes the moment bootPhase reaches PHASE_RUN.
-    display_setBrightness(cfg.brMan);
-    effBrightness = cfg.brMan;
+    // display_setBrightness(cfg.brMan);
+    // effBrightness = cfg.brMan;
+
+    uint8_t bootBr = max(cfg.brMan, (uint8_t)50); // at least 50% brightness
+    display_setBrightness(bootBr);
+    effBrightness = bootBr;
 
     // -- PHASE_PORTAL: countdown visible on tubes, portal accessible --------
     if (bootPhase == PHASE_PORTAL) {
@@ -795,6 +799,7 @@ static void handleConfigGet() {
 
   String j = "{";
   j += "\"board\":\"" BOARD_NAME "\",";
+  j += "\"host\":\"" + getEffectiveHost() + "\",";
   j += "\"tubes\":" + String(TUBES) + ",";
   j += "\"caps\":" + caps + ",";
   j += "\"hasWs2812\":" + String(BOARD_HAS_WS2812) + ",";
@@ -1157,7 +1162,8 @@ void core_setup() {
   // Apply manual brightness for the brief gap between display_init() and the
   // first serviceClock() call. serviceClock() then holds cfg.brMan for the
   // entire boot phase (portal, connect, IP display) — see the comment there.
-  display_setBrightness(cfg.brMan);
+  // display_setBrightness(cfg.brMan);
+  display_setBrightness(max(cfg.brMan, (uint8_t)50)); // brightness at least 50%
 
 #ifdef HAVE_IDLE_HOOK
   esp_register_freertos_idle_hook_for_cpu(idleHook0, 0);

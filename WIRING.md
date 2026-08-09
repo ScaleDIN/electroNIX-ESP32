@@ -2,18 +2,16 @@
 
 Covers the TESTA-QUADRA boards this firmware supports:
 
-| | **electroNIX 4** (PCB-061, 2014) | **electroNIX 4+S** (PCB-061 + seconds) | **electroNIX 3** (PCB-036, 2013) | **electroNIX 2** (PCB-030/031, 2013) |
-|---|---|---|---|---|
-| Tubes | 4 × LC-513 / LC-531 | 4 × main + **2 × seconds (user-fitted)** | 4 × ZM1080T | 4 × Z566M + **2 × ZM1080T seconds** |
-| Display | HH:MM | **HH:MM:SS** | HH:MM | HH:MM:SS |
-| Anodes | W_1…W_4 | **W_1…W_6** | W_1…W_4 | W_1…W_6 |
-| Colon | 2 neons | **2 neons × 2 positions, in parallel** | 1 from factory, **2nd optional** (bodge) | 2 neons |
-| Power in | 12 V DC jack | 12 V DC jack (or 5 V — see 2 USB note) | **USB only, no 12 V rail** | 12 V DC jack |
-| Extras | IR receiver (OSRB38C9BA) | IR receiver (OSRB38C9BA) | — | LED under-tube backlight (retrofit: disconnect) |
-| Boost switch | **IRLR3110Z** (logic-level) | **IRLR3110Z** (logic-level) | **IRLR3110ZPBF** (logic-level) | **IRF840** (*not* logic-level) |
-| Sketch setting | `#define BOARD BOARD_ELECTRONIX_4` | `#define BOARD BOARD_ELECTRONIX_4_6T` | `#define BOARD BOARD_ELECTRONIX_3` | `#define BOARD BOARD_ELECTRONIX_2` |
-
-**fourTINY users:** select `BOARD_ELECTRONIX_4` — see the fourTINY section.
+| | **electroNIX 4** (PCB-061, 2014) | **electroNIX 4+S** (PCB-061 + seconds) | **electroNIX 3** (PCB-036, 2013) | **electroNIX 2** (PCB-030/031, 2013) | **fourTINY** (rev 11-11-2013) |
+|---|---|---|---|---|---|
+| Tubes | 4 × LC-513 / LC-531 | 4 × main + **2 × seconds (user-fitted)** | 4 × ZM1080T | 4 × Z566M + **2 × ZM1080T seconds** | 4 × LC-516 |
+| Display | HH:MM | **HH:MM:SS** | HH:MM | HH:MM:SS | HH:MM |
+| Anodes | W_1…W_4 | **W_1…W_6** | W_1…W_4 | W_1…W_6 | W_1…W_4 |
+| Colon | 2 neons | **2 neons × 2 positions, in parallel** | 1 from factory, **2nd optional** (bodge) | 2 neons | 2 neons |
+| Power in | 12 V DC jack | 12 V DC jack | **USB only, no 12 V rail** | 12 V DC jack | 12 V DC jack |
+| Extras | IR receiver (OSRB38C9BA) | IR receiver (OSRB38C9BA) | — | 6 × LED under-tube backlight | spare `LED` net, no LED hardware |
+| Boost switch | **IRLR3110Z** (logic-level) | **IRLR3110Z** (logic-level) | **IRLR3110ZPBF** (logic-level) | **IRF840** (*not* logic-level) | **IRF840** (*not* logic-level) |
+| Sketch setting | `#define BOARD BOARD_ELECTRONIX_4` | `#define BOARD BOARD_ELECTRONIX_4_6T` | `#define BOARD BOARD_ELECTRONIX_3` | ~~`BOARD_ELECTRONIX_2`~~ → use `BOARD_ELECTRONIX_4_6T` | `#define BOARD BOARD_FOURTINY` |
 
 Everything else is shared: ATmega16L-8AU, 32.768 kHz crystal, 33 k base resistors
 on every driver, the same 430 k / 6.2 k HV feedback divider, and a `JASNOSC`
@@ -26,8 +24,10 @@ expanded with two seconds tubes. It gets its own section after the electroNIX 4
 section — the three signal reassignments that free up the extra anode pins are
 small enough to cover in a short table rather than a full board write-up.
 
-The **electroNIX 2 USB** design that previously appeared here is superseded
-by the electroNIX 4+S — see its section for the USB-power note.
+There's also a proposed **electroNIX 2 USB** board further down — a six-tube,
+USB-only hybrid of the electroNIX 2 and electroNIX 3 that hasn't been built
+yet. Left out of the table above since it isn't a real board this firmware
+"supports" so much as a design worked through in advance of one.
 
 > ## ⚠️ 170 V is present on every board here
 > The boost output and all the driver stages carry ~170 VDC, and the output
@@ -53,6 +53,18 @@ fourTINY, below.
 
 # electroNIX 2 (6 tubes, with seconds)
 
+> **⚠️ BOARD_ELECTRONIX_2 is obsolete.** Fresh ESP32 retrofits of this PCB
+> should use **`BOARD_ELECTRONIX_4_6T`** and the electroNIX 4+S signal map
+> instead. The 4+S pin map is simpler, shares the same cathode digit order as
+> every other non-backlight TESTA board, and now supports the optional LED
+> backlight via `BOARD_HAS_LED_BL`. Set `BOARD_HAS_LED_BL 1` in `board.h` if
+> R17/Q3 (the backlight chain) is fitted; leave it 0 if not.
+>
+> The information below is kept for reference only — for bring-up order,
+> IRF840 gate-driver notes, cathode scramble guidance, and the per-tube trim
+> section, all of which still apply to the hardware regardless of which board
+> definition is used.
+
 ## Signal map
 
 | Original net | Tap point | ESP32 GPIO | Notes |
@@ -61,14 +73,14 @@ fourTINY, below.
 | `W_1`…`W_4` anodes (big tubes) | **R77, R74, R71, R53** (33 k) | 16, 17, 18, 19 | LAMP1–LAMP4, Z566M. |
 | `W_5`, `W_6` anodes (seconds) | **R45, R42** (33 k) | 33, 5 | LAMP5–LAMP6, ZM1080T. |
 | `SEC_0` (HH:MM colon) | **R15** (33 k) | 4 | |
-| `SEC_1` (MM:SS colon) | **R18** (33 k) | **0** | Lifted from GPIO3, rewired to GPIO0. 10 kΩ pull-up to 3V3 required on GPIO0 — see below. |
-| `LED` (backlight chain) | **R17** (33 k, base of Q3) | — | GPIO1 is now I2C SDA; disconnect R17 from GPIO1. The backlight cannot run simultaneously with the DS3231. |
+| `SEC_1` (MM:SS colon) | **R18** (33 k) | **12** | Lifted from GPIO3, moved to GPIO12 (the former buzzer pin). |
+| `LED` (backlight chain) | **R17** (33 k, base of Q3) | — (see 4+S section) | For new retrofits use the 4+S map: connect R17 to GPIO15, set `BOARD_HAS_LED_BL 1`. |
 | DS3231 SDA (optional) | I2C bus | **1** | 4.7 kΩ pull-up to 3V3. Same GPIO as every other TESTA board. |
 | DS3231 SCL (optional) | I2C bus | **3** | 4.7 kΩ pull-up to 3V3. Same GPIO as every other TESTA board. |
 | `PWM` (boost gate) | **R19** (10 Ω at Q5) | 2 | **Needs a gate driver — see the next section.** GPIO2's boot pull-down keeps the switch off during reset and flashing. |
 | `KOMP_170V` (HV feedback) | junction of **R52 (430 k) / R51 (6.2 k)** | 35 (input) | ≈2.4 V at 170 V — direct to the ADC. Same divider as the v4. |
 | `JASNOSC` (light) | junction of **R11 (1 M) / D7** | 34 (input) | ⚠️ R11 pulls up to **+5V_BUF**. Lift its 5 V end and rewire it to the ESP32's 3V3 pin (or fit a 2:1 divider) before connecting GPIO34. |
-| `MEL` (buzzer) | **R12** (2 k, base of Q1) | 12 | GPIO12 must be low at boot; the base network holds it there. |
+| `MEL` (buzzer) | **R12** (2 k, base of Q1) | **0** | Moved to GPIO0. Fit ≥10 kΩ pull-up to 3V3 on GPIO0 (strapping pin). |
 | Buttons S1–S3 | one switch leg | 36 (optional) | Needs an external 10 k to 3V3 — GPIO36 has no internal pull-up. |
 | `ZANIK` (mains-loss detect), Y1 crystal, ISP header | — | unused | NTP and the ESP32's own clock replace them. |
 | GND | any GND pad | GND | Required. |
@@ -166,17 +178,18 @@ half-enhanced MOSFET at 32 kHz is exactly how you cook one.
 To give the DS3231 the same GPIO1/GPIO3 SDA/SCL as every other board, two wires
 move and one is cut:
 
-1. **Lift the SEC_1 wire from GPIO3 and solder it to GPIO0.** GPIO0 is the
-   only free output-capable pin on the electroNIX 2.  It's a strapping pin:
-   the ESP32 boot-mode sampler reads it at reset.  Without an external pull-up
-   the 33 kΩ base load pulls it to ~1.8 V — below the 2.31 V HIGH threshold —
-   which can cause random download-mode entry.
-   **Fit a 10 kΩ resistor from GPIO0 to 3V3.**  With 10 kΩ the boot-time
-   voltage is ~3.0 V, cleanly above threshold.
+1. **Lift the SEC_1 wire from GPIO3 and solder it to GPIO12** (the former
+   buzzer pin; GPIO12 is not a strapping pin, so no pull-up is required).
+   **Move the buzzer (R12) from GPIO12 to GPIO0.** GPIO0 is a strapping pin;
+   fit a **10 kΩ resistor from GPIO0 to 3V3** so the ESP32 boots normally
+   when the buzzer is silent (LOW). With 10 kΩ the boot-time voltage is
+   ~3.0 V, cleanly above the 2.31 V HIGH threshold.
 
 2. **Disconnect GPIO1 from the backlight chain** (cut or lift the wire to R17).
    GPIO1 becomes I2C SDA and can't simultaneously drive the LED chain.  If
    the backlight LEDs are not populated, there's nothing to disconnect.
+   For new retrofits, use the 4+S map instead and connect R17 to GPIO15
+   with `BOARD_HAS_LED_BL 1` — see the electroNIX 4+S section.
 
 GPIO1 and GPIO3 are then free for the DS3231 module, which connects with 4.7 kΩ
 pull-ups to 3V3 on both lines (supplied by the module's on-board resistors on
@@ -199,34 +212,144 @@ tubes at 100 % and raise or lower tubes 5 and 6 by eye.
 
 ---
 
-# electroNIX 2 USB
+# electroNIX 2 USB (proposed — 6 tubes, USB-only power)
 
-This proposed design is superseded by **BOARD_ELECTRONIX_4_6T** (the electroNIX 4+S).
-The key insight: if you feed 5 V into the boost converter input instead of the
-12 V supply, the electroNIX 4+S runs directly from a USB power adapter.  The
-firmware is identical — select `BOARD_ELECTRONIX_4_6T` in `board.h`.
+**Not a real board yet.** This is a design proposal, not a schematic being
+converted — nothing below has been breadboarded, so treat every number here as
+a starting point to verify, not a fact. It's a hybrid: six tubes and dual-neon
+independent colons (SEC_0 = HH:MM, SEC_1 = MM:SS), powered the way the
+electroNIX 3 is — USB only, no 12 V rail, a boost converter feeding a
+diode-capacitor multiplier ladder up to 170 V. The GPIO assignments follow the
+same "UART pins become extra anodes" approach as the electroNIX 4+S, so the
+cathode digit order and neon colon GPIOs are shared across the whole non-backlight
+TESTA family.
 
-The USB-power budget note from earlier still applies: six tubes at 170 V
-through a boost-multiplier draws roughly 850–950 mA total with WiFi active.
-A USB 2.0 port (500 mA) is insufficient; use a 5 V / 2 A charger.
+## Why this needs checking before you build it
 
-# fourTINY
+Six tubes draw meaningfully more current at 170 V than electroNIX 3's four —
+roughly 13 mA average at full brightness (4 main tubes at ~2.5 mA + 2 seconds
+tubes at ~1.5 mA) against electroNIX 3's ~8-9 mA. Worked through a realistic
+75-85 % boost+multiplier efficiency, that's **roughly 520-590 mA on the 5 V
+rail for the HV side alone**, and **850-950 mA total** once you add the
+ESP32's own WiFi burst current — against ~425 mA for electroNIX 3's four-tube
+case. That's over what a plain USB 2.0 port (500 mA) can supply, and close to
+the limit of a basic 1 A charger with the WiFi radio bursting.
 
-**Use `BOARD_ELECTRONIX_4`.** The GPIO map is identical to the electroNIX 4 —
-same cathodes, anodes, neon colons, HV feedback, sensor, and buzzer pins.  The
-only hardware difference is the boost FET: the fourTINY uses an **IRF840** (not
-the IRLR3110Z of the electroNIX 4).  Fit a gate driver from the +12 V rail
-(TC4420 / MCP1407 / UCC27517) or replace the IRF840 with a logic-level part,
-set `HV_GATE_FITTED 1` in `board.h` if using a gate driver, then select
-`BOARD_ELECTRONIX_4`.  Everything else — the signal map, the DS3231 wiring, the
-web UI — is identical.
+**Use a proper 5 V/2 A power adapter, not a computer's USB port**, and budget
+generous input bulk capacitance for the transient peaks. This is the single
+most important thing to get right building this board — everything else here
+is a normal TESTA-family design.
 
-> **Gate resistor check (R50):** the schematic shows a 10 kΩ part in the gate
-> network.  Confirm with a meter whether it is a pull-down to GND (correct) or
-> in series between driver and gate (replace with ~10 Ω — 10 kΩ in series with
-> the IRF840's gate capacitance causes millisecond-range switching at 32 kHz,
-> which will overheat the FET).
+## Signal map (proposed)
 
+Rather than copying the electroNIX 2's shuffled cathode layout, this board
+uses the same pin assignment as the electroNIX 4+S: UART TX and RX become the
+two extra anode outputs, and every other GPIO is identical to the 4-tube
+electroNIX 4 and electroNIX 3. This makes the cathode digit order the same
+across the entire non-backlight TESTA family.
+
+| Net | ESP32 GPIO | Notes |
+|---|---|---|
+| `C_0`…`C_9` cathodes | 13, 14, 21, 22, 23, 25, 26, 27, 32, 33 | **Identical** to the electroNIX 4 and electroNIX 3 — no digit-order surprises. |
+| `W_1`…`W_4` anodes (main) | 16, 17, 18, 19 | **Identical.** |
+| `W_5` anode (seconds tens) | **0** | GPIO0 — strapping pin. 10 kΩ pull-up to 3V3 required (see electroNIX 4+S section). |
+| `W_6` anode (seconds units) | **15** | GPIO15 — strapping pin. 10 kΩ pull-up to 3V3 required. |
+| `SEC_0` (HH:MM colon) | 4 | **Identical** to the electroNIX 4. |
+| `SEC_1` (MM:SS colon) | **5** | **Identical** to the electroNIX 4 — SEC_1 is not displaced onto a UART pin. |
+| `PWM` boost gate | 2 | **Pick a logic-level FET** (e.g. IRLR3110Z) — one less thing to get wrong on a board with no room for a gate-driver mistake. |
+| `KOMP_170V` | 35 (input) | Same 430 k / 6.2 k divider as every other board. |
+| `JASNOSC` | 34 (input) | Same 5 V pull-up caveat: feed from 3V3, not +5V_BUF. |
+| `MEL` buzzer | 12 | |
+| Button (optional) | 36 | External 10 k to 3V3. |
+
+Flashing over USB and OTA both work normally despite serial being disabled —
+the bootloader reclaims the UART pins at reset and OTA runs over WiFi.
+
+> **Note on the bootloader TX pulse.** GPIO1 is driven briefly high by the
+> bootloader on every reset. At 3.3 V through a 33 k base resistor with no
+> 170 V on the rail yet, the tube cannot strike — no visible flash, no harm.
+
+## Power: this is the electroNIX 3's story, scaled up
+
+Same architecture as electroNIX 3 — see that section's Power write-up for the
+detail on why a USB-fed boost+multiplier works at all and how to wire the
+ESP32 into it (feed its 5V/VIN pin from `+5V_BUF`, never a GPIO). The parts
+that need to scale up for six tubes instead of four:
+
+- **Boost inductor**: size for at least 1.5-2× the current rating of
+  whatever electroNIX 3 uses.
+- **Multiplier ladder capacitors**: more current through the charge-pump
+  chain means more sag per stage. Start around 2.2 µF instead of electroNIX
+  3's 1 µF and check the ripple at 170 V is still acceptable — the diodes
+  (10MQ100N-class, 1 A rated) have plenty of headroom regardless and don't
+  need to change.
+- **`HV_DUTY_MAX`** (the firmware's ~41 % duty ceiling, shared by every TESTA
+  board): deliberately left unchanged in the sketch rather than guessed at.
+  Expect this board to need more headroom than electroNIX 3 does, given the
+  added current on top of an already 5 V-fed boost. Watch the `hv` and `duty`
+  status fields on first power-up — if `duty` pins at the ceiling without `hv`
+  reaching target, raise the constant in `display_testa.cpp` in modest steps
+  and retest.
+- **Tube current resistors**: depends on which tubes you actually use. If you
+  reuse the electroNIX 2's Z566M/ZM1080T pairing, its 2 k / 6.2 k split is a
+  reasonable starting point; for anything else, size from that tube's own
+  rated current rather than copying those values blindly.
+
+## Firmware — no back-end changes needed
+
+`board.h` has a profile for this already (`BOARD_ELECTRONIX_2USB`). In
+`display_testa.cpp` it shares a pin-map branch with `BOARD_ELECTRONIX_4_6T`
+— the two boards have identical GPIO assignments, differing only in capability
+flags (`BOARD_DUP_COLON 1` on the 4+S for its parallel colon wiring;
+`BOARD_DUAL_NEON 1` here for independent HH:MM and MM:SS colons). The HV
+loop, colon PWM, and multiplex ISR are unmodified. Rename
+`BOARD_ELECTRONIX_2USB` to whatever this board ends up being called once it
+has a real PCB number.
+
+---
+
+# fourTINY (4 × LC-516)
+
+Electrically this is the electroNIX 4 with a 2013-era power stage, so it uses
+the same GPIO map — **no firmware changes beyond `#define BOARD
+BOARD_FOURTINY`**. What differs is where you tap and, importantly, the MOSFET.
+
+| Original net | Tap point | ESP32 GPIO | Notes |
+|---|---|---|---|
+| `C_0`…`C_9` cathodes | **R21, R23, R26, R25, R22, R29, R30, R31, R27, R24** (33 k, in that order) | 13, 14, 21, 22, 23, 25, 26, 27, 32, 33 | Scattered numbering again — the order above *is* C_0→C_9. |
+| `W_1`…`W_4` anodes | **R8, R12, R16, R4** (33 k) | 16, 17, 18, 19 | |
+| `SEC_0`, `SEC_1` colons | **R17, R18** (430–470 k) | 4, 5 | N1/N2 are NEON-5, as on the v4. |
+| `PWM` boost gate | gate network at **Q50** | 2 | **IRF840 — gate driver required, see below.** |
+| `KOMP_170V` | **R53 (430 k 1%) / R54 (6.2 k 1%)** junction | 35 (input) | Same divider ratio as the other boards, so no constant to change. |
+| `JASNOSC` | **R57 (1 M) / D25** junction | 34 (input) | D25 is an HPTC3C-44J phototransistor. Same 5 V pull-up caveat: move R57's top end to 3V3. |
+| `MEL` buzzer | **R55** (2 k, base of Q51) | **0** | Moved to GPIO0 (strapping pin). Fit ≥10 kΩ pull-up to 3V3. `cfg.buzzerEn` defaults false. GPIO12 is now free. |
+| `LED` | MCU pin / header | 15 (optional) | The net is brought out but nothing drives LEDs on this board. If you add some, wire to GPIO15 and set `BOARD_HAS_LED_BL 1`. |
+| Buttons S1–S3 | switch leg | 36 (optional) | External 10 k to 3V3. |
+
+## ⚠️ fourTINY has the IRF840 too
+
+Q50 here is an **IRF840SPBF**, the same standard-level part as the electroNIX 2
+— not the logic-level IRLR3110Z of the v4. It will not switch from 3.3 V. Fit a
+gate driver from +12 V (TC4420 / MCP1407 / UCC27517), or an inverting 2N7002
+stage with `HV_PWM_INVERT 1`. The sketch now refuses to build for either
+IRF840 board until you set `HV_GATE_FITTED 1`, which is deliberate: it's easier
+to change a #define than to replace a cooked MOSFET.
+
+**Also check R50 (10 k) before you power up.** On the electroNIX 2 the series
+gate resistor is a 10 Ω part (R19) with a separate 10 k pull-down. This board's
+schematic shows only R50 at 10 k in the gate network, which is almost certainly
+the pull-down — but confirm with a meter which way it sits. If it turns out to
+be *in series* with the gate, replace it with ~10 Ω: 10 k against the IRF840's
+~1.3 nF input capacitance is microseconds of switching time, hopeless at
+32 kHz and a good way to overheat the FET.
+
+## Tube current
+
+The anode emitter resistors here are **15 k** (R5, R9, R13, R1), against 2 k on
+the electroNIX 2's large tubes — the LC-516 is a small tube run at low current.
+Nothing to change in firmware, but if the display looks dim, that's why, and
+the per-tube trims in the web UI let you balance it rather than reworking
+resistors.
 
 # electroNIX 4 (4 tubes)
 
@@ -240,11 +363,11 @@ web UI — is identical.
 | `PWM` boost gate | **R59** (10 Ω at Q50) | 2 | Q50 is an IRLR3110Z — logic-level, drive it directly. |
 | `KOMP_170V` | **R60 / R61** junction | 35 (input) | |
 | `JASNOSC` | **R63 / D1** junction | 34 (input) | Same 5 V pull-up caveat: move R63's top end to 3V3. |
-| `MEL` buzzer | **R62** (2 k) | 12 | |
+| `MEL` buzzer | **R62** (2 k) | **0** | Moved to GPIO0 (strapping pin). Fit ≥10 kΩ pull-up to 3V3. `cfg.buzzerEn` defaults false. GPIO12 now free. |
 | IR receiver (IR1) | IR1 pad | 39 (input, reserved) | Power IR1 from 3V3 rather than +5V_BUF. Not decoded yet. |
 | Buttons S1–S3 | switch leg | 36 (optional) | External 10 k to 3V3 required. |
 
-With only 17 outputs in use, GPIO1 and GPIO3 are free for the optional DS3231 RTC module.
+With GPIO1, GPIO3, and GPIO12 all free, the optional DS3231 RTC module and one extra signal can be wired without conflict.
 
 ---
 
@@ -254,36 +377,65 @@ This is the electroNIX 4 expanded to six tubes by adding a seconds pair on the
 right. The electrical design is identical — IRLR3110Z boost switch, 430 k /
 6.2 k feedback divider, same anode and cathode driver topology — and the GPIO
 map changes as little as possible: **every cathode, both neon colons, the HV
-PWM pin, the buzzer, and the sensors stay on exactly the same GPIOs as the
-4-tube board**.
+PWM pin, and the sensors stay on exactly the same GPIOs as the 4-tube board**.
+It also covers fresh ESP32 retrofits of the electroNIX 2 PCB (see
+BOARD_ELECTRONIX_2 obsolescence note above).
 
-## The two new anode pins
+## GPIO changes from the electroNIX 4
 
-The electroNIX 4 already uses all 18 comfortable output-capable GPIOs on the
-ESP32. The only remaining candidates are the two strapping pins, GPIO0 and
-GPIO15. Freeing the UART pins (GPIO1/GPIO3) for I2C moves W_5 and W_6 onto
-those instead.
+The electroNIX 4 already uses all comfortable output-capable GPIOs. Two
+strapping pins (GPIO0 and GPIO15) are the only candidates for new outputs.
+The buzzer was moved from GPIO12 to GPIO0 to free GPIO12 for the W_5 anode,
+which in turn frees GPIO15 for either W_6 or the optional LED backlight.
 
 | Role on electroNIX 4 | GPIO | Role on electroNIX 4+S |
 |---|---|---|
-| Unused (strapping pin) | **0** | Anode `W_5` (seconds tens tube) |
-| Unused (strapping pin) | **15** | Anode `W_6` (seconds units tube) |
-| Free (UART TX) | 1 | DS3231 RTC SDA (or free if no RTC fitted) |
-| Free (UART RX) | 3 | DS3231 RTC SCL (or free if no RTC fitted) |
+| `MEL` buzzer | **0** | `MEL` buzzer (strapping pin; 10 kΩ pull-up to 3V3 required) |
+| Unused (strapping pin) | **15** | `W_6` *or* LED backlight — see below |
+| `MEL` buzzer (was here) | **12** | Anode `W_5` (seconds tens tube) |
+| Free (UART TX) | **1** | DS3231 SDA — *or* `W_6` anode if LED backlight fitted |
+| Free (UART RX) | **3** | DS3231 SCL (or free if neither RTC nor extra use) |
 
 `SEC_0`, `SEC_1`, and all ten cathodes stay exactly where they were.
 
 ## Required pull-ups on GPIO0 and GPIO15
 
-The 33 kΩ base resistor on each new anode loads GPIO0 and GPIO15 enough that
-the ESP32's internal pull-up (~45 kΩ) cannot guarantee a clean HIGH for the
-boot-mode strapping sampler at reset.  Without external pull-ups, the voltage
-at those pins at reset is roughly 1.8 V — below the 2.31 V HIGH threshold —
-which can randomly enter download mode.
+Both GPIO0 and GPIO15 are strapping pins. GPIO0 drives the buzzer (normally
+LOW, silent); GPIO15 drives W_6 or the LED backlight BJT base. In both cases
+a 33 kΩ series base resistor loads the pin at reset, pulling it well below the
+2.31 V HIGH threshold if there is no external pull-up — which can randomly
+cause the chip to boot into download mode.
 
-**Fit 10 kΩ resistors from GPIO0 to 3V3 and from GPIO15 to 3V3.**  These are
-permanent board components, independent of whether a DS3231 module is fitted.
-With 10 kΩ, the boot-time voltage is ~3.0 V — safely above threshold.
+**Fit 10 kΩ resistors from GPIO0 to 3V3 and from GPIO15 to 3V3.** These are
+permanent board components regardless of whether a DS3231 or LED backlight is
+fitted. With 10 kΩ the boot-time voltage is ~3.0 V — safely above threshold.
+
+GPIO12 (W_5 anode) is **not** a strapping pin and requires no pull-up.
+
+## Optional LED backlight (electroNIX 2 hardware)
+
+The electroNIX 2 PCB has an under-tube LED backlight chain driven through
+R17 (33 kΩ) into transistor Q3. To enable it on the unified 4+S firmware:
+
+1. **Wire R17 (the LED base resistor) to GPIO15** instead of the original
+   GPIO1. GPIO15 is now `PIN_LEDBL`; it drives the chain with 1 kHz PWM.
+   The existing 10 kΩ pull-up on GPIO15 (see above) is all that's needed.
+
+2. **Wire W_6 (R42, the seconds-units anode) to GPIO1.** GPIO1 was the
+   original LED drive pin before the DS3231 retrofit displaced it; here it
+   returns to active use. GPIO1 is UART TX and the bootloader drives it
+   briefly HIGH at reset — through a 33 kΩ base resistor with no HV on the
+   rail yet, the tube cannot strike. Harmless.
+
+3. **Set `BOARD_HAS_LED_BL 1`** in the `BOARD_ELECTRONIX_4_6T` profile in
+   `board.h`. The firmware remaps `ANODE_PINS[5]` to GPIO1 and defines
+   `PIN_LEDBL = 15` automatically.
+
+4. **Leave `BOARD_HAS_RTC 0`.** GPIO1 cannot simultaneously be W_6 and
+   DS3231 SDA. The firmware enforces this with a compile-time error if both
+   are set. If you need the RTC on this build, leave the LED backlight
+   disconnected and use `BOARD_HAS_LED_BL 0`; W_6 stays on GPIO15 and
+   GPIO1 is free for I2C SDA as normal.
 
 ## Signal map
 
@@ -291,15 +443,16 @@ With 10 kΩ, the boot-time voltage is ~3.0 V — safely above threshold.
 |---|---|---|---|
 | `C_0`…`C_9` cathodes | **R22–R31** (33 k), same as electroNIX 4 | 13, 14, 21, 22, 23, 25, 26, 27, 32, 33 | **Identical to the 4-tube board** — digit order preserved. |
 | `W_1`…`W_4` anodes (main) | **R15, R14, R17, R16** (33 k), same as electroNIX 4 | 16, 17, 18, 19 | **Identical.** |
-| `W_5` anode (seconds tens) | 33 k base resistor for new seconds tube driver | **0** | GPIO0 — strapping pin; 10 kΩ pull-up to 3V3 required (see above). |
-| `W_6` anode (seconds units) | 33 k base resistor for new seconds tube driver | **15** | GPIO15 — strapping pin; 10 kΩ pull-up to 3V3 required. |
+| `W_5` anode (seconds tens) | 33 k base resistor for seconds tube driver | **12** | GPIO12 (former buzzer pin). Not a strapping pin — no pull-up needed. |
+| `W_6` anode (seconds units) | 33 k base resistor for seconds tube driver | **15** *(no LED)* or **1** *(LED)* | GPIO15 when `BOARD_HAS_LED_BL 0`; GPIO1 when `BOARD_HAS_LED_BL 1`. See LED backlight section above. |
+| `LED` backlight chain | **R17** (33 k, base of Q3) — electroNIX 2 PCB only | **15** *(when fitted)* | Connect R17 to GPIO15 and set `BOARD_HAS_LED_BL 1`. Mutually exclusive with DS3231 RTC. |
 | `SEC_0` (top neon, both positions) | **R18** (430 k), same as electroNIX 4 | 4 | **Identical.** Drives top neon at both colon positions in parallel — see below. |
 | `SEC_1` (bottom neon, both positions) | **R19** (430 k), same as electroNIX 4 | 5 | **Identical.** Bottom neon at both positions, in parallel. |
 | `PWM` boost gate | **R59** (10 Ω at Q50) | 2 | IRLR3110Z, logic-level. Identical. |
 | `KOMP_170V` | **R60 / R61** junction | 35 (input) | Identical. |
 | `JASNOSC` | **R63 / D1** junction | 34 (input) | Same 5 V pull-up caveat: move R63's top end to 3V3. Identical. |
-| `MEL` buzzer | **R62** (2 k) | 12 | Identical. |
-| DS3231 SDA (optional) | I2C bus | 1 | Same GPIO as every other TESTA board. 4.7 kΩ pull-up to 3V3. |
+| `MEL` buzzer | **R62** (2 k) | **0** | GPIO0 (strapping pin). 10 kΩ pull-up to 3V3 required (see above). `cfg.buzzerEn` defaults false. |
+| DS3231 SDA (optional) | I2C bus | **1** *(no LED)* or — *(LED)* | GPIO1 when `BOARD_HAS_LED_BL 0`. Unavailable when LED backlight fitted. 4.7 kΩ pull-up to 3V3. |
 | DS3231 SCL (optional) | I2C bus | 3 | Same GPIO as every other TESTA board. 4.7 kΩ pull-up to 3V3. |
 | Buttons S1–S3 | switch leg | 36 (optional) | Identical. |
 
@@ -406,7 +559,7 @@ dedicated SEC_1 — without a rebuild.
 | `PWM` boost gate | **R33** (10 Ω) at Q20, **R45** (10 k) pull-down | 2 | Q20 is an IRLR3110ZPBF — logic-level, drive it directly, same as the v4. |
 | `KOMP_170V` | **R43 (430 k) / R42 (6.2 k)** junction | 35 (input) | Same divider ratio as every other board, so no constant to change. |
 | `JASNOSC` | **R44 (1 M) / D20** junction | 34 (input) | D20 is an HPDB3J-44DA phototransistor. Same 5 V pull-up caveat as elsewhere: move R44's top end to 3V3. |
-| `MEL` buzzer | **R34** (2 k, base of Q21) | 12 | |
+| `MEL` buzzer | **R34** (2 k, base of Q21) | **0** | Moved to GPIO0 (strapping pin). Fit ≥10 kΩ pull-up to 3V3. `cfg.buzzerEn` defaults false. GPIO12 now free. |
 | Buttons SET / PLUS / MINUS (S1/S3/S2) | switch leg | 36 (optional) | These were the original firmware's on-board clock-set buttons; wire one up the same as any other board's buttons if you want `btnEn`, otherwise leave them. |
 
 ## Power — this board runs from USB alone
@@ -461,7 +614,7 @@ and `duty` fields the first time you power it up:
 
 The electroNIX 3 is covered above and doesn't need anything in this section —
 it has no 78M05, no 12 V input, and nothing to swap. This applies to the
-electroNIX 4, electroNIX 4+S, and electroNIX 2.
+electroNIX 4, electroNIX 4+S, electroNIX 2, and fourTINY.
 
 ## Power — important
 
@@ -875,9 +1028,9 @@ provides a valid time, since `core_timeTrusted()` returns true for `SRC_RTC`.
 ## Strapping pins (TESTA only)
 
 The DS3231 I2C pins (GPIO1 and GPIO3) are not strapping pins, so there are no
-boot complications on TESTA boards either.  The 10 kΩ pull-up requirements
-mentioned in the 4+S and electroNIX 2 sections are for *other* GPIOs (anode
-and colon drivers on strapping pins), not for the I2C lines themselves.
+boot complications from the RTC wiring itself.  The 10 kΩ pull-up requirements
+mentioned in the 4+S section are for *other* GPIOs — GPIO0 (buzzer) and GPIO15
+(W_6 anode or LED backlight), both strapping pins — not for the I2C lines.
 
 ## Fit the CR2032 backup cell
 

@@ -10,10 +10,12 @@
 // TESTA-QUADRA boards (2013-2014, originally ATmega16, converted to ESP32)
 #define BOARD_ELECTRONIX_4   4       // PCB-061, 4 x LC-513/531, IRLR3110Z
 #define BOARD_ELECTRONIX_3   3       // PCB-036, 4 x ZM1080T, IRLR3110Z, SEC_1 optional bodge
-#define BOARD_ELECTRONIX_2   2       // PCB-030/031, 6 tubes, IRF840 — see WIRING.md for DS3231 retrofit
-#define BOARD_ELECTRONIX_4_6T 7     // electroNIX 4 + seconds tubes: 6 x IN-12, IRLR3110Z,
-                                     // no backlight; both colon positions wired in parallel
-                                     // (SEC_0 = all top neons, SEC_1 = all bottom neons)
+#define BOARD_ELECTRONIX_2   2       // PCB-030/031 — OBSOLETE. Fresh retrofits: use BOARD_ELECTRONIX_4_6T.
+#define BOARD_ELECTRONIX_4_6T 7     // electroNIX 4 + seconds tubes: 6 x IN-12, IRLR3110Z.
+                                     // Also covers electroNIX 2 PCB retrofits (set BOARD_HAS_LED_BL 1
+                                     // in the profile below if the under-tube backlight is fitted).
+                                     // Both colon positions wired in parallel (SEC_0 = all top neons,
+                                     // SEC_1 = all bottom neons).
 // fourTINY (rev 11-11-2013) users: select BOARD_ELECTRONIX_4. The pin maps
 // are identical; only the boost FET differs (IRF840 needs a gate driver or a
 // logic-level replacement — see WIRING.md).  fourTINY had its own profile
@@ -28,7 +30,7 @@
 #define BOARD_NICK2_IN12   102       // NickTwo IN-12: 74141 + NCH8200HV + WS2812
 
 // ------------------------------------------------------------------ select v
-#define BOARD  102
+#define BOARD  4
 // ------------------------------------------------------------------
 
 // ---- TESTA-only build options ---------------------------------------------
@@ -75,23 +77,32 @@
   #define BOARD_NEON1_OPTIONAL 0  // fixed at the factory, not a runtime choice
 
 #elif BOARD == BOARD_ELECTRONIX_4_6T
-  // electroNIX 4 expanded to six tubes.  Both colon positions share the
-  // same SEC_0/SEC_1 drive lines (wired in parallel), so BOARD_DUP_COLON
-  // lets the web preview draw them correctly without changing colon logic.
-  // GPIO0 and GPIO15 (strapping pins) become anodes W_5/W_6; this frees
-  // GPIO1 and GPIO3 for DS3231 I2C, giving the same SDA/SCL as every other
-  // non-electroNIX-2 TESTA board.  10 kΩ pull-ups on GPIO0 and GPIO15 are
-  // required for safe boot (see WIRING.md).  Every other GPIO is identical
-  // to BOARD_ELECTRONIX_4.
+  // electroNIX 4 expanded to six tubes. Also the target for fresh ESP32
+  // retrofits of the electroNIX 2 PCB (BOARD_ELECTRONIX_2 is obsolete).
+  //
+  // GPIO pin summary (after the buzzer/W_5 reassignment vs. the original
+  // electroNIX 4+S design):
+  //   GPIO0  = buzzer (strapping pin; fit ≥10 kΩ pull-up to 3V3)
+  //   GPIO12 = W_5 anode (seconds tens tube; was buzzer)
+  //   GPIO15 = W_6 anode *or* LED backlight — see BOARD_HAS_LED_BL below
+  //   GPIO1/GPIO3 = DS3231 I2C SDA/SCL when BOARD_HAS_LED_BL is 0
+  //
+  // BOARD_HAS_LED_BL: set to 1 if the under-tube LED backlight chain is
+  // fitted (electroNIX 2 PCBs have this; electroNIX 4+S PCBs do not).
+  // When 1, GPIO15 becomes PIN_LEDBL and W_6 moves to GPIO1 — the pin the
+  // electroNIX 2 used for the LED before the DS3231 retrofit displaced it.
+  // GPIO1 can then no longer serve as DS3231 SDA, so BOARD_HAS_RTC must be
+  // 0. A ≥10 kΩ pull-up to 3V3 is required on GPIO15 regardless (strapping
+  // pin; same reason as GPIO0 above — see WIRING.md).
   #define BOARD_NAME       "electroNIX 4+S"
   #define BOARD_TUBES        6
   #define BOARD_HAS_HV       1
   #define BOARD_HAS_SENSOR   1
   #define BOARD_HAS_BUZZER   1
-  #define BOARD_HAS_LED_BL   0
+  #define BOARD_HAS_LED_BL   0   // set to 1 for electroNIX 2 PCB LED backlight
   #define BOARD_HAS_WS2812   0
   #define BOARD_HAS_SECONDS  1
-  #define BOARD_USE_SERIAL   0   // GPIO0/GPIO15 are anodes W_5/W_6; GPIO1/GPIO3 are I2C SDA/SCL
+  #define BOARD_USE_SERIAL   0   // GPIO1/GPIO3 free for I2C (or W_6/unused if BOARD_HAS_LED_BL)
   #define BOARD_HV_LOGIC_FET 1   // IRLR3110Z - direct 3.3 V drive is fine
   #define BOARD_NEON1_OPTIONAL 0
   #define BOARD_DUAL_NEON    1   // SEC_0 and SEC_1 both fitted
@@ -122,24 +133,12 @@
   #define BOARD_NEON1_OPTIONAL 1
 
 #elif BOARD == BOARD_ELECTRONIX_2
-  // Retrofit for DS3231 I2C compatibility: SEC_1 lifted from GPIO3 and
-  // soldered to GPIO0 (10 kΩ pull-up required); GPIO1 disconnected from the
-  // backlight chain. Both GPIO1 and GPIO3 are then free for DS3231 SDA/SCL,
-  // matching every other board in the family.
-  // To restore the original wiring (backlight on GPIO1, SEC_1 on GPIO3),
-  // set BOARD_HAS_LED_BL 1 and change PIN_NEON1 back to 3 in display_testa.cpp.
-  #define BOARD_NAME       "electroNIX 2"
-  #define BOARD_TUBES        6
-  #define BOARD_HAS_HV       1
-  #define BOARD_HAS_SENSOR   1
-  #define BOARD_HAS_BUZZER   1
-  #define BOARD_HAS_LED_BL   0   // backlight disconnected from GPIO1 in this retrofit
-  #define BOARD_HAS_WS2812   0
-  #define BOARD_HAS_SECONDS  1
-  #define BOARD_USE_SERIAL   0   // GPIO0=SEC_1; GPIO1/GPIO3 are I2C SDA/SCL
-  #define BOARD_HV_LOGIC_FET 0   // IRF840 - needs a gate driver
-  #define BOARD_DUAL_NEON    1   // SEC_0 (HH:MM) and SEC_1 (MM:SS) both fitted
-  #define BOARD_NEON1_OPTIONAL 0
+  #error "BOARD_ELECTRONIX_2 is obsolete. For a fresh ESP32 retrofit of an " \
+         "electroNIX 2 PCB, select BOARD_ELECTRONIX_4_6T (#define BOARD 7). " \
+         "Set BOARD_HAS_LED_BL 1 in that profile if the LED backlight is " \
+         "fitted (note: LED backlight and DS3231 RTC share GPIO1 and are " \
+         "mutually exclusive — see WIRING.md). The IRF840 gate-driver " \
+         "requirement (HV_GATE_FITTED) still applies."
 
 #else
   #error "Set BOARD in board.h to one of the listed profiles."
@@ -162,8 +161,9 @@
 // Override before BOARD_HAS_RTC if you need different pins.
 //
 // All boards: 4.7 kΩ pull-ups to 3V3 on SDA and SCL.
-// TESTA 6-tube boards (electroNIX 4+S) and the retrofitted electroNIX 2:
-// additionally fit ≥10 kΩ to 3V3 on GPIO0 and, where used, GPIO15.
+// electroNIX 4+S (BOARD_ELECTRONIX_4_6T): additionally fit ≥10 kΩ to 3V3
+// on GPIO0 (buzzer, strapping pin) and GPIO15 (W_6 or LED backlight,
+// strapping pin). GPIO12 (W_5 anode) does not need a pull-up.
 // See WIRING.md for the voltage calculation and wiring details.
 #ifndef BOARD_HAS_RTC
 #define BOARD_HAS_RTC 0
@@ -185,4 +185,10 @@
 
 #if BOARD_HAS_HV && !BOARD_HV_LOGIC_FET && !HV_GATE_FITTED
   #error "This board's boost MOSFET is an IRF840, which will not switch from 3.3 V logic. Fit a gate driver (TC4420 / MCP1407 / UCC27517 from +12 V) or an inverting 2N7002 stage with HV_PWM_INVERT 1, then set HV_GATE_FITTED to 1. See WIRING.md."
+#endif
+
+#if BOARD_HAS_LED_BL && BOARD_HAS_RTC
+  #error "LED backlight (BOARD_HAS_LED_BL 1) uses GPIO1 for the W_6 anode. " \
+         "DS3231 (BOARD_HAS_RTC 1) also needs GPIO1 for I2C SDA. " \
+         "Enable one or the other, not both. See WIRING.md."
 #endif

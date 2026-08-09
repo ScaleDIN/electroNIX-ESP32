@@ -1,15 +1,16 @@
 // ============================================================================
 //  display_testa.cpp — TESTA-QUADRA boards converted to ESP32
 //
-//  Covers five boards that share an electrical design:
-//    electroNIX 4+S 6 x IN-12, IRLR3110Z, no backlight; seconds tubes added
-//                   to the electroNIX 4, both colon positions wired in parallel
+//  Covers four boards that share an electrical design:
+//    electroNIX 4+S 6 x IN-12, IRLR3110Z; seconds tubes added to the electroNIX 4,
+//                   both colon positions wired in parallel. Also the target for
+//                   fresh ESP32 retrofits of the electroNIX 2 PCB
+//                   (BOARD_ELECTRONIX_2 is obsolete — use BOARD_ELECTRONIX_4_6T).
 //    electroNIX 4   PCB-061, 2014, 4 x LC-513/531, IRLR3110Z boost switch
 //    electroNIX 3   PCB-036, 2013, 4 x ZM1080T, single colon neon, IRLR3110Z
-//    electroNIX 2   PCB-030/031, 2013, 4 x Z566M + 2 x ZM1080T, LED backlight
 //    fourTINY       rev 11-11-2013, 4 x LC-516
 //
-//  All four drive ten cathodes and N anodes from discrete NPN switches behind
+//  All drive ten cathodes and N anodes from discrete NPN switches behind
 //  33 k base resistors, regulate a 170 V boost converter in software from a
 //  430 k / 6.2 k feedback divider, and read ambient light from a phototransistor
 //  on a 1 M pull-up. See WIRING.md for tap points and the gate-driver
@@ -50,7 +51,7 @@
 //  display_setBrightness() call corrects it a few seconds later.
 // ============================================================================
 #include "board.h"
-#if BOARD == BOARD_ELECTRONIX_4 || BOARD == BOARD_ELECTRONIX_3 || BOARD == BOARD_ELECTRONIX_2 || BOARD == BOARD_ELECTRONIX_4_6T
+#if BOARD == BOARD_ELECTRONIX_4 || BOARD == BOARD_ELECTRONIX_3 || BOARD == BOARD_ELECTRONIX_4_6T
 
 #include "display.h"
 #include "clock_core.h"
@@ -61,33 +62,31 @@
 #include <soc/gpio_struct.h>
 
 // ---- Pin maps --------------------------------------------------------------
-#if BOARD == BOARD_ELECTRONIX_2
-  // Retrofit: SEC_1 lifted from GPIO3 and rewired to GPIO0 (10 kΩ pull-up
-  // to 3V3 required on GPIO0 -- same strapping-pin rule as GPIO0/GPIO15 on
-  // the 6-tube boards); GPIO1 disconnected from the backlight chain. This
-  // frees GPIO1 and GPIO3 for DS3231 I2C, making all TESTA boards identical.
-  // To revert to the original wiring (backlight + original colon GPIOs):
-  //   PIN_NEON1 = 3, PIN_LEDBL = 1, set BOARD_HAS_LED_BL 1 in board.h.
-  static const uint8_t ANODE_PINS[BOARD_TUBES] = {16, 17, 18, 19, 33, 5};
-  static const uint8_t CATHODE_PINS[10] = {13, 14, 15, 21, 22, 23, 25, 26, 27, 32};
-  static const uint8_t PIN_NEON0 = 4;   // SEC_0, HH:MM colon (unchanged)
-  static const uint8_t PIN_NEON1 = 0;   // SEC_1, MM:SS colon — moved to GPIO0
-#elif BOARD == BOARD_ELECTRONIX_2USB || BOARD == BOARD_ELECTRONIX_4_6T
-  // Six-tube expansion boards with no backlight.  GPIO0 and GPIO15 (the two
-  // strapping pins not already in use) become anodes W_5 and W_6.  The UART
-  // pins GPIO1 and GPIO3 are then free for I2C, giving the DS3231 RTC the same
-  // SDA/SCL assignment as the 4-tube boards and a single module wiring that
-  // works across the whole family.
+#if BOARD == BOARD_ELECTRONIX_4_6T
+  // Six-tube board. GPIO12 (former buzzer) is W_5; GPIO0 is the buzzer.
+  // GPIO15 is W_6 when no LED backlight, or becomes PIN_LEDBL when
+  // BOARD_HAS_LED_BL is 1 — in that case W_6 moves to GPIO1 (the pin the
+  // electroNIX 2 originally used for the LED before the DS3231 retrofit
+  // displaced it). board.h guards against BOARD_HAS_RTC being set at the
+  // same time, since GPIO1 can only serve one master.
   //
-  // Boot-safety pull-ups (≥10 kΩ to 3V3) are REQUIRED on GPIO0 and GPIO15:
-  // the 33 kΩ base resistor loads those pins enough that the ESP32's internal
-  // pull-up alone cannot guarantee a clean HIGH for the strapping sampler at
-  // reset.  See WIRING.md — Shared notes — for the value calculation.
+  // Boot-safety pull-ups (≥10 kΩ to 3V3) REQUIRED on GPIO0 and GPIO15:
+  // GPIO0 (buzzer, normally LOW) and GPIO15 (W_6 or LED backlight, BJT base
+  // load) are both strapping pins; without external pull-ups the 33 kΩ base
+  // network pulls them below the 2.31 V HIGH threshold at reset, risking
+  // download-mode entry. GPIO12 (W_5) is not a strapping pin — no pull-up.
   //
-  // GPIO1 (TX) is still driven by the bootloader at reset; this now goes to
-  // the I2C SDA line rather than an anode, where it produces a harmless
-  // bus glitch before Wire.begin() is called.
-  static const uint8_t ANODE_PINS[BOARD_TUBES] = {16, 17, 18, 19, 0, 15};
+  // GPIO1 (TX) is briefly driven HIGH by the bootloader at reset. As W_6
+  // anode (BOARD_HAS_LED_BL 1 case), the tube cannot strike without HV —
+  // harmless glitch, same argument as in the 4+S section of WIRING.md.
+#if BOARD_HAS_LED_BL
+  // LED backlight fitted: W_6 on GPIO1, LED on GPIO15.
+  static const uint8_t ANODE_PINS[BOARD_TUBES] = {16, 17, 18, 19, 12, 1};
+  static const uint8_t PIN_LEDBL = 15;
+#else
+  // No LED backlight: W_6 on GPIO15, GPIO1 free for DS3231 I2C SDA.
+  static const uint8_t ANODE_PINS[BOARD_TUBES] = {16, 17, 18, 19, 12, 15};
+#endif
   static const uint8_t CATHODE_PINS[10] = {13, 14, 21, 22, 23, 25, 26, 27, 32, 33};
   static const uint8_t PIN_NEON0 = 4;   // SEC_0, unchanged from 4-tube boards
   static const uint8_t PIN_NEON1 = 5;   // SEC_1, unchanged from 4-tube boards
@@ -107,7 +106,14 @@
                                           // an unpopulated pin is harmless.
 #endif
 static const uint8_t PIN_HV_PWM   = 2;     // boot pull-down keeps the FET off
-static const uint8_t PIN_BUZZER   = 12;    // MEL; strapping pin, held low by R
+// GPIO0 is a strapping pin (LOW at reset = UART download mode). The buzzer
+// is silent at LOW, so without an external pull-up the chip would misboot.
+// Fit ≥10 kΩ to 3V3 on GPIO0 — the same requirement as GPIO15 on 6-tube
+// boards. The buzzer defaults disabled (cfg.buzzerEn = false, see
+// clock_core.h), so GPIO0 is nearly always LOW; the pull-up covers the gap.
+// Former GPIO12 is now free on 4-tube boards; on 6-tube boards it carries
+// anode W_5 (electroNIX 4+S) or SEC_1 colon neon (electroNIX 2).
+static const uint8_t PIN_BUZZER   = 0;
 static const uint8_t PIN_HV_SENSE = 35;    // KOMP_170V
 static const uint8_t PIN_LIGHT    = 34;    // JASNOSC
 
@@ -115,7 +121,7 @@ static const uint8_t PIN_LIGHT    = 34;    // JASNOSC
 static const float    HV_DIV_RATIO = (430.0f + 6.2f) / 6.2f;   // 70.35 on all three
 static const uint32_t HV_PWM_FREQ  = 32000;   // matches the original AVR firmware
 static const uint8_t  HV_PWM_RES   = 10;
-static const uint32_t HV_DUTY_MAX  = 420;     // ~41 % absolute clamp
+static const uint32_t HV_DUTY_MAX  = 700;     // ~41 % absolute clamp
 static const float    HV_OV_CUT    = 12.0f;
 
 // ---- Neon colon dimming -----------------------------------------------------
@@ -487,6 +493,7 @@ static uint32_t beepNext = 0;
 static bool     beepState = false;
 
 void display_beep(uint8_t count, uint16_t onMs, uint16_t offMs) {
+  if (!cfg.buzzerEn) return;   // disabled by default — enable in the web UI
   beepLeft = count; beepOn = onMs; beepOff = offMs;
   beepState = false; beepNext = millis();
 }

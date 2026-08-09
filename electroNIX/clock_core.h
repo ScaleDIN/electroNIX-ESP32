@@ -80,6 +80,10 @@ struct Config {
   uint8_t dateDur  = 4;
   uint8_t dateFmt  = 0;                // default: DD/MM
   bool chime      = false;              // needs BOARD_HAS_BUZZER
+  // The buzzer now lives on GPIO0, a strapping pin. Fit ≥10 kΩ to 3V3 on
+  // GPIO0 before enabling this, or the chip may misboot when GPIO0 is LOW
+  // (buzzer silent). See the PIN_BUZZER comment in display_testa.cpp.
+  bool buzzerEn   = false;             // needs BOARD_HAS_BUZZER; disabled by default
   bool btnEn      = false;
   uint16_t portalSec = 20;              // seconds the setup AP stays open at boot
                                         // before a STA connection is attempted;
