@@ -27,10 +27,11 @@
 // USB; no firmware change needed.
 
 // Native ESP32 boards
-#define BOARD_NICK2_IN12   102       // NickTwo IN-12: 74141 + NCH8200HV + WS2812
+#define BOARD_NICK2_IN12     102     // NickTwo IN-12: 74141 + NCH8200HV + WS2812, 4 tubes (HH:MM)
+#define BOARD_NICK2_IN12_6T  103     // NickTwo IN-12: same, 6 tubes (HH:MM:SS)
 
 // ------------------------------------------------------------------ select v
-#define BOARD  4
+#define BOARD  7
 // ------------------------------------------------------------------
 
 // ---- TESTA-only build options ---------------------------------------------
@@ -44,23 +45,58 @@
 // fitted; the build stops until you do.
 #define HV_GATE_FITTED  0
 
+// ---- Nick2-specific build options -----------------------------------------
+// Set to 1 to substitute neon colon lamps (SEC_0 on GPIO2, SEC_1 on GPIO12
+// by default) for the WS2812B LED column. Override the GPIOs with
+// #define PIN_NEON0 / PIN_NEON1 in board.h before the profile block.
+#define NICK2_USE_NEON  0
+
 // ---- Board profiles --------------------------------------------------------
 #if BOARD == BOARD_NICK2_IN12
   #define BOARD_NAME       "Nick2 IN-12"
   #define BOARD_TUBES        4
-  #define BOARD_HAS_HV       0   // NCH8200HV module - no software control
-  #define BOARD_HAS_SENSOR   0   // no light sensor fitted
-  #define BOARD_HAS_BUZZER   0   // no MEL circuit
-  #define BOARD_HAS_LED_BL   0   // no under-tube backlight
-  #define BOARD_HAS_WS2812   1   // five-LED colon column
+  #define BOARD_HAS_HV       0         // NCH8200HV module — no software control
+  #define BOARD_HAS_SENSOR   0
+  #define BOARD_HAS_BUZZER   0
+  #define BOARD_HAS_LED_BL   0
   #define BOARD_HAS_SECONDS  0
-  #define BOARD_USE_SERIAL   0   // WS2812 data is on UART0 RX (GPIO3)
-  // Colon LED layout
-  #define BOARD_WS_COLS      1
-  #define BOARD_WS_PER_COL   5
-  #define BOARD_WS_HI_IDX    1   // upper colon dot
-  #define BOARD_WS_LO_IDX    3   // lower colon dot
-  #define BOARD_WS_WRN_IDX   4   // wifi warning dot
+  #define BOARD_USE_SERIAL   0
+  #if NICK2_USE_NEON
+    #define BOARD_HAS_WS2812   0
+    #define BOARD_DUAL_NEON    1
+    #define BOARD_NEON1_OPTIONAL 0
+  #else
+    #define BOARD_HAS_WS2812   1
+    #define BOARD_WS_COLS      1       // one 5-LED column between digits 2 and 3
+    #define BOARD_WS_PER_COL   5
+    #define BOARD_WS_HI_IDX    1       // upper colon dot
+    #define BOARD_WS_LO_IDX    3       // lower colon dot
+    #define BOARD_WS_WRN_IDX   4       // time-not-trusted warning (bottom LED)
+  #endif
+
+#elif BOARD == BOARD_NICK2_IN12_6T
+  #define BOARD_NAME       "Nick2 IN-12 6T"
+  #define BOARD_TUBES        6
+  #define BOARD_HAS_HV       0
+  #define BOARD_HAS_SENSOR   0
+  #define BOARD_HAS_BUZZER   0
+  #define BOARD_HAS_LED_BL   0
+  #define BOARD_HAS_SECONDS  1
+  #define BOARD_USE_SERIAL   0
+  #if NICK2_USE_NEON
+    #define BOARD_HAS_WS2812   0
+    #define BOARD_DUAL_NEON    1
+    #define BOARD_NEON1_OPTIONAL 0
+  #else
+    // Two 5-LED WS2812B columns daisy-chained on GPIO3:
+    // column 0 = HH:MM gap, column 1 = MM:SS gap.
+    #define BOARD_HAS_WS2812   1
+    #define BOARD_WS_COLS      2
+    #define BOARD_WS_PER_COL   5
+    #define BOARD_WS_HI_IDX    1
+    #define BOARD_WS_LO_IDX    3
+    #define BOARD_WS_WRN_IDX   4
+  #endif
 
 #elif BOARD == BOARD_ELECTRONIX_4
   #define BOARD_NAME       "electroNIX 4"
@@ -105,10 +141,14 @@
   #define BOARD_USE_SERIAL   0   // GPIO1/GPIO3 free for I2C (or W_6/unused if BOARD_HAS_LED_BL)
   #define BOARD_HV_LOGIC_FET 1   // IRLR3110Z - direct 3.3 V drive is fine
   #define BOARD_NEON1_OPTIONAL 0
-  #define BOARD_DUAL_NEON    1   // SEC_0 and SEC_1 both fitted
-  //#define BOARD_DUP_COLON    1   // both colon gaps are wired in parallel;
-                                  // SEC_0 = top neon at HH:MM and MM:SS,
-                                  // SEC_1 = bottom neon at both positions
+  // Colon wiring is user-defined. The firmware always drives SEC_0 (GPIO4)
+  // and SEC_1 (GPIO5); what you connect to them is up to you. Common
+  // arrangements: all neons in parallel on one signal, top-dot / bottom-dot
+  // split across both, or independent HH:MM / MM:SS control. See WIRING.md.
+  // BOARD_DUP_COLON only affects the web UI preview (mirrors HH:MM colon
+  // state onto MM:SS); it has no effect on firmware behaviour.
+  #define BOARD_DUAL_NEON    1   // both SEC_0 (GPIO4) and SEC_1 (GPIO5) driven
+  //#define BOARD_DUP_COLON  1   // web preview only: mirrors HH:MM onto MM:SS
 
 #elif BOARD == BOARD_ELECTRONIX_3
   #define BOARD_NAME       "electroNIX 3"
@@ -123,12 +163,11 @@
   #define BOARD_HV_LOGIC_FET 1   // IRLR3110ZPBF - direct 3.3 V drive is fine
   // PCB-036 only brings out one colon neon (SEC_0 / N1) from the factory --
   // there's no SEC_1 net on this schematic. Firmware still supports a second
-  // one, wired as a bodge (see WIRING.md), because unlike the other three
-  // boards it's genuinely a per-unit choice whether that bodge exists.
   // BOARD_DUAL_NEON says the pin is available to wire up at all;
-  // BOARD_NEON1_OPTIONAL is what tells the web UI to offer the "I've fitted
-  // it" toggle instead of assuming one way or the other, the way it safely
-  // can on the other three boards, whose SEC_1 is soldered on at the factory.
+  // BOARD_NEON1_OPTIONAL tells the web UI to offer the "I've fitted the
+  // second neon" toggle, since unlike every other board this is a bodge
+  // rather than a factory-fitted part. SEC_0 (GPIO4) and SEC_1 (GPIO5) are
+  // driven independently; see WIRING.md for colon wiring arrangements.
   #define BOARD_DUAL_NEON    1
   #define BOARD_NEON1_OPTIONAL 1
 

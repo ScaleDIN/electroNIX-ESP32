@@ -18,45 +18,29 @@
 //     is connected. No feedback, no gate, no PWM. The core hides its HV panel
 //     because board.h declares BOARD_HAS_HV 0.
 //
-//   - Colons are five WS2812B LEDs in a chain on GPIO3 (which is UART0 RX;
-//     the serial console isn't available on this board). They sit in a
-//     VERTICAL LINE between digits 2 and 3. Counting LOGICALLY from the top
-//     (this is how the code refers to them; see cfg.colonReversed below for
-//     how that maps onto the physical chain):
+//   - The board now supports 6 tubes (HH:MM:SS). Anodes 5 and 6 (seconds
+//     tens and units) default to GPIO13 and GPIO14. Leave them unwired and
+//     the firmware still runs on a 4-tube build, showing HH:MM only.
 //
-//         LED 1   decorative (above the colon)
-//         LED 2   upper colon dot     <- these two are the colon
-//         LED 3   decorative (centre)
-//         LED 4   lower colon dot     <-
-//         LED 5   decorative (below the colon) -- also the warning LED
+//   - Colon: two options selected by NICK2_USE_NEON in board.h.
 //
-//     That geometry makes ALTERNATE mode meaningful — upper dot, then lower
-//     dot — which it isn't on a board with a single pair of neons. One colour
-//     for the whole column, with LEDs 1 and 3 switchable between off, a dim
-//     glow, or matching the colon.
+//     WS2812 mode (NICK2_USE_NEON 0, default):
+//       Two 5-LED WS2812B columns daisy-chained on GPIO3 (UART0 RX).
+//       Column 0 = HH:MM gap, column 1 = MM:SS gap.
+//       LED roles, top to bottom, within each column:
+//         LED 0   decorative (above the colon)
+//         LED 1   upper colon dot
+//         LED 2   decorative (centre)
+//         LED 3   lower colon dot
+//         LED 4   decorative / time-not-trusted warning (bottom)
+//       cfg.colonReversed flips the chain direction without resoldering.
 //
-//     Whichever LED is first in the data chain is assumed to be logical
-//     LED 1 (the top). Some boards are wired the other way round -- first in
-//     chain physically at the bottom -- which makes every animation appear
-//     upside down. cfg.colonReversed flips the mapping in one place
-//     (ws2812_write_all) rather than needing a resolder; every other
-//     function in this file keeps addressing LEDs by their logical position.
-//
-//     Whenever core_timeTrusted() is false -- the clock is showing a restored
-//     guess rather than a real NTP/browser sync -- LED 5, the extreme bottom
-//     of the column, blinks regardless of the configured colon mode, and the
-//     other four LEDs (the real colon) are held off for as long as that
-//     lasts. Only the warning LED moves, so there's nothing else on the
-//     board competing for attention while the time can't be trusted.
-//
-//     That warning blinks from power-on, not just once NTP has had a chance
-//     to fail: colonTask is a FreeRTOS task started in display_init(), so it
-//     keeps ticking during the up-to-20-second blocking WiFi connection
-//     attempt in core_setup() -- core_loop() (and with it the core's own
-//     100 ms tick) doesn't start until that returns. effBright starts at a
-//     visible default rather than the usual 0 for the same reason: without
-//     it, colonTask would run the whole time but multiply everything by a
-//     brightness of zero.
+//     Neon mode (NICK2_USE_NEON 1):
+//       Two neon lamps driven by ledc PWM. Default pins: SEC_0 = GPIO2
+//       (upper dot / HH:MM), SEC_1 = GPIO12 (lower dot / MM:SS). Override
+//       with #define PIN_NEON0 / PIN_NEON1 in board.h. All colon modes
+//       (BLINK, BREATHE, ALTERNATE, STEADY, OFF) work as on the TESTA boards.
+//       The time-not-trusted warning blinks SEC_1 regardless of colon mode.
 //
 //  Multiplex compatibility with the shared core
 //  --------------------------------------------
@@ -67,7 +51,7 @@
 //  microsecond so there's no visible seam.
 // ============================================================================
 #include "board.h"
-#if BOARD == BOARD_NICK2_IN12
+#if BOARD == BOARD_NICK2_IN12 || BOARD == BOARD_NICK2_IN12_6T
 
 #include "display.h"
 #include "clock_core.h"
@@ -116,16 +100,45 @@
 #ifndef PIN_ANODE_4
   #define PIN_ANODE_4 26
 #endif
-static uint8_t PIN_ANODE[BOARD_TUBES] = { PIN_ANODE_1, PIN_ANODE_2, PIN_ANODE_3, PIN_ANODE_4 };
+#ifndef PIN_ANODE_5
+  #define PIN_ANODE_5 13   // seconds tens tube
+#endif
+#ifndef PIN_ANODE_6
+  #define PIN_ANODE_6 14   // seconds units tube
+#endif
+#if BOARD_HAS_SECONDS
+static uint8_t PIN_ANODE[BOARD_TUBES] = {
+  PIN_ANODE_1, PIN_ANODE_2, PIN_ANODE_3, PIN_ANODE_4, PIN_ANODE_5, PIN_ANODE_6
+};
+#else
+static uint8_t PIN_ANODE[BOARD_TUBES] = {
+  PIN_ANODE_1, PIN_ANODE_2, PIN_ANODE_3, PIN_ANODE_4
+};
+#endif
+
+#if !BOARD_HAS_WS2812
+// Neon colon pin defaults. Override with #define PIN_NEON0 / PIN_NEON1 in
+// board.h. GPIO2 and GPIO12 are free on the Nick2 and not strapping pins.
+#ifndef PIN_NEON0
+  #define PIN_NEON0  2   // SEC_0 — upper dot / HH:MM colon
+#endif
+#ifndef PIN_NEON1
+  #define PIN_NEON1 12   // SEC_1 — lower dot / MM:SS colon
+#endif
+static const uint8_t NEON_LEDC_HI = 0;   // ledc channel for SEC_0
+static const uint8_t NEON_LEDC_LO = 1;   // ledc channel for SEC_1
+#endif
 static uint8_t PIN_BCD[4]             = { PIN_BCD_A, PIN_BCD_B, PIN_BCD_C, PIN_BCD_D };
 static const uint8_t PIN_WS2812  =  3;    // RX_TOP -- UART0 RX (explicit in the schematic)
 static const uint8_t PIN_LIGHT   = 34;    // optional, if a sensor is added
-#define WS2812_COUNT BOARD_WS_PER_COL
+#if BOARD_HAS_WS2812
+#define WS2812_COUNT (BOARD_WS_PER_COL * BOARD_WS_COLS)  // total LEDs in chain
+#endif
 
 // ---- Multiplex timing ------------------------------------------------------
-// 40 kHz ISR, same as TESTA. 4 tubes -> 62 ticks/slot -> 100 Hz frame,
-// with 3 ticks of dead-time (75 us) to give the slow PNP switches room to
-// turn off between slots.
+// 40 kHz ISR. BOARD_TUBES × 62 ticks/slot × 25 µs gives the frame rate:
+// ~161 Hz for 4 tubes, ~107 Hz for 6 tubes — both well above the flicker
+// threshold. Dead-time is 3 ticks (75 µs) for the slow PNP switches.
 static const uint32_t TICK_US       = 25;
 static const uint8_t  SLOT_TICKS    = 62;
 static const uint8_t  DEAD_TICKS    = 3;
@@ -334,6 +347,7 @@ void IRAM_ATTR onMuxTick() {
 }
 
 // ---- WS2812 driver ---------------------------------------------------------
+#if BOARD_HAS_WS2812
 // The RMT peripheral generates the 800 kHz one-wire protocol from a small
 // buffer so the CPU never has to bit-bang. One rmt_item32_t per bit, colour
 // order is G-R-B for WS2812B.
@@ -379,6 +393,7 @@ static void ws2812_clear() {
   uint8_t px[WS2812_COUNT][3] = {{0}};
   ws2812_write_all(px);
 }
+#endif // BOARD_HAS_WS2812
 
 // ---- Colon control ---------------------------------------------------------
 // LED roles, top to bottom. Index 1 and 3 are the colon dots; 0, 2 and 4 are
@@ -387,54 +402,42 @@ static void ws2812_clear() {
 // either colon dot, so it reads as a distinct indicator light instead of an
 // odd-looking colon. The real colon is held off for as long as the warning
 // is showing, so it's the only thing moving on the board.
-static const uint8_t COLON_DOT_HI  = BOARD_WS_HI_IDX;
-static const uint8_t COLON_DOT_LO  = BOARD_WS_LO_IDX;
+// LED roles, top to bottom within one column. Index 1 and 3 are the colon
+// dots; 0, 2 and 4 are the decorative LEDs above, between and below them.
+// The "time not trusted" warning uses LED 4.
+#if BOARD_HAS_WS2812
+static const uint8_t COLON_DOT_HI   = BOARD_WS_HI_IDX;
+static const uint8_t COLON_DOT_LO   = BOARD_WS_LO_IDX;
 static const uint8_t COLON_WARN_LED = BOARD_WS_WRN_IDX;
+#endif
 static ColonMode colonMode = COLON_BLINK;
 
-// High-Speed Delta-Sigma Modulator Engine
+// ---- Colon task: shared animation math, WS2812 or neon output -------------
 static void colonTask(void *) {
-  static float dsError[WS2812_COUNT][3] = {{0}};
-  static uint8_t lastPx[WS2812_COUNT][3] = {{0}};
-  
+#if BOARD_HAS_WS2812
+  static float   dsError[WS2812_COUNT][3] = {{0}};
+  static uint8_t lastPx [WS2812_COUNT][3] = {{0}};
+#endif
+
   for (;;) {
-    if (muxHold) {
-      vTaskDelay(pdMS_TO_TICKS(10));
-      continue;
-    }
+    if (muxHold) { vTaskDelay(pdMS_TO_TICKS(10)); continue; }
 
-    uint8_t px[WS2812_COUNT][3] = {{0}};
-    float base = (effBright / 100.0f) * (cfg.colonBr / 100.0f);
+    float    base = (effBright / 100.0f) * (cfg.colonBr / 100.0f);
+    bool     even = core_secondIsEven();
+    uint16_t ms   = core_msIntoSecond();
 
-    bool even = core_secondIsEven();
-    uint16_t ms = core_msIntoSecond();
-    
     uint16_t fMs = cfg.fadeMs;
     if (fMs == 0) fMs = 1;
     if (fMs > 1000) fMs = 1000;
-    
     float p = (float)ms / fMs;
     if (p > 1.0f) p = 1.0f;
 
-    // Selectable brightness curve, chosen by cfg.fadeCurve:
-    //   0 — gamma (x³):       slow start, concentrates change near top of range
-    //   1 — square root (√x): quick start, slow finish; perceptually linear on
-    //                         the WS2812's linear-output LEDs
-    //   2 — smoothstep:       symmetric S-curve, no velocity discontinuity
-    //
-    // applyGamma()      maps [0..1] through the curve with no floor.
-    //                   Used by BREATHE / CENTERGLOW, which manage their own
-    //                   continuous floor via accentDim.
-    //
-    // applyFadeCurve()  adds the floor lift (cfg.fadeCurveFloor %) so the LED
-    //                   never goes fully dark between blinks when the floor > 0.
-    //                   Used by BLINK and ALTERNATE.
     float floor_k = cfg.fadeCurveFloor / 100.0f;
     auto applyGamma = [&](float t) -> float {
       switch (cfg.fadeCurve) {
-        case 1: return sqrtf(t);                        // sqrt
-        case 2: return t * t * (3.0f - 2.0f * t);      // smoothstep
-        default: return t * t * t;                      // gamma (cubic)
+        case 1: return sqrtf(t);
+        case 2: return t * t * (3.0f - 2.0f * t);
+        default: return t * t * t;
       }
     };
     auto applyFadeCurve = [&](float t) -> float {
@@ -443,35 +446,18 @@ static void colonTask(void *) {
     float g_on  = applyFadeCurve(p);
     float g_off = applyFadeCurve(1.0f - p);
 
+    // ---- Shared animation state -------------------------------------------
     float hi = 0, lo = 0, warn = 0, centerGlow = 0;
     bool untrusted = !core_timeTrusted();
-    if (untrusted) {
-      // The clock is showing a restored guess, or hasn't synced at all --
-      // the time on the tubes may be wrong. Blink the dedicated warning LED
-      // using the same colour/brightness (via `base`, below) and the same
-      // blink envelope as COLON_BLINK, regardless of what colon mode is
-      // actually configured. The real colon (hi/lo) is forced off for the
-      // duration, regardless of the configured colon mode -- the warning
-      // LED is the only thing that should be moving, so there's no chance
-      // of it blending into whatever the colon would otherwise be doing.
-      warn = even ? g_on : g_off;
-    }
+    if (untrusted) warn = even ? g_on : g_off;
+
     switch (colonMode) {
-      case COLON_OFF:                                    break;
-      case COLON_STEADY:    hi = lo = 1.0f;              break;
-      case COLON_BLINK:     hi = lo = even ? g_on : g_off;   break;
-      case COLON_ALTERNATE: hi = even ? g_on : g_off;
-                            lo = even ? g_off : g_on;        break;
+      case COLON_OFF:                                          break;
+      case COLON_STEADY:    hi = lo = 1.0f;                   break;
+      case COLON_BLINK:     hi = lo = even ? g_on : g_off;    break;
+      case COLON_ALTERNATE: hi =  even ? g_on : g_off;
+                            lo =  even ? g_off : g_on;        break;
       case COLON_BREATHE: {
-        // One full breath per two seconds, phase-locked to the clock.
-        // The raw cosine envelope (0..1) is passed through applyGamma() so
-        // the selected curve reshapes the animation across its full range:
-        // sqrt rises quickly and lingers bright, gamma lingers dark and
-        // snaps up, smoothstep stays symmetric.
-        // The accentDim floor is applied linearly AFTER the curve so its
-        // percentage reads as the actual minimum brightness regardless of
-        // which curve is selected (the old sqrtf-compensated minK was
-        // calibrated for the former x³ only and broke with the other two).
         float breatheFloor = cfg.accentDim / 100.0f;
         float t = (ms / 1000.0f + (even ? 0.0f : 1.0f)) * 0.5f;
         float cosineK = 0.5f - 0.5f * cosf(t * 6.283185f);
@@ -479,141 +465,84 @@ static void colonTask(void *) {
         break;
       }
       case COLON_CENTERGLOW: {
-        // Same breathe envelope as COLON_BREATHE, but the result drives the
-        // whole five-LED column: centre at full, dots at outerFrac of that,
-        // and the decorative accent LEDs at outerFrac of the outer fraction.
-        // applyGamma() now applies to the raw cosine (0..1) before the floor
-        // is added — previously k was used raw here so the curve selector had
-        // no effect at all on this mode.
         float outerFrac    = cfg.colonOuterPct / 100.0f;
         float breatheFloor = cfg.accentDim / 100.0f;
         float t = (ms / 1000.0f + (even ? 0.0f : 1.0f)) * 0.5f;
         float cosineK = 0.5f - 0.5f * cosf(t * 6.283185f);
         centerGlow = breatheFloor + (1.0f - breatheFloor) * applyGamma(cosineK);
-        hi = lo    = centerGlow * sqrtf(outerFrac);
+        hi = lo    = centerGlow * sqrtf(cfg.colonOuterPct / 100.0f);
         break;
       }
     }
+    if (untrusted) { hi = 0; lo = 0; }
 
-    if (untrusted) {
-      hi = 0;
-      lo = 0;
-    }
+#if BOARD_HAS_WS2812
+    // ---- WS2812 output: render all columns (one per colon position) --------
+    uint8_t px[WS2812_COUNT][3] = {{0}};
 
+    // Delta-sigma quantiser: maps a 0..1 brightness to an 8-bit RGB triplet
+    // with error diffusion so fractional targets dither smoothly.
     auto setLed = [&](int i, float k) {
-      // Delta-Sigma quantization error tracking with strict clamping. The
-      // error term is what makes a fractional-count target look smooth by
-      // averaging out over several frames -- e.g. a target of 30.5 renders
-      // as 30, 31, 30, 31... which the eye reads as "30.5". That's exactly
-      // the wrong thing to do near true black, though: a target under one
-      // count still gets its error "paid out" as an occasional stray 1,
-      // which reads as a flash against nothing rather than a smooth
-      // in-between shade the eye can average. A first attempt fixed that by
-      // hard-clamping to (0,0,0) below a brightness floor, but that traded
-      // the flash for a visible snap at the bottom of every fade -- see the
-      // "near black" branch below for what actually wants to happen instead:
-      // still render the plain truncated value (continuous, no snap), just
-      // stop feeding its rounding error back into future frames (no more
-      // stray flashes) and don't carry over whatever error was already
-      // sitting there from before brightness dropped this low.
-      float target = base * k;
-      //bool nearBlack = (target * maxComp) < 2.0f;   // roughly under a visible count on every channel
-      float maxComp = fmaxf(fmaxf((float)cfg.colonR, (float)cfg.colonG), fmaxf((float)cfg.colonB, 1.0f));
+      float maxComp = fmaxf(fmaxf((float)cfg.colonR, (float)cfg.colonG),
+                            fmaxf((float)cfg.colonB, 1.0f));
+      float target       = base * k;
       float totalIntensity = target * maxComp;
-
-      float dampening = 1.0f;
-      if (totalIntensity < 0.15f) {
-        dampening = totalIntensity / 0.15f;
-      }
-
-      // Compute the ideal color values including carried-over Delta-Sigma error
-      float idealR = cfg.colonR * target + (dsError[i][0] * dampening);
-      float idealG = cfg.colonG * target + (dsError[i][1] * dampening);
-      float idealB = cfg.colonB * target + (dsError[i][2] * dampening);
-
-      // Quantize to integer levels suitable for 8-bit WS2812 registers
-      uint8_t r = (idealR >= 255.0f) ? 255 : ((idealR <= 0.0f) ? 0 : (uint8_t)idealR);
-      uint8_t g = (idealG >= 255.0f) ? 255 : ((idealG <= 0.0f) ? 0 : (uint8_t)idealG);
-      uint8_t b = (idealB >= 255.0f) ? 255 : ((idealB <= 0.0f) ? 0 : (uint8_t)idealB);
-
-      // Dynamic Error Dampening:
-      // Calculate total channel intensity for the current target.
-      // As target intensity drops below ~2.0 total 8-bit counts across all channels,
-      // decay factor scale smoothly drops from 1.0 down to 0.0.
-      // float maxComp = fmaxf(fmaxf((float)cfg.colonR, (float)cfg.colonG), fmaxf((float)cfg.colonB, 1.0f));
-      // float totalIntensity = target * maxComp;
-      // float dampening = (totalIntensity >= 2.0f) ? 1.0f : (totalIntensity / 2.0f);
-      
-      // Apply dampening to residual quantization error before passing to the next frame.
-      // This prevents temporal error accumulation from triggering visible single-frame flashes
-      // while preserving an imperceptible, smooth decay down to absolute zero.
-      dsError[i][0] = (idealR - r);
-      dsError[i][1] = (idealG - g);
-      dsError[i][2] = (idealB - b);
-      
-      px[i][0] = r;
-      px[i][1] = g;
-      px[i][2] = b;
+      float dampening    = (totalIntensity < 0.15f) ? totalIntensity / 0.15f : 1.0f;
+      float idealR = cfg.colonR * target + dsError[i][0] * dampening;
+      float idealG = cfg.colonG * target + dsError[i][1] * dampening;
+      float idealB = cfg.colonB * target + dsError[i][2] * dampening;
+      uint8_t r = (idealR >= 255) ? 255 : (idealR <= 0 ? 0 : (uint8_t)idealR);
+      uint8_t g = (idealG >= 255) ? 255 : (idealG <= 0 ? 0 : (uint8_t)idealG);
+      uint8_t b = (idealB >= 255) ? 255 : (idealB <= 0 ? 0 : (uint8_t)idealB);
+      dsError[i][0] = idealR - r;
+      dsError[i][1] = idealG - g;
+      dsError[i][2] = idealB - b;
+      px[i][0] = r; px[i][1] = g; px[i][2] = b;
     };
-    
-    if (colonMode == COLON_BREATHE || colonMode == COLON_CENTERGLOW) {
-      setLed(COLON_DOT_HI, hi);
-      setLed(COLON_DOT_LO, lo);
-    } else {
-      setLed(COLON_DOT_HI, hi);
-      setLed(COLON_DOT_LO, lo);
-    }
-    if (untrusted) setLed(COLON_WARN_LED, warn);
 
-    // The two purely decorative LEDs (top and middle). The bottom one is
-    // skipped here whenever it's doing warning duty, so the accent setting
-    // can never fight the blink.
     float acc = 0;
     if (!untrusted) {
-      if (cfg.colonAccent == 1) {
-        // Use a squared curve instead of cubic one for a gentler roll-off
-        float dimLinear = cfg.accentDim / 100.0f;
-        acc = dimLinear * sqrtf(dimLinear);
-        //if (acc > 0.0f && acc < 0.02f) acc = 0.02f;
-      }
-      else if (cfg.colonAccent == 2) {
-        if (colonMode == COLON_ALTERNATE) {
-          acc = 0.0f;                      // Disable match the colon when Alternate is active
-        } else {
-          acc = (hi > lo ? hi : lo);       // match colon
+      if      (cfg.colonAccent == 1) { float d = cfg.accentDim / 100.0f; acc = d * sqrtf(d); }
+      else if (cfg.colonAccent == 2) { acc = (colonMode != COLON_ALTERNATE) ? fmaxf(hi, lo) : 0; }
+    }
+
+    for (int col = 0; col < BOARD_WS_COLS; col++) {
+      int off = col * BOARD_WS_PER_COL;
+      if (colonMode == COLON_CENTERGLOW && !untrusted) {
+        float outerFrac = cfg.colonOuterPct / 100.0f;
+        setLed(off + 2,              centerGlow);
+        setLed(off + 0,              centerGlow * outerFrac);
+        setLed(off + COLON_WARN_LED, centerGlow * outerFrac);
+        setLed(off + COLON_DOT_HI,   hi);
+        setLed(off + COLON_DOT_LO,   lo);
+      } else {
+        setLed(off + COLON_DOT_HI, hi);
+        setLed(off + COLON_DOT_LO, lo);
+        if (acc > 0) {
+          setLed(off + 0, acc);
+          setLed(off + 2, acc);
+          if (!untrusted) setLed(off + COLON_WARN_LED, acc);
         }
+        if (untrusted) setLed(off + COLON_WARN_LED, warn);
       }
     }
 
-    
-    if (colonMode == COLON_CENTERGLOW && !untrusted) {
-      // Centre (2) at full animation; extremes (0, 4) at colonOuterPct% of
-      // that level; dots (1, 3) at the geometric mean — already written by
-      // the setLed(COLON_DOT_HI/LO, hi/lo) calls above.
-      // colonAccent has no separate effect in this mode: all five LEDs are
-      // part of the gradient and always lit.
-      float outerFrac = cfg.colonOuterPct / 100.0f;
-      setLed(2, centerGlow);
-      setLed(0,              centerGlow * outerFrac);
-      setLed(COLON_WARN_LED, centerGlow * outerFrac);
-    } else if (acc > 0) {
-      setLed(0, acc);
-      setLed(2, acc);
-      if (!untrusted) setLed(COLON_WARN_LED, acc);
-    }
-
-    // Only trigger the RMT driver if the LED states actually changed
     bool changed = false;
-    for (int i = 0; i < WS2812_COUNT; i++) {
-      for (int j = 0; j < 3; j++) {
-        if (px[i][j] != lastPx[i][j]) changed = true;
-        lastPx[i][j] = px[i][j];
-      }
-    }
-    
+    for (int i = 0; i < WS2812_COUNT; i++)
+      for (int j = 0; j < 3; j++)
+        if (px[i][j] != lastPx[i][j]) { changed = true; lastPx[i][j] = px[i][j]; }
     if (changed) ws2812_write_all(px);
-    
-    // Evaluate the fractional brightness at 500Hz for buttery-smooth dithering
+
+#else
+    // ---- Neon output: two ledc channels, one per colon dot ----------------
+    // Map the same 0..1 float range to 0..255 ledc duty. The warning blink
+    // goes on NEON_LEDC_LO (SEC_1) so it uses a dedicated neon rather than
+    // fighting the colon output.
+    ledcWrite(NEON_LEDC_HI, (uint8_t)(base * hi   * 255));
+    ledcWrite(NEON_LEDC_LO, untrusted ? (uint8_t)(base * warn * 255)
+                                       : (uint8_t)(base * lo   * 255));
+#endif
+
     vTaskDelay(pdMS_TO_TICKS(2));
   }
 }
@@ -624,16 +553,17 @@ void display_init() {
   // Load any pin overrides that were saved via the web action.
   loadPinOverrides();
 
-  for (int i = 0; i < 4; i++) { pinMode(PIN_BCD[i], OUTPUT); digitalWrite(PIN_BCD[i], LOW); }
+  for (int i = 0; i < 4; i++)          { pinMode(PIN_BCD[i],   OUTPUT); digitalWrite(PIN_BCD[i],   LOW); }
   for (int i = 0; i < BOARD_TUBES; i++) { pinMode(PIN_ANODE[i], OUTPUT); digitalWrite(PIN_ANODE[i], LOW); }
-  
+
   buildMasks();
 
   for (int i = 0; i < BOARD_TUBES; i++) {
     shOld[i] = shNew[i] = BLANK; shFade[i] = 255; pushTube(i); vOnTicks[i] = 0;
   }
 
-  // WS2812 chain via RMT (ESP-IDF driver)
+#if BOARD_HAS_WS2812
+  // WS2812 chain via RMT (ESP-IDF driver, stable across core 2.x and 3.x)
   rmt_config_t rc = {};
   rc.rmt_mode                = RMT_MODE_TX;
   rc.channel                 = WS_CHAN;
@@ -647,8 +577,23 @@ void display_init() {
   rmt_config(&rc);
   rmt_driver_install(WS_CHAN, 0, 0);
   ws2812_clear();
+#else
+  // Neon colons via ledc PWM at 1 kHz, 8-bit resolution.
+  // ledcAttach(pin, freq, bits) is the core 3.x API. On core 2.x you need:
+  //   ledcSetup(NEON_LEDC_HI, 1000, 8); ledcAttachPin(PIN_NEON0, NEON_LEDC_HI);
+  //   ledcSetup(NEON_LEDC_LO, 1000, 8); ledcAttachPin(PIN_NEON1, NEON_LEDC_LO);
+#if defined(ESP_ARDUINO_VERSION_MAJOR) && ESP_ARDUINO_VERSION_MAJOR >= 3
+  ledcAttach(PIN_NEON0, 1000, 8);
+  ledcAttach(PIN_NEON1, 1000, 8);
+#else
+  ledcSetup(NEON_LEDC_HI, 1000, 8); ledcAttachPin(PIN_NEON0, NEON_LEDC_HI);
+  ledcSetup(NEON_LEDC_LO, 1000, 8); ledcAttachPin(PIN_NEON1, NEON_LEDC_LO);
+#endif
+  ledcWrite(NEON_LEDC_HI, 0);
+  ledcWrite(NEON_LEDC_LO, 0);
+#endif
 
-  xTaskCreatePinnedToCore(fadeTask, "fade", 2048, nullptr, 2, nullptr, 1);
+  xTaskCreatePinnedToCore(fadeTask,  "fade",  2048, nullptr, 2, nullptr, 1);
   xTaskCreatePinnedToCore(colonTask, "colon", 2048, nullptr, 3, nullptr, 1);
 
   // Multiplex timer
@@ -718,7 +663,12 @@ void display_tick_1s() {
 void display_park(bool parked) {
   muxHold = parked;
   if (parked) {
+#if BOARD_HAS_WS2812
     ws2812_clear();
+#else
+    ledcWrite(NEON_LEDC_HI, 0);
+    ledcWrite(NEON_LEDC_LO, 0);
+#endif
   } else {
     isrCurBcd = 255;
   }
