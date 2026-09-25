@@ -24,6 +24,11 @@ struct Config {
   char ntp1[48]   = "pool.ntp.org";
   char ntp2[48]   = "time.google.com";
   char tz[48]     = "<+08>-8";          // POSIX TZ; default Singapore
+  // Protects the web UI (HTTP Basic, user name "admin") and ArduinoOTA.
+  // Requests arriving over the setup hotspot skip the check -- the hotspot
+  // has its own WPA2 password -- so a forgotten admin password can always
+  // be reset from 192.168.4.1.
+  char adminPass[33] = "nixie1234";
   uint16_t ntpEvery = 60;               // minutes
   bool ntpSmooth  = true;
 

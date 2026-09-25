@@ -324,6 +324,8 @@ body.cap-ws2812 .cap-neon-colon { display:none }
    placeholder="(unchanged)"></div>
  <div class="row"><label>Hostname<small id="hostHint">http://&lt;name&gt;.local</small></label>
    <input type="text" id="host"></div>
+ <div class="row"><label>Admin password<small id="adminHint">web UI and OTA uploads; user name "admin"</small></label>
+   <input type="password" id="adminPass" maxlength="32" placeholder="(unchanged)"></div>
  <div class="row"><label>Portal window at boot<small>seconds the setup AP opens before connecting; 0 = immediate</small></label>
    <span><input class="num" type="number" id="portalSec" min="0" max="300"> s</span></div>
  <div class="row"><label>Go offline<small>clears credentials and restarts; use the setup AP (192.168.4.1) to reconfigure</small></label>
@@ -456,6 +458,9 @@ if (c.board === 'electroNIX 4+S') {
 
  KB.forEach(k=>$(k)&&($(k).checked=!!c[k]));
  KV.forEach(k=>{if($(k)&&(k in c))$(k).value=c[k]});
+ if($('adminHint'))$('adminHint').textContent=c.adminDefault?
+  'still the default (nixie1234) \u2014 change it; user name "admin"':'web UI and OTA uploads; user name "admin"';
+ $('adminHint').style.color=c.adminDefault?'#ff7a1a':'';
  if(c.effHost && $('hostHint')) $('hostHint').textContent = 'http://' + c.effHost + '.local';
  KT.forEach(k=>$(k)&&($(k).value=m2t(c[k])));
  c.trim.slice(0,NT).forEach((v,i)=>{const e=$('trim'+i);if(e)e.value=v});
@@ -488,9 +493,10 @@ async function save(){
   p.set('colonB',parseInt(h.substr(5,2),16));
  }
  if($('pass').value)p.set('pass',$('pass').value);
+ if($('adminPass').value)p.set('adminPass',$('adminPass').value);
  const r=await fetch('/api/config',{method:'POST',body:p});
  $('msg').textContent=await r.text();
- $('pass').value=''; load();
+ $('pass').value=''; $('adminPass').value=''; load();
  setTimeout(()=>$('msg').textContent='',4000);
 }
 

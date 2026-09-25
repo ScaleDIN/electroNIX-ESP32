@@ -133,7 +133,7 @@ static String getEffectiveHost() {
 //  firmware version never invalidates the ones already stored.
 // ============================================================================
 #define CFG_STRINGS(X) \
-  X(ssid) X(pass) X(host) X(ntp1) X(ntp2) X(tz)
+  X(ssid) X(pass) X(host) X(ntp1) X(ntp2) X(tz) X(adminPass)
 
 #define CFG_NUMBERS(X) \
   X(ntpEvery) X(ntpSmooth) X(use24) X(leadZero) X(colon) X(fadeMs) \
@@ -750,6 +750,24 @@ static String jsonEscape(const char *s) {
   return o;
 }
 
+// Every route but the captive-portal redirect goes through here. Clients on
+// the setup hotspot are let straight in (see Config::adminPass).
+static const char ADMIN_USER[] = "admin";
+static const char DEFAULT_ADMIN_PASS[] = "nixie1234";
+
+static bool authOk() {
+  if (apMode && server.client().localIP() == WiFi.softAPIP()) return true;
+  if (server.authenticate(ADMIN_USER, cfg.adminPass)) return true;
+  server.requestAuthentication(BASIC_AUTH, BOARD_NAME,
+    "Log in as admin. Forgot the password? Join the clock's setup hotspot "
+    "and open http://192.168.4.1/ to set a new one.");
+  return false;
+}
+
+static std::function<void()> guarded(std::function<void()> h) {
+  return [h]() { if (authOk()) h(); };
+}
+
 static void handleStatus() {
   DisplayStatus ds; display_getStatus(ds);
   char dig[TUBES + 1]; display_snapshot(dig, sizeof(dig));
@@ -846,6 +864,7 @@ static void handleConfigGet() {
   j += "\"ntp1\":\"" + jsonEscape(cfg.ntp1) + "\",";
   j += "\"ntp2\":\"" + jsonEscape(cfg.ntp2) + "\",";
   j += "\"tz\":\"" + jsonEscape(cfg.tz) + "\",";
+  j += "\"adminDefault\":" + String(strcmp(cfg.adminPass, DEFAULT_ADMIN_PASS) ? "false" : "true") + ",";
 #define J_N(f) j += "\"" #f "\":" + String(cfg.f) + ",";
   CFG_NUMBERS(J_N)
 #undef J_N
@@ -874,6 +893,14 @@ static void handleConfigPost() {
 
   S("ssid", cfg.ssid, 33); S("pass", cfg.pass, 65); S("host", cfg.host, 24);
   S("ntp1", cfg.ntp1, 48); S("ntp2", cfg.ntp2, 48); S("tz", cfg.tz, 48);
+  // Blank means unchanged, like the WiFi password. ArduinoOTA only reads the
+  // password at begin(), so a change restarts the clock.
+  bool adminChanged = false;
+  if (server.hasArg("adminPass") && server.arg("adminPass").length()
+      && strcmp(server.arg("adminPass").c_str(), cfg.adminPass)) {
+    strlcpy(cfg.adminPass, server.arg("adminPass").c_str(), sizeof(cfg.adminPass));
+    adminChanged = true;
+  }
   B("use24", cfg.use24); B("leadZero", cfg.leadZero); B("brAuto", cfg.brAuto);
   B("nightEn", cfg.nightEn); B("colonNightOff", cfg.colonNightOff); B("chime", cfg.chime);
   B("secEn", cfg.secEn); B("ledEn", cfg.ledEn); B("ledNight", cfg.ledNight);
@@ -968,6 +995,10 @@ static void handleConfigPost() {
   if (wifiChanged && strlen(cfg.ssid)) {
     server.send(200, "text/plain", "Saved. Restarting to join \"" + String(cfg.ssid) + "\"...");
     rebootAt = millis() + 900;
+  } else if (adminChanged) {
+    server.send(200, "text/plain",
+      "Saved. Restarting to apply the new admin password -- log in again as admin.");
+    rebootAt = millis() + 900;
   } else {
     server.send(200, "text/plain", "Saved.");
   }
@@ -1054,12 +1085,12 @@ static void handleAction() {
 }
 
 static void startWebServer() {
-  server.on("/", HTTP_GET, []() { server.send_P(200, "text/html", WEB_UI_HTML); });
-  server.on("/api/status", HTTP_GET, handleStatus);
-  server.on("/api/config", HTTP_GET, handleConfigGet);
-  server.on("/api/config", HTTP_POST, handleConfigPost);
-  server.on("/api/action", HTTP_POST, handleAction);
-  server.on("/api/wifi", HTTP_GET, []() {
+  server.on("/", HTTP_GET, guarded([]() { server.send_P(200, "text/html", WEB_UI_HTML); }));
+  server.on("/api/status", HTTP_GET, guarded(handleStatus));
+  server.on("/api/config", HTTP_GET, guarded(handleConfigGet));
+  server.on("/api/config", HTTP_POST, guarded(handleConfigPost));
+  server.on("/api/action", HTTP_POST, guarded(handleAction));
+  server.on("/api/wifi", HTTP_GET, guarded([]() {
     int n = WiFi.scanComplete();
     if (n == -2) {
       // Start an asynchronous background scan (async = true, show_hidden = true)
@@ -1079,8 +1110,8 @@ static void startWebServer() {
       WiFi.scanDelete(); // Free RAM for subsequent scans
       server.send(200, "application/json", j);
     }
-  });
-  server.on("/api/time", HTTP_POST, []() {
+  }));
+  server.on("/api/time", HTTP_POST, guarded([]() {
     if (!server.hasArg("epoch")) { server.send(400, "text/plain", "No epoch."); return; }
     double e = server.arg("epoch").toDouble();
     if (e < 1700000000.0) { server.send(400, "text/plain", "Implausible time."); return; }
@@ -1100,7 +1131,7 @@ static void startWebServer() {
 #endif
     persistTime(true);
     server.send(200, "text/plain", "Clock set from your device.");
-  });
+  }));
   server.onNotFound([]() {
     if (apMode) { server.sendHeader("Location", "http://192.168.4.1/", true);
                   server.send(302, "text/plain", ""); }
@@ -1138,6 +1169,7 @@ static void setupOTA() {
 #endif
   });
   ArduinoOTA.setHostname(effHost.c_str());
+  ArduinoOTA.setPassword(cfg.adminPass);
   ArduinoOTA.begin();
   otaReady = true;
 }
