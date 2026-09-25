@@ -640,11 +640,13 @@ async function poll(){
   }
   $('swifi').textContent=s.mode=='ap'?'AP mode':s.rssi+' dBm';
   // src enum: 0=NONE, 1=SAVED, 2=RTC, 3=BROWSER, 4=NTP
-  // Trusted threshold is >=2 (RTC and above); below that the time is a guess.
+  // s.trusted is the firmware's own verdict: RTC and above, except that an
+  // NTP/browser time goes stale after two days without a refresh (no DS3231).
   const SRC=['not set','estimated','RTC','browser','NTP'];
-  const age=s.age<0?'':(s.age<90?' \u00b7 just now':' \u00b7 '+Math.round(s.age/60)+'m ago');
+  const age=s.age<0?'':' \u00b7 '+(s.age<90?'just now':s.age<5400?Math.round(s.age/60)+'m ago':
+    s.age<172800?Math.round(s.age/3600)+'h ago':Math.round(s.age/86400)+'d ago');
   $('sntp').textContent=(SRC[s.src]||'?')+(s.src>=2?age:'');
-  $('sntp').style.color=s.src===0?'#ff7a1a':s.src===1?'var(--amber)':'var(--ok)';
+  $('sntp').style.color=s.src===0?'#ff7a1a':!s.trusted?'var(--amber)':'var(--ok)';
   if(s.rtcOk!==undefined){
     $('srtc').textContent=s.rtcOk?'ok':'no module';
     $('srtc').style.color=s.rtcOk?'var(--ok)':'#ff7a1a';
@@ -656,9 +658,9 @@ async function poll(){
   $('smuxmin').textContent=s.muxmin+'%';
   $('smuxmin').style.color=(s.muxmin<98)?'#ff7a1a':'';
   $('sheap').textContent=Math.round(s.heap/1024)+' kB';
-  // Auto-sync from the browser when time isn't trusted (src < 2, i.e. NONE
-  // or SAVED).  src=2 is RTC, which is already trustworthy -- no override.
-  if(s.src<2&&!autoSynced){autoSynced=true;await setTime(true)}
+  // Auto-sync from the browser whenever the firmware doesn't trust its time
+  // (not set, only estimated, or an NTP sync that has gone stale).
+  if(!s.trusted&&!autoSynced){autoSynced=true;await setTime(true)}
  }catch(e){}
  setTimeout(poll,1000);
 }

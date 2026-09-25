@@ -59,6 +59,10 @@ enum TimeSrc : uint8_t { SRC_NONE = 0, SRC_SAVED, SRC_RTC, SRC_BROWSER, SRC_NTP 
 static volatile TimeSrc timeSrc = SRC_NONE;
 static time_t   lastSyncAt = 0;
 static bool     timeSynced = false;
+// How long an NTP or browser time stays trusted without being refreshed.
+// The ESP32's own crystal drifts a few seconds a day, so after two days
+// offline the warning comes back. A fitted DS3231 keeps it trusted.
+static const time_t TRUST_STALE_S = 48L * 3600L;
 static bool     displayOn  = true;
 static bool     apMode     = false;
 static bool     otaActive  = false;
@@ -201,8 +205,15 @@ static time_t utcToEpoch(const struct tm &t) {
 }
 
 // Read UTC time from the DS3231 seconds register (0x00, seven bytes).
-// Returns true when the read succeeded and the date looks sane (≥ 2020).
+// Returns true when the read succeeded, the oscillator has run without a
+// stop since it was last set (OSF, status register bit 7, is clear -- it
+// gets set when the coin cell dies), and the date looks sane (≥ 2020).
 static bool rtcRead(struct tm &t) {
+  Wire.beginTransmission(0x68);
+  Wire.write(0x0F);
+  if (Wire.endTransmission() != 0) return false;
+  if (Wire.requestFrom((uint8_t)0x68, (uint8_t)1) != 1) return false;
+  if (Wire.read() & 0x80) return false;
   Wire.beginTransmission(0x68);
   Wire.write(0x00);
   if (Wire.endTransmission() != 0) return false;
@@ -236,6 +247,16 @@ static void rtcWrite() {
   Wire.write(bcd(t.tm_mday));
   Wire.write(bcd(t.tm_mon + 1));
   Wire.write(bcd(t.tm_year % 100));
+  Wire.endTransmission();
+  // Clear OSF now the time is valid again, leaving the other status bits.
+  Wire.beginTransmission(0x68);
+  Wire.write(0x0F);
+  if (Wire.endTransmission() != 0) return;
+  if (Wire.requestFrom((uint8_t)0x68, (uint8_t)1) != 1) return;
+  uint8_t st = Wire.read();
+  Wire.beginTransmission(0x68);
+  Wire.write(0x0F);
+  Wire.write(st & 0x7F);
   Wire.endTransmission();
 }
 
@@ -273,7 +294,14 @@ uint16_t core_msIntoSecond() {
   return (uint16_t)(tv.tv_usec / 1000);
 }
 
-bool core_timeTrusted() { return timeSrc >= SRC_RTC; }
+bool core_timeTrusted() {
+  if (timeSrc < SRC_RTC) return false;
+#if BOARD_HAS_RTC
+  if (rtcAvailable) return true;       // DS3231 holds it to ~0.2 s/day
+#endif
+  if (timeSrc == SRC_RTC) return true;
+  return lastSyncAt && (time(nullptr) - lastSyncAt) < TRUST_STALE_S;
+}
 
 bool core_flashWriteSafe() {
   return (effBrightness == 0) || (poisonUntil != 0) || otaActive;
@@ -484,8 +512,8 @@ static void servicePoison(const tm &t) {
     // and cutting off. Every tube gets its own stop time (settle, as before)
     // and its own spin window (spinDur); how far into that window it is
     // (frac) sets how long to wait before the next digit change -- close to
-    // 0 near the start (close to every 100 ms, as fast as this function is
-    // even polled) and growing toward ~500 ms by the time it's about to
+    // 0 near the start (20 ms, so in practice every 100 ms -- as fast as
+    // this function is even polled) and growing toward ~500 ms by the time it's about to
     // stop, along a curve (frac^2.0) that spends most of the window still
     // near the fast end, the way a real reel does.
     for (int i = 0; i < TUBES; i++) {
@@ -498,7 +526,7 @@ static void servicePoison(const tm &t) {
       } else {
         if (now >= poisonNextChange[i]) {
           float frac = (float)elapsed / (float)spinDur;
-          float gapF = 20.0f + 480.0f * (frac * frac);   // 100 ms -> 500 ms
+          float gapF = 20.0f + 480.0f * (frac * frac);   // 20 ms -> 500 ms
           poisonDigit[i] = (poisonDigit[i] + 1) % 10;
           poisonNextChange[i] = now + (uint32_t)gapF;
         }
@@ -517,16 +545,14 @@ static void serviceClock() {
   // clock logic below.  All paths inside this block return early.
   if (bootPhase != PHASE_RUN) {
     // During all boot phases (portal countdown, STA connect attempt, IP
-    // display) apply cfg.brMan unconditionally.  Calling updateBrightness()
+    // display) apply cfg.brMan, floored at 50% so the countdown and IP
+    // digits stay readable, unconditionally.  Calling updateBrightness()
     // here with a zeroed tm — which represents midnight — causes any
     // night-mode window that wraps past midnight to trigger, silently
     // dimming the display to cfg.nightBr.  The light sensor is also not a
     // useful input this early: it hasn't settled, and the user chose manual
     // brightness for a reason.  Full brightness policy (night mode, auto
     // sensor, smooth ramping) resumes the moment bootPhase reaches PHASE_RUN.
-    // display_setBrightness(cfg.brMan);
-    // effBrightness = cfg.brMan;
-
     uint8_t bootBr = max(cfg.brMan, (uint8_t)50); // at least 50% brightness
     display_setBrightness(bootBr);
     effBrightness = bootBr;
@@ -693,8 +719,10 @@ static void serviceClock() {
   }
 #endif
 
+  // Minute-of-day rather than minute-of-hour, so intervals over 60 min
+  // (the UI allows up to 120) aren't silently cut to hourly.
   if (cfg.poisonMin > 0 && effBrightness > 0 && t.tm_sec == 45
-      && (t.tm_min % cfg.poisonMin) == 0) {
+      && ((t.tm_hour * 60 + t.tm_min) % cfg.poisonMin) == 0) {
     poisonUntil = millis() + poisonMs();
     poisonBegin();
     return;
@@ -750,6 +778,7 @@ static void handleStatus() {
   j += "\"mode\":\"" + String(apMode ? "ap" : "sta") + "\",";
   j += "\"rssi\":" + String(apMode ? 0 : WiFi.RSSI()) + ",";
   j += "\"src\":" + String((unsigned)timeSrc) + ",";
+  j += "\"trusted\":" + String(core_timeTrusted() ? "true" : "false") + ",";
   j += "\"age\":" + String((long)(lastSyncAt ? (time(nullptr) - lastSyncAt) : -1)) + ",";
 #if BOARD_HAS_RTC
   j += "\"rtcOk\":" + String(rtcAvailable ? "true" : "false") + ",";
@@ -799,7 +828,6 @@ static void handleConfigGet() {
 
   String j = "{";
   j += "\"board\":\"" BOARD_NAME "\",";
-  j += "\"host\":\"" + getEffectiveHost() + "\",";
   j += "\"tubes\":" + String(TUBES) + ",";
   j += "\"caps\":" + caps + ",";
   j += "\"hasWs2812\":" + String(BOARD_HAS_WS2812) + ",";
@@ -1159,10 +1187,9 @@ void core_setup() {
 #endif
   restoreTime();                   // show something immediately, network or not
   display_init();
-  // Apply manual brightness for the brief gap between display_init() and the
-  // first serviceClock() call. serviceClock() then holds cfg.brMan for the
-  // entire boot phase (portal, connect, IP display) — see the comment there.
-  // display_setBrightness(cfg.brMan);
+  // Apply manual brightness (floored at 50%) for the brief gap between
+  // display_init() and the first serviceClock() call. serviceClock() then
+  // holds it for the entire boot phase (portal, connect, IP display).
   display_setBrightness(max(cfg.brMan, (uint8_t)50)); // brightness at least 50%
 
 #ifdef HAVE_IDLE_HOOK
@@ -1246,9 +1273,34 @@ void core_loop() {
     ESP.restart();
   }
 
-  if (!apMode && bootPhase == PHASE_RUN && WiFi.status() != WL_CONNECTED) {
+  // Keep trying the saved network after the boot-time attempt gives up --
+  // after a power cut the router is usually still starting when the clock
+  // tries, and the clock would otherwise sit in hotspot mode for good.
+  // Retries from hotspot mode only while nobody is using the portal, since
+  // an STA attempt can move the radio's channel under a connected client.
+  if (bootPhase == PHASE_RUN && cfg.ssid[0]) {
     static uint32_t lastTry = 0;
-    if (now - lastTry > 30000) { lastTry = now; WiFi.reconnect(); }
+    if (WiFi.status() == WL_CONNECTED) {
+      if (apMode && WiFi.softAPgetStationNum() == 0) {
+        apMode = false;
+        dns.stop();
+        WiFi.mode(WIFI_STA);
+        WiFi.setAutoReconnect(true);
+      }
+      if (!otaReady) {                 // joined after boot: mDNS/OTA never started
+        setupOTA();
+        applyTime();                   // ask NTP straight away
+#if BOARD_USE_SERIAL
+        Serial.printf("Connected late: %s  http://%s.local\n",
+          WiFi.localIP().toString().c_str(), getEffectiveHost().c_str());
+#endif
+      }
+    } else if (!apMode) {
+      if (now - lastTry > 30000) { lastTry = now; WiFi.reconnect(); }
+    } else if (now - lastTry > 60000 && WiFi.softAPgetStationNum() == 0) {
+      lastTry = now;
+      WiFi.begin(cfg.ssid, cfg.pass);  // AP stays up (WIFI_AP_STA)
+    }
   }
   delay(1);
 }
