@@ -1,0 +1,50 @@
+# Compiles the sketch for every supported board, with and without the
+# DS3231 RTC, on each push and pull request. board.h is only patched inside
+# the CI runner; the BOARD value committed to the repo is left alone.
+name: Build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  ESP32_CORE: esp32:esp32@3.3.2
+  ESP32_INDEX: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+
+jobs:
+  build:
+    name: BOARD ${{ matrix.board }}, RTC ${{ matrix.rtc }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 4 = electroNIX 4, 3 = electroNIX 3, 7 = electroNIX 4+S / 6T,
+        # 102 = Nick2 IN-12, 103 = Nick2 IN-12 6T. (2 is obsolete and
+        # deliberately #errors.)
+        board: [4, 3, 7, 102, 103]
+        rtc: [0, 1]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: arduino/setup-arduino-cli@v2
+
+      - name: Cache Arduino cores
+        uses: actions/cache@v4
+        with:
+          path: ~/.arduino15
+          key: arduino15-${{ env.ESP32_CORE }}
+
+      - name: Install ESP32 core
+        run: |
+          arduino-cli core update-index --additional-urls "$ESP32_INDEX"
+          arduino-cli core install "$ESP32_CORE" --additional-urls "$ESP32_INDEX"
+
+      - name: Select board ${{ matrix.board }}, RTC ${{ matrix.rtc }}
+        run: |
+          sed -i -E 's/^#define BOARD +[0-9]+/#define BOARD ${{ matrix.board }}/' electroNIX/board.h
+          sed -i -E 's/^#define BOARD_HAS_RTC +[01]/#define BOARD_HAS_RTC ${{ matrix.rtc }}/' electroNIX/board.h
+          grep -E '^#define BOARD( |_HAS_RTC)' electroNIX/board.h
+
+      - name: Compile
+        run: arduino-cli compile --fqbn esp32:esp32:esp32 --warnings default electroNIX
