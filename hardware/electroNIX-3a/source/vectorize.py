@@ -14,6 +14,7 @@ usage: vectorize.py [x0 x1 y0 y1]   (region in mm, y measured from the top
 edge like the image; default = whole board). Output goes to vector/.
 """
 import sys, os, numpy as np, cv2, csv
+from collections import defaultdict
 from skimage.morphology import skeletonize
 from skan import Skeleton
 from shapely.geometry import LineString, Point, Polygon, box
@@ -190,11 +191,15 @@ def fit_polyline(pts):
     def proj(p, ln): m, th, _ = ln; return m + u(th) * np.dot(p - m, u(th))
     out = [proj(ap[0], lines[0])]
     for l1, l2 in zip(lines[:-1], lines[1:]):
-        (m1, t1, _), (m2, t2, _) = l1, l2
+        (m1, t1, L1), (m2, t2, L2) = l1, l2
         A = np.c_[u(t1), -u(t2)]
-        if abs(np.linalg.det(A)) < 1e-6: out.append((m1 + m2) / 2); continue
+        # the corner is near the original vertex between these two runs;
+        # a far-away intersection (nearly parallel lines) is never right
+        guess = m1 + u(t1) * L1 / 2
+        if abs(np.linalg.det(A)) < 0.2: out.append((m1 + u(t1) * L1 / 2 + m2 - u(t2) * L2 / 2) / 2); continue
         s = np.linalg.solve(A, m2 - m1)
-        out.append(m1 + s[0] * u(t1))
+        X = m1 + s[0] * u(t1)
+        out.append(X if np.hypot(*(X - guess)) < max(0.5, 0.5 * min(L1, L2)) else guess)
     out.append(proj(ap[-1], lines[-1]))
     out = np.array(out)
     # remove interior jogs shorter than 0.2 mm by extending their neighbours
@@ -295,7 +300,7 @@ def vectorize_tracks(mask, anchors, chan):
     return res
 
 
-def mend(lines, anchors, join=2.5, reach=1.2, lat=0.2, minlen=0.4, hidden=None, far=10.0):
+def mend(lines, anchors, join=2.5, reach=1.2, lat=0.2, minlen=0.4, hidden=None, far=4.0):
     """lines: [(LineString, w)]. Join collinear fragments broken by hidden
     stretches, extend dangling ends to what they point at, drop orphans.
     With a `hidden` mask, joins and extensions may run up to `far` mm when
@@ -337,7 +342,7 @@ def mend(lines, anchors, join=2.5, reach=1.2, lat=0.2, minlen=0.4, hidden=None, 
                 if j == i or (j, f) in used or L[j] is None: continue
                 q, v = end(j, f); d = q - p; t = d @ u
                 if 0 < t < lim and abs(d @ np.array([-u[1], u[0]])) < lat and u @ v < -0.9:
-                    if t > join and hidden_frac(p, q) < 0.85: continue
+                    if t > join and hidden_frac(p, q) < 0.95: continue
                     if best is None or t < best[0]: best = (t, j, f)
             if best:
                 _, j, f = best
@@ -436,6 +441,140 @@ def march(lines, anchors, red, hidden, maxlen=15.0, step=0.05):
         kept.append((ln, w)); keptg.append(ln)
     return kept
 
+
+CLASSES = [12 * MIL, 20 * MIL, 25 * MIL, 40 * MIL]
+def width_class(w):
+    m = w / MIL
+    return CLASSES[0] if m <= 16 else CLASSES[1] if m <= 22.5 else CLASSES[2] if m <= 32 else CLASSES[3]
+
+def even_widths(tracks):
+    """Snap widths to the design's classes (measured peaks: 12 and 20 mil,
+    a few 25/40), then give runs joined end to end one width (length-
+    weighted majority) and short stubs the width of what they join."""
+    if not tracks: return tracks
+    T = [[l, width_class(w)] for l, w in tracks]
+    ends = []
+    for i, (l, _) in enumerate(T):
+        ends.append((i, np.array(l.coords[0]))); ends.append((i, np.array(l.coords[-1])))
+    P = np.array([p for _, p in ends])
+    parent = list(range(len(T)))
+    def find(a):
+        while parent[a] != a: parent[a] = parent[parent[a]]; a = parent[a]
+        return a
+    for k, (i, p) in enumerate(ends):
+        near = [ends[j][0] for j in np.nonzero(np.hypot(*(P - p).T) < 0.15)[0] if ends[j][0] != i]
+        near = list(dict.fromkeys(near))
+        if len(near) == 1:                      # plain continuation, not a junction
+            parent[find(i)] = find(near[0])
+    groups = {}
+    for i in range(len(T)): groups.setdefault(find(i), []).append(i)
+    for g in groups.values():
+        votes = {}
+        for i in g: votes[T[i][1]] = votes.get(T[i][1], 0) + T[i][0].length
+        best = max(votes, key=votes.get)
+        for i in g: T[i][1] = best
+    # short stubs at junctions: take the widest-voted neighbour's width
+    for i, (l, w) in enumerate(T):
+        if l.length > 1.2: continue
+        nb = [j for j, p in ends if j != i and min(np.hypot(*(p - np.array(l.coords[0]))), np.hypot(*(p - np.array(l.coords[-1])))) < 0.15]
+        nb = [j for j in nb if T[j][0].length > 1.2]
+        if nb: T[i][1] = max(nb, key=lambda j: T[j][0].length) and T[max(nb, key=lambda j: T[j][0].length)][1]
+    return [(l, w) for l, w in T]
+
+
+def qfp_stubs(hidden):
+    """U2 pads whose copper runs on past the inner end to a via under the
+    chip (power pins): follow the visible copper from the pad's inner end
+    (other pads masked) and link the pad to any via it reaches within 2.5 mm."""
+    cx, cy = QFP_C; vias = [(x, y) for x, y, d in holes if d == 0.5]
+    red = (cls[sl] == R) | hidden | np.isin(cls[sl], (RING, CORE, BEIGE))
+    qs = qfp_shapes()
+    out = []
+    for kind, g, (x, y) in qs:
+        u = np.array([cx - x, cy - y])
+        u = np.array([np.sign(u[0]), 0.0]) if abs(u[0]) > abs(u[1]) else np.array([0.0, np.sign(u[1])])
+        tip = np.array([x, y]) + u * (QFP_L / 2 + 0.1)
+        others = raster([h for _, h, c in qs if c != (x, y)], red.shape, 0.08)
+        win = raster([Point(*tip).buffer(2.5)], red.shape)
+        m = (red & ~others & win & ~raster([g], red.shape)).astype(np.uint8)
+        a_, b_ = pxw(*tip); a_, b_ = int(round(a_)), int(round(b_))
+        if not m[b_, a_]: continue
+        n, lab = cv2.connectedComponents(m)
+        comp = lab == lab[b_, a_]
+        tips = [np.array(c) + np.array([np.sign(cx - c[0]), 0.0] if abs(cx - c[0]) > abs(cy - c[1]) else [0.0, np.sign(cy - c[1])]) * (QFP_L / 2 + 0.1) for _, _, c in qs]
+        for vx, vy in vias:
+            dmine = np.hypot(vx - tip[0], vy - tip[1])
+            if dmine > 2.5 or any(np.hypot(vx - t[0], vy - t[1]) < dmine - 1e-6 for t in tips): continue
+            va, vb = pxw(vx, vy)
+            if 0 <= int(vb) < comp.shape[0] and 0 <= int(va) < comp.shape[1] and \
+                    comp[max(0, int(vb) - 6):int(vb) + 7, max(0, int(va) - 6):int(va) + 7].any():
+                out.append((LineString([(x, y), tuple(tip), (vx, vy)]), QFP_W * 0.8)); break
+    return out
+
+
+def declutter(tracks, gap=8 * MIL, rounds=4):
+    """Tracks on one layer may not overlap unless they meet end to end.
+    1) drop tracks lying (>= 90 %) on top of a longer track: duplicates;
+    2) push apart parallel segments closer than half-widths + gap: each
+       segment's line moves perpendicular, corners are recomputed as
+       intersections with the neighbouring segments' lines (angles kept)."""
+    T = [[np.array(l.coords, float), w] for l, w in tracks]
+    order = sorted(range(len(T)), key=lambda i: -LineString(T[i][0]).length)
+    keep = []
+    for i in order:
+        ln = LineString(T[i][0])
+        cover = unary_union([LineString(T[j][0]).buffer(0.12) for j in keep
+                             if LineString(T[j][0]).distance(ln) < 0.12]) if keep else None
+        if cover is not None and not cover.is_empty and ln.intersection(cover).length > 0.9 * ln.length:
+            continue
+        keep.append(i)
+    T = [T[i] for i in sorted(keep)]
+    def unit(a, b):
+        d = b - a; n = np.hypot(*d); return d / n if n > 1e-9 else d
+    for r in range(rounds):
+        segs = []
+        for ti, (f, w) in enumerate(T):
+            for k in range(len(f) - 1):
+                if np.hypot(*(f[k + 1] - f[k])) > 0.15: segs.append((ti, k))
+        shift = defaultdict(lambda: np.zeros(2))
+        moved = 0
+        for a in range(len(segs)):
+            ta, ka = segs[a]; fa, wa = T[ta]; A0, A1 = fa[ka], fa[ka + 1]; ua = unit(A0, A1)
+            na = np.array([-ua[1], ua[0]])
+            for b in range(a + 1, len(segs)):
+                tb, kb = segs[b]
+                if tb == ta: continue
+                fb, wb = T[tb]; B0, B1 = fb[kb], fb[kb + 1]; ub = unit(B0, B1)
+                if abs(abs(ua @ ub) - 1) > 1e-3: continue          # not parallel
+                d = (B0 - A0) @ na
+                need = (wa + wb) / 2 + gap
+                if abs(d) >= need or abs(d) < 0.02: continue
+                ta0, ta1 = sorted([0, (A1 - A0) @ ua]); tb0, tb1 = sorted([(B0 - A0) @ ua, (B1 - A0) @ ua])
+                if min(ta1, tb1) - max(ta0, tb0) < 0.2: continue   # no side-by-side overlap
+                push = (need - abs(d)) / 2 * np.sign(d)
+                shift[(ta, ka)] -= na * push; shift[(tb, kb)] += na * push
+                moved += 1
+        if not moved: break
+        for ti, (f, w) in enumerate(T):
+            lines = []
+            for k in range(len(f) - 1):
+                off = shift.get((ti, k), np.zeros(2))
+                lines.append((f[k] + off, unit(f[k], f[k + 1])))
+            if not lines: continue
+            new = [f[0] + shift.get((ti, 0), np.zeros(2))]
+            for k in range(1, len(f) - 1):
+                (p1, u1), (p2, u2) = lines[k - 1], lines[k]
+                A = np.c_[u1, -u2]
+                avg = f[k] + (shift.get((ti, k - 1), np.zeros(2)) + shift.get((ti, k), np.zeros(2))) / 2
+                if abs(np.linalg.det(A)) < 0.2: new.append(avg)
+                else:
+                    t = np.linalg.solve(A, p2 - p1); X = p1 + t[0] * u1
+                    new.append(X if np.hypot(*(X - avg)) < 0.5 else avg)
+            new.append(f[-1] + shift.get((ti, len(f) - 2), np.zeros(2)))
+            T[ti][0] = np.array(new)
+    return [(LineString(f), w) for f, w in T]
+
+EXTRA = {}
 # ---- per-layer build ------------------------------------------------------
 def build_top():
     T = TOP[sl].copy()
@@ -476,9 +615,17 @@ def build_top():
     tracks = mend(tracks, [(g, c) for _, g, c in allpads], join=1.5, reach=0.8, minlen=0.3, hidden=hid)
     tracks = march(tracks, [(g, c) for _, g, c in allpads], (cls[sl] == R) & ~pmask, hid)
     tracks = [(l, w) for l, w in tracks if l.length >= 0.6]
+    tracks = even_widths(tracks)
+    n0 = len(tracks)
+    tracks = declutter(tracks)
+    print('top declutter: %d -> %d tracks' % (n0, len(tracks)))
+    stubs = qfp_stubs(hid)
+    print('U2 pad-to-via stubs: %d' % len(stubs))
+    tracks += stubs
     tpours = pour_polys(pours) if pours.any() else Polygon()
     if not tpours.is_empty:
         tpours = tpours.buffer(-0.1).buffer(0.1)
+    EXTRA['links'] = links; EXTRA['tpours'] = tpours
     geoms = [g for _, g, _ in allpads] + [l.buffer(w / 2, 16) for l, w in tracks] + [tpours] + links
     return unary_union(geoms), tracks, allpads
 
@@ -605,6 +752,7 @@ def build_bottom_negative(clear):
     anc2 = [(g, c) for _, g, c in known] + [(p, p.representative_point().coords[0]) for p in getattr(cu, 'geoms', [cu])]
     tracks = vectorize_tracks(tm, anc2, NAVYNESS)
     tracks = mend(tracks, anc2, join=2.0, reach=0.8, minlen=0.6)
+    tracks = declutter(even_widths(tracks))
     print('bottom tracks in open regions: %d' % len(tracks))
     return unary_union([cu] + [g for _, g, _ in known] + [l.buffer(w / 2, 16) for l, w in tracks]), strokes
 
@@ -658,6 +806,20 @@ if __name__ == '__main__':
     clear = min([8 * MIL, 10 * MIL, 12 * MIL, 15 * MIL, 20 * MIL], key=lambda t: abs(t - clear))
     top, ttr, pads = build_top()
     bot, btr = build_bottom_negative(clear)
+    raw = {'top': top, 'bot': bot, 'pads': [(k, g, c) for k, g, c in pads], 'ttr': ttr, 'btr': btr, **EXTRA}
+    fx = os.path.join(HERE, 'fixes.json')
+    if whole and os.path.exists(fx):
+        # bridges from repair.py, each as wide as the track it continues
+        import json
+        add = {'T': [], 'B': []}
+        tr_by = {'T': ttr, 'B': [t for t in btr]}
+        for b in json.load(open(fx))['bridges']:
+            ln = LineString([b['from'], b['to']])
+            near = [(l.distance(Point(b['from'])), w) for l, w in tr_by[b['layer']] if l.distance(ln) < 0.3]
+            w = min(near)[1] if near and b['layer'] == 'T' else b['width']
+            add[b['layer']].append(ln.buffer(w / 2, 16))
+        top = unary_union([top] + add['T']); bot = unary_union([bot] + add['B'])
+        print('fixes applied: %d top, %d bottom bridges' % (len(add['T']), len(add['B'])))
     keep = unary_union([Point(x, y).buffer(d / 2 + 0.2, 32) for x, y, d in NPTH])
     top, bot = top.difference(keep), bot.difference(keep)
     print('clearance used %.3f; top: %d tracks, %d pads; bottom: %d gap strokes' % (clear, len(ttr), len(pads), len(btr)))
@@ -675,7 +837,13 @@ if __name__ == '__main__':
         g = os.path.join(ROOT, 'gerbers')
         for n in ('Edge_Cuts.gm1', 'PTH.drl', 'NPTH.drl'):
             shutil.copy(os.path.join(g, 'electroNIX3a-' + n), os.path.join(out, 'electroNIX3a-' + n))
-    if whole: sys.exit(0)
+    if whole:
+        import pickle             # geometry for netcheck.py (not committed)
+        with open(os.path.join(HERE, 'vector_geom.pkl'), 'wb') as f:
+            pickle.dump(raw, f)                 # before fixes: input to repair.py
+        with open(os.path.join(HERE, 'vector_geom_fixed.pkl'), 'wb') as f:
+            pickle.dump(dict(raw, top=top, bot=bot), f)
+        sys.exit(0)
     with open(os.path.join(out, 'frame.gm1'), 'w') as f:
         f.write('%FSLAX46Y46*%\n%MOMM*%\n%ADD10C,0.050000*%\nD10*\n')
         x0, y0, x1, y1 = CLIP.bounds

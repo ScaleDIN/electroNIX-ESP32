@@ -15,8 +15,12 @@ Pixel tracing a 0.12 mm/px JPEG gives ragged edges, so `vectorize.py` fits
 what the Altium original was made of instead:
 
 - **Tracks**: skeleton centrelines → straight runs snapped to 0/45/90°;
-  widths measured across each run on the JPEG and snapped to 8–50 mil (most
-  come out 12, 15 and 20 mil). Broken runs are joined when collinear, dangling
+  widths measured across each run on the JPEG. The measurements peak at
+  11 and 19–20 mil (the JPEG reads ~1 mil thin), so every track is put in a
+  12 / 20 / 25 / 40 mil class, runs joined end to end share one width, and
+  short stubs take the width of what they join. Duplicate tracks are
+  removed and parallel tracks closer than their half-widths + 8 mil are
+  pushed apart (keeping 45° corners). Broken runs are joined when collinear, dangling
   ends are extended to what they point at, short rungs between parallel
   tracks (bridging artefacts) are dropped.
 - **Under silk**: the top layer is taken only where visible; track ends are
@@ -85,6 +89,27 @@ them, and each pixel is classified as a pure colour or a two-colour blend
   Per-hole values are in `source/holes.csv`.
 - **U2** pads are placed from the measured land pattern: 0.8 mm pitch,
   2.03 × 0.5 mm pads, rows 11.46 mm apart.
+
+## Connectivity check against the schematic
+
+`source/netcheck.py` builds nets from the copper (islands joined through
+plated holes) and checks what the schematic fixes unambiguously: U2's
+GND/VCC/AVCC pin groups, crystal, ISP header JP1, unused pins, every other
+U2 pin on its own net, and the four lamps' cathodes multiplexed into 10 nets
+(slot 2 of each lamp is its anode). It also compares the vector rebuild with
+the raw pixel trace. Latest result: `netcheck_vector.txt`.
+`source/trace.py x1 y1 x2 y2` prints the chain of copper joining two points
+(for locating shorts). `source/repair.py` proposes gap bridges for required
+connections, refusing any that would join two different schematic nets;
+its output `source/fixes_proposed.json` is **not applied** yet (rename to
+`fixes.json` to apply) because the check does not pass with it either.
+
+**Current result: the rebuild does not match the schematic yet.** U2's
+power pins are not all on their nets (6/18 GND and 5/17/38 VCC connect
+through half-millimetre stubs the JPEG doesn't show), several U2 signal pins
+are shorted together or to GND, MOSI/MISO/RESET do not reach JP1, and only 3
+of the 10 lamp cathode nets join all four lamps (their routes run through
+the bus above the lamps and under silk text). See "Status".
 
 ## Status
 

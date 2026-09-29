@@ -1,0 +1,107 @@
+FAIL U2 GND pins 6,18,28,39 on the ground pour: {6: "net ('T', 62)", 18: "net ('T', 100)", 28: "net ('T', 110)", 39: "net ('T', 119)"}
+FAIL U2 VCC pins 5,17,38 on one net (not GND): [[5], [17], [38]]
+FAIL U2 AVCC 27 and AREF 29 joined: 27->[27] 29->[29]
+PASS U2 pin 7 unused, alone on its net: shares with pins [7]
+PASS U2 pin 8 unused, alone on its net: shares with pins [8]
+PASS U2 pin 16 unused, alone on its net: shares with pins [16]
+PASS U2 pin 23 unused, alone on its net: shares with pins [23]
+PASS U2 pin 24 unused, alone on its net: shares with pins [24]
+PASS U2 pin 40 unused, alone on its net: shares with pins [40]
+PASS U2 pin 41 unused, alone on its net: shares with pins [41]
+PASS U2 pin 44 unused, alone on its net: shares with pins [44]
+FAIL U2 pin 1 -> JP1 pin 4
+FAIL U2 pin 2 -> JP1 pin 1
+PASS U2 pin 3 -> JP1 pin 3
+FAIL U2 pin 4 -> JP1 pin 5
+FAIL JP1 pin 6 on GND
+FAIL JP1 pin 2 on +5V_BUF (U2 VCC)
+FAIL U2 signal pins each on their own net; shared: [[9, 10, 11, 15], [32, 33, 34, 36, 42]]
+PASS U2 signal pins all reach copper: missing []
+PASS no U2 signal pin on GND: []
+INFO lamps found: 4, pads per lamp: [11, 11, 11, 11]
+INFO lamp slot  0: nets ['38', '66', '38', '38']
+INFO lamp slot  1: nets ['41', '67', '119', '174']
+INFO lamp slot  2: nets ['8', '68', '111', '156']
+INFO lamp slot  4: nets ['9', '76', '112', '115']
+INFO lamp slot  5: nets ['7', '42', '110', '154']
+INFO lamp slot  6: nets ['6', '40', '108', '139']
+INFO lamp slot  8: nets ['38', '38', '152', '152']
+INFO lamp slot  9: nets ['152', '36', '103', '151']
+INFO lamp slot 10: nets ['152', '152', '152', '152']
+INFO lamp slot 11: nets ['1', '59', '102', '153']
+INFO lamp slot 12: nets ['37', '63', '105', '169']
+FAIL lamp cathodes: 1 of 10 slots shared by all 4 lamps (slots [10])
+PASS lamp slot 4 (anode?) separate per lamp
+PASS lamp slot 2 (anode?) separate per lamp
+PASS lamp slot 5 (anode?) separate per lamp
+PASS lamp slot 1 (anode?) separate per lamp
+PASS lamp slot 6 (anode?) separate per lamp
+FAIL lamp slot 0 (anode?) separate per lamp
+FAIL lamp slot 8 (anode?) separate per lamp
+PASS lamp slot 12 (anode?) separate per lamp
+PASS lamp slot 9 (anode?) separate per lamp
+PASS lamp slot 11 (anode?) separate per lamp
+INFO dangling top track ends (x, y-from-top mm): 63
+     ('top', 76.66, 5.27)
+     ('top', 59.91, 26.13)
+     ('top', 29.53, 16.39)
+     ('top', 76.0, 2.39)
+     ('top', 52.34, 21.57)
+     ('top', 29.05, 15.73)
+     ('top', 48.43, 19.65)
+     ('top', 77.87, 27.19)
+     ('top', 76.94, 29.12)
+     ('top', 52.33, 21.58)
+     ('top', 22.44, 29.39)
+     ('top', 41.55, 31.94)
+     ('top', 53.26, 52.82)
+     ('top', 62.21, 20.24)
+     ('top', 27.12, 37.47)
+     ('top', 69.61, 26.57)
+     ('top', 35.44, 22.87)
+     ('top', 43.58, 23.82)
+     ('top', 25.83, 33.73)
+     ('top', 71.82, 23.88)
+     ('top', 18.29, 21.17)
+     ('top', 80.6, 42.51)
+     ('top', 34.47, 33.61)
+     ('top', 20.25, 20.54)
+     ('top', 15.16, 21.98)
+     ('top', 86.69, 21.74)
+     ('top', 78.05, 19.35)
+     ('top', 9.07, 23.78)
+     ('top', 86.76, 25.34)
+     ('top', 5.97, 28.18)
+     ('top', 24.84, 33.41)
+     ('top', 12.27, 18.21)
+     ('top', 71.0, 23.96)
+     ('top', 86.71, 32.58)
+     ('top', 87.46, 28.72)
+     ('top', 88.93, 30.91)
+     ('top', 88.57, 43.85)
+     ('top', 78.15, 33.73)
+     ('top', 11.38, 28.96)
+     ('top', 38.94, 17.43)
+     ('top', 8.4, 23.22)
+     ('top', 78.03, 29.89)
+     ('top', 35.15, 37.31)
+     ('top', 47.21, 37.42)
+     ('top', 13.43, 3.34)
+     ('top', 13.43, 4.64)
+     ('top', 12.75, 3.32)
+     ('top', 12.75, 4.6)
+     ('top', 55.41, 38.45)
+     ('top', 14.22, 3.51)
+     ('top', 13.97, 4.66)
+     ('top', 12.12, 21.37)
+     ('top', 13.31, 21.37)
+     ('top', 22.75, 25.01)
+     ('top', 13.23, 20.69)
+     ('top', 12.08, 20.69)
+     ('top', 53.46, 51.49)
+     ('top', 48.36, 49.85)
+     ('top', 63.39, 20.25)
+     ('top', 63.94, 20.27)
+     ('top', 27.78, 29.07)
+     ('top', 28.48, 29.07)
+     ('top', 89.97, 28.42)

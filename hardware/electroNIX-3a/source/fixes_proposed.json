@@ -1,0 +1,748 @@
+{
+ "bridges": [
+  {
+   "layer": "B",
+   "from": [
+    16.075,
+    17.401
+   ],
+   "to": [
+    16.358,
+    17.301
+   ],
+   "width": 0.3048,
+   "reason": "lamp cathode slot 5: LAMP1-LAMP2"
+  },
+  {
+   "layer": "B",
+   "from": [
+    21.877,
+    18.069
+   ],
+   "to": [
+    21.877,
+    17.615
+   ],
+   "width": 0.3048,
+   "reason": "lamp cathode slot 5: LAMP1-LAMP2"
+  },
+  {
+   "layer": "T",
+   "from": [
+    20.418,
+    35.463
+   ],
+   "to": [
+    20.403,
+    35.463
+   ],
+   "width": 0.3048,
+   "reason": "U2 pin 1 to JP1 pin 4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    18.294,
+    35.31
+   ],
+   "to": [
+    18.294,
+    34.984
+   ],
+   "width": 0.3048,
+   "reason": "U2 pin 1 to JP1 pin 4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    12.431,
+    32.233
+   ],
+   "to": [
+    12.432,
+    31.959
+   ],
+   "width": 0.3048,
+   "reason": "U2 pin 1 to JP1 pin 4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    11.297,
+    27.171
+   ],
+   "to": [
+    10.773,
+    27.941
+   ],
+   "width": 0.3048,
+   "reason": "U2 pin 4 to JP1 pin 5"
+  },
+  {
+   "layer": "B",
+   "from": [
+    29.765,
+    17.728
+   ],
+   "to": [
+    29.765,
+    17.347
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H1.7@29.7,40.8 with H0.5@27.6,36.8"
+  },
+  {
+   "layer": "B",
+   "from": [
+    27.818,
+    17.541
+   ],
+   "to": [
+    27.695,
+    17.862
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H1.7@29.7,40.8 with H0.5@27.6,36.8"
+  },
+  {
+   "layer": "B",
+   "from": [
+    27.226,
+    18.594
+   ],
+   "to": [
+    27.363,
+    18.809
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H1.7@29.7,40.8 with H0.5@27.6,36.8"
+  },
+  {
+   "layer": "T",
+   "from": [
+    44.687,
+    6.647
+   ],
+   "to": [
+    44.687,
+    6.728
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H1.0@44.7,50.5 with SMD@44.7,48.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    48.045,
+    6.055
+   ],
+   "to": [
+    48.054,
+    6.057
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H1.0@47.2,50.5 with SMD@50.4,42.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    48.045,
+    6.055
+   ],
+   "to": [
+    48.054,
+    6.057
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H1.0@47.2,50.5 with SMD@49.7,48.0"
+  },
+  {
+   "layer": "T",
+   "from": [
+    85.228,
+    52.553
+   ],
+   "to": [
+    85.228,
+    52.638
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H0.5@85.2,3.9 with SMD@84.9,2.5"
+  },
+  {
+   "layer": "T",
+   "from": [
+    35.789,
+    45.331
+   ],
+   "to": [
+    35.789,
+    45.235
+   ],
+   "width": 0.3048,
+   "reason": "raster net: H0.5@35.8,10.2 with SMD@35.8,12.1"
+  },
+  {
+   "layer": "T",
+   "from": [
+    21.891,
+    40.896
+   ],
+   "to": [
+    21.891,
+    41.278
+   ],
+   "width": 0.3048,
+   "reason": "raster net: U2.43 with SMD@22.4,13.7"
+  },
+  {
+   "layer": "T",
+   "from": [
+    21.493,
+    39.831
+   ],
+   "to": [
+    21.108,
+    39.831
+   ],
+   "width": 0.3048,
+   "reason": "raster net: U2.43 with SMD@20.4,16.0"
+  },
+  {
+   "layer": "T",
+   "from": [
+    43.582,
+    55.444
+   ],
+   "to": [
+    43.603,
+    55.444
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@42.5,2.0 with SMD@44.3,1.9"
+  },
+  {
+   "layer": "T",
+   "from": [
+    32.932,
+    47.385
+   ],
+   "to": [
+    33.03,
+    47.178
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@42.5,2.0 with SMD@33.0,9.4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    59.284,
+    52.597
+   ],
+   "to": [
+    59.284,
+    52.578
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@58.6,2.1 with SMD@54.9,4.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    81.471,
+    54.067
+   ],
+   "to": [
+    81.693,
+    54.067
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@80.7,1.8 with SMD@82.4,1.4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    47.963,
+    52.81
+   ],
+   "to": [
+    47.963,
+    52.578
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@47.3,2.1 with SMD@47.8,4.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    48.936,
+    50.228
+   ],
+   "to": [
+    48.955,
+    50.228
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@47.3,2.1 with SMD@51.0,4.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    62.232,
+    52.81
+   ],
+   "to": [
+    62.232,
+    52.578
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@61.6,2.1 with SMD@62.0,4.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    81.646,
+    50.43
+   ],
+   "to": [
+    81.812,
+    50.43
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@80.9,5.2 with SMD@82.5,5.0"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    46.908
+   ],
+   "to": [
+    83.245,
+    46.908
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,8.8 with SMD@84.0,8.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    59.623,
+    45.612
+   ],
+   "to": [
+    59.642,
+    45.612
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@58.4,9.4 with SMD@61.7,9.4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    43.326
+   ],
+   "to": [
+    83.245,
+    43.326
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,12.3 with SMD@84.0,12.1"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    39.799
+   ],
+   "to": [
+    83.245,
+    39.799
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,15.9 with SMD@84.0,15.7"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    36.214
+   ],
+   "to": [
+    83.244,
+    36.214
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,19.5 with SMD@84.0,19.3"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    32.694
+   ],
+   "to": [
+    83.245,
+    32.694
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,23.0 with SMD@84.0,22.8"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    29.117
+   ],
+   "to": [
+    83.245,
+    29.117
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,26.6 with SMD@84.0,26.4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    72.869,
+    25.373
+   ],
+   "to": [
+    72.896,
+    25.373
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@72.1,29.8 with SMD@73.9,31.2"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    25.535
+   ],
+   "to": [
+    83.245,
+    25.535
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,30.1 with SMD@84.0,29.9"
+  },
+  {
+   "layer": "T",
+   "from": [
+    83.024,
+    21.953
+   ],
+   "to": [
+    83.245,
+    21.953
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@82.3,33.7 with SMD@84.0,33.5"
+  },
+  {
+   "layer": "T",
+   "from": [
+    45.176,
+    21.28
+   ],
+   "to": [
+    45.176,
+    21.109
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@45.7,34.0 with SMD@45.7,35.8"
+  },
+  {
+   "layer": "T",
+   "from": [
+    52.092,
+    19.305
+   ],
+   "to": [
+    52.092,
+    19.083
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@52.6,36.0 with SMD@52.6,37.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    36.031,
+    18.69
+   ],
+   "to": [
+    35.469,
+    18.69
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@36.8,37.6 with SMD@31.8,43.8"
+  },
+  {
+   "layer": "T",
+   "from": [
+    40.139,
+    17.036
+   ],
+   "to": [
+    40.038,
+    17.036
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@41.2,38.2 with SMD@39.3,38.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    40.514,
+    17.036
+   ],
+   "to": [
+    40.514,
+    16.817
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@41.2,38.2 with SMD@41.2,40.4"
+  },
+  {
+   "layer": "T",
+   "from": [
+    43.966,
+    16.693
+   ],
+   "to": [
+    43.966,
+    16.458
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@44.7,38.5 with SMD@44.1,40.6"
+  },
+  {
+   "layer": "T",
+   "from": [
+    19.846,
+    16.276
+   ],
+   "to": [
+    19.78,
+    16.276
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@20.9,39.2 with SMD@19.0,39.2"
+  },
+  {
+   "layer": "T",
+   "from": [
+    80.604,
+    13.239
+   ],
+   "to": [
+    80.604,
+    13.234
+   ],
+   "width": 0.3048,
+   "reason": "raster net: SMD@70.6,39.5 with SMD@80.8,43.8"
+  }
+ ],
+ "unresolved": [
+  {
+   "reason": "lamp cathode slot 4: LAMP1-LAMP2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 4: LAMP1-LAMP3",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 4: LAMP1-LAMP4",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 5: LAMP1-LAMP3",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 5: LAMP1-LAMP4",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 1: LAMP1-LAMP2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 1: LAMP1-LAMP3",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 1: LAMP1-LAMP4",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 6: LAMP1-LAMP2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 6: LAMP1-LAMP3",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 6: LAMP1-LAMP4",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 0: LAMP1-LAMP2",
+   "why": "would join ['K0', 'K8']"
+  },
+  {
+   "reason": "lamp cathode slot 8: LAMP1-LAMP3",
+   "why": "would join ['K0', 'K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "lamp cathode slot 8: LAMP1-LAMP4",
+   "why": "would join ['K0', 'K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "lamp cathode slot 12: LAMP1-LAMP2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 12: LAMP1-LAMP3",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 12: LAMP1-LAMP4",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 9: LAMP1-LAMP2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 9: LAMP1-LAMP3",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "lamp cathode slot 9: LAMP1-LAMP4",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 11: LAMP1-LAMP2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "lamp cathode slot 11: LAMP1-LAMP3",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "lamp cathode slot 11: LAMP1-LAMP4",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "lamp cathode slot 10: LAMP1-LAMP2",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "U2 pin 6 GND",
+   "why": "would join ['GND', 'U2.2']"
+  },
+  {
+   "reason": "U2 pin 18 GND",
+   "why": "would join ['GND', 'U2.2']"
+  },
+  {
+   "reason": "U2 pin 28 GND",
+   "why": "would join ['GND', 'U2.2']"
+  },
+  {
+   "reason": "U2 pin 39 GND",
+   "why": "would join ['GND', 'U2.2']"
+  },
+  {
+   "reason": "U2 pin 17 VCC with pin 5",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "U2 pin 38 VCC with pin 5",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "U2 AREF 29 with AVCC 27",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "U2 pin 2 to JP1 pin 1",
+   "why": "would join ['GND', 'U2.2']"
+  },
+  {
+   "reason": "JP1 pin 6 GND",
+   "why": "would join ['GND', 'U2.2']"
+  },
+  {
+   "reason": "JP1 pin 2 +5V_BUF",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "raster net: H1.7@29.7,40.8 with H1.7@15.4,42.6",
+   "why": "would join ['K1', 'K4']"
+  },
+  {
+   "reason": "raster net: H1.7@29.7,40.8 with H1.7@27.5,42.5",
+   "why": "would join ['K4', 'K5']"
+  },
+  {
+   "reason": "raster net: H1.7@16.6,45.1 with H1.7@38.6,45.1",
+   "why": "would join ['K0', 'K8']"
+  },
+  {
+   "reason": "raster net: H1.7@16.6,45.1 with SMD@86.4,31.1",
+   "why": "would join ['K0', 'K8']"
+  },
+  {
+   "reason": "raster net: H1.7@54.5,50.4 with H1.7@5.5,50.4",
+   "why": "would join ['K0', 'K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "raster net: H1.7@54.5,50.4 with H1.7@27.5,50.4",
+   "why": "would join ['K0', 'K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "raster net: H1.7@54.5,50.4 with H0.5@86.5,28.9",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "raster net: H1.7@54.5,50.4 with SMD@86.4,27.5",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "raster net: H1.0@44.7,50.5 with SMD@44.5,46.2",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "raster net: H1.7@10.4,52.8 with H1.7@32.4,52.8",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "raster net: H1.7@10.4,52.8 with SMD@86.4,23.9",
+   "why": "would join ['K10', 'K11', 'K8', 'K9']"
+  },
+  {
+   "reason": "raster net: SMD@42.5,2.0 with SMD@43.9,4.6",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "raster net: SMD@58.6,2.1 with SMD@54.5,2.1",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "raster net: SMD@47.3,2.1 with SMD@51.6,2.1",
+   "why": "no gap < 1.2 mm without touching other nets"
+  },
+  {
+   "reason": "raster net: SMD@52.3,17.0 with SMD@52.0,19.0",
+   "why": "would join ['U2.32', 'U2.33', 'U2.35', 'U2.36', 'U2.42']"
+  }
+ ]
+}

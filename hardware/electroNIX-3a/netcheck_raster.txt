@@ -1,0 +1,29 @@
+== schematic checks on the raster copper
+PASS U2 GND pins 6,18,28,39 on the ground pour: {6: 'GND', 18: 'GND', 28: 'GND', 39: 'GND'}
+FAIL U2 VCC pins 5,17,38 one net, not GND: {5: 'GND', 17: 'GND', 38: 'GND'}
+FAIL U2 AVCC 27 = AREF 29, not GND: {27: 'GND', 29: 'GND'}
+PASS U2 pin 7 unused, alone: U2[7]
+PASS U2 pin 8 unused, alone: U2[8]
+PASS U2 pin 16 unused, alone: U2[16]
+PASS U2 pin 23 unused, alone: U2[23]
+PASS U2 pin 24 unused, alone: U2[24]
+PASS U2 pin 40 unused, alone: U2[40]
+PASS U2 pin 41 unused, alone: U2[41]
+PASS U2 pin 44 unused, alone: U2[44]
+PASS U2 pin 1 (MOSI) -> JP1 pin 4
+PASS U2 pin 2 (MISO) -> JP1 pin 1
+PASS U2 pin 3 (SCK) -> JP1 pin 3
+PASS U2 pin 4 (RESET) -> JP1 pin 5
+PASS JP1 pin 6 on GND
+PASS JP1 pin 2 on +5V_BUF (= U2 pin 5)
+FAIL U2 signal pins on separate nets; shared: [[1, 2, 3, 4, 9, 10, 11, 12, 14, 15, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 37, 42]]
+FAIL no U2 signal pin on GND: [1, 2, 3, 4, 9, 10, 11, 12, 14, 15, 19, 20, 21, 22, 30, 31, 32, 33, 34, 35, 37, 42]
+FAIL lamp cathodes: 4 of 10 slots shared by all 4 lamps [0, 8, 9, 10]
+INFO lamp slot  1: lamps grouped by net [[1], [2], [3], [4]]
+INFO lamp slot  2: lamps grouped by net [[1], [2], [3], [4]]
+INFO lamp slot  4: lamps grouped by net [[1], [2], [3, 4]]
+INFO lamp slot  5: lamps grouped by net [[1], [2], [3, 4]]
+INFO lamp slot  6: lamps grouped by net [[1], [2], [3], [4]]
+INFO lamp slot 11: lamps grouped by net [[1], [2], [3], [4]]
+INFO lamp slot 12: lamps grouped by net [[1], [2], [3], [4]]
+PASS lamp cathode nets distinct from each other
