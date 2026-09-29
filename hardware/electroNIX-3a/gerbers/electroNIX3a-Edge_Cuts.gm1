@@ -1,0 +1,14 @@
+G04 #@! TF.GenerationSoftware,jpg2gerber*
+%FSLAX46Y46*%
+%MOMM*%
+G04 #@! TF.FileFunction,Profile,NP*
+G04 #@! TF.FilePolarity,Positive*
+%ADD10C,0.100000*%
+G01*
+D10*
+X0Y0D02*
+X92000000Y0D01*
+X92000000Y56000000D01*
+X0Y56000000D01*
+X0Y0D01*
+M02*
