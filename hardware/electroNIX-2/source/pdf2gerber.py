@@ -122,6 +122,8 @@ holes = []         # (x, y, dia) per page (deduped later)
 slots = []         # (x1,y1,x2,y2,width)
 outline_segs = []
 pad_marks = {0: [], 1: []}
+track_w = {0: set(), 1: set()}   # stroke widths used by real tracks
+stroke_w = {}
 
 for pg in (0, 1):
     page = doc[pg]
@@ -143,7 +145,10 @@ for pg in (0, 1):
         elif t == 'f' and is_dark(d['fill']):
             g = fill_geom(pg, d)
             if g is not None and not g.is_empty:
-                prims.append((g, len(d['items']) <= 40, 'fill'))
+                # pads are simple shapes (rect, quad, circle); pours are either
+                # many-vertex outlines or have cut-outs (several sub-paths)
+                simple = len(subpaths(d['items'])) == 1 and len(d['items']) <= 8
+                prims.append((g, simple, 'fill'))
         elif t == 's' and is_dark(d['color']):
             g = stroke_geom(pg, d)
             it = d['items']
@@ -153,6 +158,9 @@ for pg in (0, 1):
                 # round/obround pads are short fat strokes (QFP pads: 0.6 x 2 mm)
                 padlike = L <= d['width'] * 3 and d['width'] > 2.5
             prims.append((g, padlike, 'stroke'))
+            if not padlike:
+                track_w[pg].add(round(d['width'], 2))
+            stroke_w[id(g)] = round(d['width'], 2)
         else:
             print('unhandled', pg, t, d.get('fill'), d.get('color'), d['rect'])
     layers[pg] = prims
@@ -192,46 +200,42 @@ def size(g):
     r = g.minimum_rotated_rectangle.exterior.coords
     return min(math.dist(r[0], r[1]), math.dist(r[1], r[2]))
 
-def best_pad(pg, pt, via_centres):
-    prims = PADPRIMS[pg]
-    cands = [i for i, g in enumerate(prims) if g.distance(pt) < 0.35]
-    if not cands:
-        return None
-    # prefer the primitive that actually contains the point, then the widest
-    cands.sort(key=lambda i: (prims[i].distance(pt) > 1e-6, -size(prims[i])))
-    i = cands[0]
-    c = prims[i].centroid
-    if any(math.dist((c.x, c.y), v) < 0.05 for v in via_centres) and prims[i].area < 1.0:
-        return None
-    return i
+PADPRIMS = {pg: [(g, k) for g, padlike, k in layers[pg] if padlike] for pg in (0, 1)}
 
-PADPRIMS = {pg: [g for g, padlike, k in layers[pg] if padlike] for pg in (0, 1)}
 def find_pads():
-    sel = {0: set(), 1: set()}
-    via_centres = [(h[0], h[1]) for h in H if h[2] < 0.6]
-    tht = [(h[0], h[1]) for h in H if h[2] >= 0.6]
-    # through-hole pads: both layers
-    for s in tht:
-        for pg in (0, 1):
-            i = best_pad(pg, Point(s), via_centres)
-            if i is not None:
-                sel[pg].add(i)
-    # SMD pads: Altium pad annotations appear on both pages, so assign each
-    # to the layer where it lands on the widest pad-like shape
-    for s in pad_marks[0]:
-        if any(math.dist(s, t) < 0.4 for t in tht):
-            continue
-        pt = Point(s)
-        best = []
-        for pg in (0, 1):
-            i = best_pad(pg, pt, via_centres)
-            if i is not None:
-                g = PADPRIMS[pg][i]
-                best.append((g.distance(pt) < 1e-6, size(g), pg, i))
-        if best:
-            _, _, pg, i = max(best)
-            sel[pg].add(i)
-    return {pg: [PADPRIMS[pg][i] for i in sel[pg]] for pg in (0, 1)}
+    via_centres = [Point(h[0], h[1]) for h in H if h[2] < 0.6]
+    # anything plated through: holes and slot ends
+    tht = [Point(h[0], h[1]) for h in H if h[2] >= 0.6] + \
+          [Point(p) for a, b, w in SL for p in (a, b)]
+    marks = [Point(m) for m in pad_marks[0]]   # same annotations on both pages
+    single_fills = {pg: unary_union([g for g, k in PADPRIMS[pg] if k == 'fill']) for pg in (0, 1)}
+    out = {0: [], 1: []}
+    for pg in (0, 1):
+        other = single_fills[1 - pg]
+        for g, k in PADPRIMS[pg]:
+            is_via = g.area < 1.0 and any(g.contains(v) for v in via_centres)
+            if is_via:
+                continue
+            if k == 'fill':
+                # single closed outlines are SMD/THT pads (pours have cut-outs)
+                out[pg].append(g)
+            elif any(g.contains(t) for t in tht):
+                # a track-width stroke through a hole is a track, unless it is
+                # the only copper drawn for that hole
+                own = [t for t in tht if g.contains(t)]
+                if stroke_w[id(g)] not in track_w[pg] or not all(
+                        any(h is not g and h.contains(t) and (k2 == 'fill' or stroke_w[id(h)] not in track_w[pg])
+                            for h, k2 in PADPRIMS[pg]) for t in own):
+                    out[pg].append(g)
+            elif size(g) >= 0.55 and stroke_w[id(g)] not in track_w[pg]:
+                # (a short stroke in a track width is a track stub, not a pad)
+                # stroke-drawn SMD pad (QFP, obround): an Altium pad label must sit
+                # on it, and not on a filled pad of the other layer
+                for m in marks:
+                    if g.distance(m) < 0.1 and other.distance(m) > 0.4:
+                        out[pg].append(g)
+                        break
+    return out
 
 pads = find_pads()
 print('pads bottom', len(pads[0]), 'top', len(pads[1]))

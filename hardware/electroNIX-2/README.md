@@ -9,7 +9,7 @@ layers as vector artwork. Converter: `source/pdf2gerber.py`.
 |---|---|
 | `electroNIX2-gerbers.zip` | Main board, 205.0 × 53.9 mm, 2 layers |
 | `electroNIX2-socket-adapter-gerbers.zip` | Round 13-pin tube adapter, Ø16 mm (the PDF has 3 identical copies, so order qty ≥ 3) |
-| `preview/` | Renders of the generated Gerbers |
+| `preview/` | Top and bottom renders (gold = exposed copper). The bottom is shown mirrored, as seen from below |
 
 Each zip has top/bottom copper (`.gtl/.gbl`), solder mask (`.gts/.gbs`),
 paste (`.gtp/.gbp`, main board only), outline (`.gko`), and Excellon drill
@@ -35,9 +35,14 @@ between the 0.8 mm-pitch QFP pads, so any standard 6/6 mil process is enough.
 ## Not in the source PDF, so reconstructed or missing
 
 - **Silkscreen:** none. Use the original layout pictures for part placement.
-- **Solder mask:** made from the pads, expanded by 0.05 mm. Pads were found
-  from Altium's per-pad annotations embedded in the PDF and from the drill
-  holes. Vias are tented.
+- **Solder mask:** made from the pads, expanded by 0.05 mm. Vias are tented.
+  Pads are:
+  - every simple filled shape (rectangle, quad or circle) that isn't a via;
+  - stroke-drawn pads (round, obround, QFP) that sit on a drill hole or slot
+    or carry one of Altium's pad labels from the PDF.
+
+  Copper pours stay covered. So do short track stubs in standard track
+  widths.
 - **Paste:** SMD pads with no expansion. Only needed for a stencil.
 - **Plating:** a hole counts as plated when it has a copper ring. That leaves
   the 3.5 mm mounting holes and the adapter's 6 mm centre hole non-plated.
