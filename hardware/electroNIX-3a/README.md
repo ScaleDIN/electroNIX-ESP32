@@ -3,8 +3,44 @@
 The only sources for this board are one composite top-view JPEG of the
 layout (`source/electroNIX-3a_layout.jpg`, 1200×638, both copper layers
 and silk overlaid) and the schematic (`source/electroNIX-3a_schematic.pdf`,
-"electroNIXclock 3v1", 2013-11-27). `source/jpg2gerber.py` traces the JPEG.
-**This is a work in progress, not fabrication-ready yet** — see "Status".
+"electroNIXclock 3v1", 2013-11-27). **Use `vector/`** — the copper rebuilt as CAD primitives
+(`source/vectorize.py`). `gerbers/` is the earlier pixel trace
+(`source/jpg2gerber.py`) that the rebuild starts from. **Neither is
+fabrication-ready yet** — see "Status". No silkscreen is produced (not
+wanted).
+
+## Vector rebuild (`vector/`)
+
+Pixel tracing a 0.12 mm/px JPEG gives ragged edges, so `vectorize.py` fits
+what the Altium original was made of instead:
+
+- **Tracks**: skeleton centrelines → straight runs snapped to 0/45/90°;
+  widths measured across each run on the JPEG and snapped to 8–50 mil (most
+  come out 12, 15 and 20 mil). Broken runs are joined when collinear, dangling
+  ends are extended to what they point at, short rungs between parallel
+  tracks (bridging artefacts) are dropped.
+- **Under silk**: the top layer is taken only where visible; track ends are
+  run straight on through silk-covered pixels, collecting the visible
+  pieces between letters (this rebuilt the bus under the big logo text).
+- **SMD pads**: rotated rectangles fitted on visible copper (silk outlines
+  often cover the gap between neighbouring pads), angle snapped to 45°, size
+  to 0.05 mm. Copper joining two pads is kept as a rectangle. U2 comes from
+  its measured TQFP-44 footprint; TH pads and vias from `source/holes.csv`.
+- **Top copper areas** (L2 / power section): polygons, snapped to 45°.
+- **Bottom layer**, two regimes:
+  - inside the pour: board minus its gaps — thin white lines of one width
+    (measured 12 mil) as 45° strokes, rings of 15 mil clearance
+    (measured 0.382 mm) round pads not on the pour's net;
+  - large open regions (lamp area, right edge): tracks vectorised directly.
+  - Areas the image hides entirely are assumed to be pour; any pad there gets
+    an isolating ring (an open is easier to fix than a short).
+- **Mask**: every pad + 0.05 mm, vias tented.
+
+`source/preview.py` renders `vector/` in the source's colours
+(`preview/vector_vs_source.png`, `vector_top.png`,
+`vector_bottom_seen_from_top.png`). `source/vectorize.py x0 x1 y0 y1` rebuilds
+just a region (mm, y from the top edge), e.g. the U2 sample in
+`preview/u2_sample_before_after.png`.
 
 Board: 92.0 × 56.0 mm, 2 layers. Units mm.
 
@@ -51,6 +87,14 @@ them, and each pixel is classified as a pure colour or a two-colour blend
   2.03 × 0.5 mm pads, rows 11.46 mm apart.
 
 ## Status
+
+Vector rebuild: whole board done. Known weak spots, all where the JPEG hides
+copper: tracks under the "electroNIX-3a" / website text and the serial box,
+the far-right shift-register column (dense, partly under silk), bottom copper
+under the large top pours, and a few tracks that stop short of a lamp pad.
+These are what the netlist check below should settle.
+
+Pixel trace (`gerbers/`, the input to the rebuild):
 
 1. **Done — bottom copper under thin top-layer features.** Where a red track,
    SMD pad or silk line hides the bottom layer, each hidden pixel looks

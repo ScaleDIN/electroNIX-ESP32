@@ -133,8 +133,11 @@ def raster(geoms, shape, grow=0.0):
     for g in geoms:
         g = g.buffer(grow) if grow else g
         for p in getattr(g, 'geoms', [g]):
-            pts = np.array([pxw(*c) for c in p.exterior.coords], np.float32)
-            cv2.fillPoly(m, [np.round(pts * 4).astype(np.int32)], 1, shift=2)
+            if p.is_empty or p.geom_type != 'Polygon': continue
+            poly = lambda r: np.round(np.array([pxw(*c) for c in r.coords], np.float32) * 4).astype(np.int32)
+            cv2.fillPoly(m, [poly(p.exterior)], 1, shift=2)
+            if len(p.interiors):
+                cv2.fillPoly(m, [poly(r) for r in p.interiors], 0, shift=2)
     return m.astype(bool)
 
 # ---- rectangles for SMD pads ----------------------------------------------
@@ -150,15 +153,20 @@ def fit_pads(mask, exclude):
         if len(xs) < 0.5 * S * S: continue
         (cx, cy), (w, h), ang = cv2.minAreaRect(np.c_[xs, ys].astype(np.float32))
         fill = len(xs) / max(1.0, w * h)
-        if fill > 0.85 and max(w, h) / S < 6:
+        vis = (cls[sl][comp] == R).mean()          # letter fill under silk is not a pad
+        if fill > 0.85 and max(w, h) / S < 6 and vis > 0.5:
             a45 = round(ang / 45) * 45; da = ang - a45
             w, h = snap05((w + 1) / S), snap05((h + 1) / S)
             X, Y = mmw(cx, cy)
             p = affinity.rotate(box(-w / 2, -h / 2, w / 2, h / 2), -a45, origin=(0, 0))
             pads.append(('smd', affinity.translate(p, X, Y), (X, Y)))
-        else:
+        elif fill <= 0.85 or max(w, h) / S >= 6:
             pours.append(comp)
-    return pads, pours
+    pm = np.zeros(mask.shape, bool)
+    for comp in pours: pm |= comp
+    # the opening rounded the pour's corners: take the real pixels back
+    pm = cv2.dilate(pm.astype(np.uint8), k).astype(bool) & mask & ~exclude
+    return pads, pm
 
 # ---- tracks ----------------------------------------------------------------
 def fit_polyline(pts):
@@ -258,7 +266,7 @@ def vectorize_tracks(mask, anchors, chan):
         best = None
         for shp, cen in anchors:
             d = shp.distance(p)
-            if d < 0.45 and (best is None or d < best[0]): best = (d, shp, cen)
+            if d < 0.6 and (best is None or d < best[0]): best = (d, shp, cen)
         if best:
             _, shp, cen = best
             q = np.array(cen)
@@ -271,6 +279,11 @@ def vectorize_tracks(mask, anchors, chan):
                 cand = f[e] + max(t, 0) * u
                 if shp.buffer(0.02).contains(Point(cand)) and np.hypot(*(cand - q)) < 0.6 * np.sqrt(shp.area):
                     f[e] = cand; continue
+                hit = LineString([f[e], f[e] + u * 1.0]).intersection(shp)
+                if not hit.is_empty:          # aimed at the pad but off-centre: run into it
+                    pts = [np.array(c) for g in getattr(hit, 'geoms', [hit]) for c in g.coords]
+                    h = min(pts, key=lambda x: np.hypot(*(x - f[e])))
+                    f[e] = h + u * 0.15; continue
             if np.hypot(*(f[e] - q)) < 0.35:  # only nudge ends already at the centre
                 f[e] = q
     res = []
@@ -278,57 +291,82 @@ def vectorize_tracks(mask, anchors, chan):
         if len(f) < 2: continue
         ln = LineString(f)
         pw = profile_width(ln, chan)
-        res.append((ln, snapw(pw) if pw else w))
+        res.append((ln, min(snapw(pw), w) if pw else w))
     return res
 
 
-def mend(lines, anchors, join=2.5, reach=1.2, lat=0.2, minlen=0.4):
+def mend(lines, anchors, join=2.5, reach=1.2, lat=0.2, minlen=0.4, hidden=None, far=10.0):
     """lines: [(LineString, w)]. Join collinear fragments broken by hidden
-    stretches, extend dangling ends to what they point at, drop orphans."""
+    stretches, extend dangling ends to what they point at, drop orphans.
+    With a `hidden` mask, joins and extensions may run up to `far` mm when
+    the whole bridge lies over hidden pixels (e.g. under silk text)."""
+    def hidden_frac(p, q):
+        if hidden is None: return 0.0
+        n = max(2, int(np.hypot(*(q - p)) / 0.05))
+        pts = [pxw(*(p + (q - p) * t)) for t in np.linspace(0.1, 0.9, n)]
+        v = [hidden[int(b), int(a)] for a, b in pts if 0 <= int(b) < hidden.shape[0] and 0 <= int(a) < hidden.shape[1]]
+        return float(np.mean(v)) if v else 0.0
+    from shapely.strtree import STRtree
     L = [[np.array(l.coords), w] for l, w in lines]
-    anc = unary_union([a for a, _ in anchors]) if anchors else None
+    ancg = [a.boundary if a.geom_type != 'Point' else a for a, _ in anchors]
+    state = {}
+    def rebuild():
+        geoms = [LineString(f[0]) if f is not None else Point(1e6, 1e6) for f in L] + ancg
+        state['g'] = geoms; state['t'] = STRtree(geoms)
     def end(i, e):
         f = L[i][0]; p = f[0] if e == 0 else f[-1]; q = f[1] if e == 0 else f[-2]
         d = p - q; n = np.hypot(*d); return p, (d / n if n > 1e-9 else d)
-    def others(i):
-        g = [LineString(L[j][0]) for j in range(len(L)) if j != i and L[j] is not None]
-        if anc is not None: g.append(anc.boundary if anc.geom_type != 'Point' else anc)
-        return unary_union(g) if g else None
+    def near(i, geom, dist):
+        idx = state['t'].query(geom, predicate='dwithin', distance=dist)
+        return [k for k in idx if k != i and (k >= len(L) or L[k] is not None)]
     def dangling(i, e):
-        p, _ = end(i, e); o = others(i)
-        return o is None or o.distance(Point(p)) > 0.1
+        p, _ = end(i, e); return not near(i, Point(p), 0.1)
     for it in range(2):
+        rebuild()
         # 1) collinear joins
         ends = [(i, e) for i in range(len(L)) if L[i] is not None for e in (0, -1) if dangling(i, e)]
+        epts = np.array([end(i, e)[0] for i, e in ends]) if ends else np.zeros((0, 2))
         used = set()
         for a, (i, e) in enumerate(ends):
             if (i, e) in used or L[i] is None: continue
             p, u = end(i, e); best = None
-            for (j, f) in ends:
+            lim = far if hidden is not None else join
+            cand = np.nonzero(np.hypot(*(epts - p).T) < lim)[0]
+            for b in cand:
+                j, f = ends[b]
                 if j == i or (j, f) in used or L[j] is None: continue
                 q, v = end(j, f); d = q - p; t = d @ u
-                if 0 < t < join and abs(d @ np.array([-u[1], u[0]])) < lat and u @ v < -0.9:
+                if 0 < t < lim and abs(d @ np.array([-u[1], u[0]])) < lat and u @ v < -0.9:
+                    if t > join and hidden_frac(p, q) < 0.85: continue
                     if best is None or t < best[0]: best = (t, j, f)
             if best:
                 _, j, f = best
                 A = L[i][0] if e == -1 else L[i][0][::-1]
                 Bq = L[j][0] if f == 0 else L[j][0][::-1]
                 L[i] = [np.vstack([A, Bq]), max(L[i][1], L[j][1])]; L[j] = None
-                used |= {(i, e), (j, f), (i, -1 if e == 0 else 0)}
+                used |= {(i, e), (j, f), (i, -1 if e == 0 else 0), (j, -1 if f == 0 else 0)}
+        rebuild()
         # 2) extend dangling ends forward
         for i in range(len(L)):
             if L[i] is None: continue
             for e in (0, -1):
                 if not dangling(i, e): continue
-                p, u = end(i, e); o = others(i)
-                if o is None: continue
-                hit = LineString([p + u * 0.02, p + u * reach]).intersection(o)
-                if hit.is_empty: continue
-                pts = [np.array(g.coords[0]) for g in getattr(hit, 'geoms', [hit]) if not g.is_empty]
-                if not pts: continue
-                q = min(pts, key=lambda x: np.hypot(*(x - p)))
-                if e == 0: L[i][0] = np.vstack([q, L[i][0]])
-                else: L[i][0] = np.vstack([L[i][0], q])
+                p, u = end(i, e)
+                r = reach
+                if hidden is not None:        # run on under hidden pixels
+                    while r < 3.0 and hidden_frac(p, p + u * (r + 0.3)) > 0.85: r += 0.3
+                ray = LineString([p + u * 0.02, p + u * r])
+                best = None
+                for k in near(i, ray, 0.0):
+                    hit = ray.intersection(state['g'][k])
+                    for g in getattr(hit, 'geoms', [hit]):
+                        if g.is_empty: continue
+                        q = np.array(g.coords[0]); dd = np.hypot(*(q - p))
+                        if best is None or dd < best[0]: best = (dd, q)
+                if best:
+                    q = best[1]
+                    L[i][0] = np.vstack([q, L[i][0]]) if e == 0 else np.vstack([L[i][0], q])
+    rebuild()
     out = []
     for i in range(len(L)):
         if L[i] is None: continue
@@ -347,19 +385,101 @@ def mend(lines, anchors, join=2.5, reach=1.2, lat=0.2, minlen=0.4):
         out.append((ln, L[i][1]))
     return out
 
+
+def march(lines, anchors, red, hidden, maxlen=15.0, step=0.05):
+    """Run dangling track ends straight on through pixels that are hidden or
+    visible top copper. Keep the run up to the last copper pixel passed, or to
+    whatever it hits. Then drop fragments that the runs now cover."""
+    from shapely.strtree import STRtree
+    L = [[np.array(l.coords), w] for l, w in lines]
+    ancg = [a for a, _ in anchors]
+    def state(pt):
+        a, b = pxw(*pt); a, b = int(round(a)), int(round(b))
+        if not (0 <= b < red.shape[0] and 0 <= a < red.shape[1]): return 0
+        return 2 if red[b, a] else (1 if hidden[b, a] else 0)
+    for rnd in range(2):
+        geoms = [LineString(f) for f, _ in L] + ancg
+        tree = STRtree(geoms)
+        for i in range(len(L)):
+            for e in (0, -1):
+                f = L[i][0]; p = f[0] if e == 0 else f[-1]; q = f[1] if e == 0 else f[-2]
+                d = p - q; n = np.hypot(*d)
+                if n < 1e-9: continue
+                u = d / n
+                if [k for k in tree.query(Point(p), predicate='dwithin', distance=0.1) if k != i]: continue
+                last_red, t, hit = None, step, None
+                while t < maxlen:
+                    c = p + u * t; st = state(c)
+                    if st == 0: break
+                    if st == 2: last_red = t
+                    t += step
+                ray = LineString([p + u * 0.02, p + u * max(t, 0.05)])
+                for k in tree.query(ray, predicate='intersects'):
+                    if k == i: continue
+                    h = ray.intersection(geoms[k])
+                    for g in getattr(h, 'geoms', [h]):
+                        if g.is_empty: continue
+                        dd = np.hypot(*(np.array(g.coords[0]) - p))
+                        if hit is None or dd < hit: hit = dd
+                stop = hit if hit is not None else last_red
+                if stop is None or stop < 0.1: continue
+                newp = p + u * stop
+                L[i][0] = np.vstack([newp, f]) if e == 0 else np.vstack([f, newp])
+    # drop fragments now covered by a longer track
+    lines2 = [(LineString(f), w) for f, w in L]
+    order = sorted(range(len(lines2)), key=lambda k: -lines2[k][0].length)
+    kept, keptg = [], []
+    for k in order:
+        ln, w = lines2[k]
+        if keptg and any(g.buffer(0.12).contains(ln) for g in keptg if g.distance(ln) < 0.1):
+            continue
+        kept.append((ln, w)); keptg.append(ln)
+    return kept
+
 # ---- per-layer build ------------------------------------------------------
 def build_top():
     T = TOP[sl].copy()
     known = th_pad_shapes() + qfp_shapes()
     kmask = raster([g for _, g, _ in known], T.shape, 0.06)
-    pads, pours = fit_pads(T, kmask)
+    # silk outlines often run over the gap between neighbouring pads: fit pads
+    # on visible copper only, then take pours from what the pads don't explain
+    vis = T & (cls[sl] != G)
+    pads, _ = fit_pads(vis, kmask)
+    rest = T & ~raster([g for _, g, _ in pads], T.shape, 0.3)
+    _, pours = fit_pads(rest, kmask)
+    # copper joining neighbouring pads (often under a silk line) -> rectangles
+    padr = [raster([g], T.shape, 0.12) for _, g, _ in pads]
+    link = T & ~raster([g for _, g, _ in pads], T.shape) & ~pours & ~kmask
+    link = cv2.morphologyEx(link.astype(np.uint8), cv2.MORPH_OPEN, np.ones((3, 3), np.uint8))
+    n, lab, st, _ = cv2.connectedComponentsWithStats(link)
+    links = []
+    for i in range(1, n):
+        comp = lab == i
+        if st[i, 4] < 0.04 * S * S: continue
+        if sum(1 for r in padr if (r & comp).any()) < 2: continue
+        ys, xs = np.nonzero(comp)
+        (cx, cy), (w, h), ang = cv2.minAreaRect(np.c_[xs, ys].astype(np.float32))
+        if min(w, h) / S > 1.2 or len(xs) < 0.6 * w * h: continue     # a track, not a link
+        a45 = round(ang / 45) * 45
+        X, Y = mmw(cx, cy)
+        r = affinity.rotate(box(-(w + 2) / S / 2, -(h + 2) / S / 2, (w + 2) / S / 2, (h + 2) / S / 2), -a45, origin=(0, 0))
+        links.append(affinity.translate(r, X, Y))
+    print('pad-to-pad links: %d' % len(links))
     allpads = known + pads
     pmask = raster([g for _, g, _ in allpads], T.shape, 0.15)
-    tr = T & ~pmask
+    # silk hides the top layer: use only what is visible, then join across it
+    silk = cv2.dilate((cls[sl] == G).astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool)
+    tr = T & ~pmask & ~silk & ~cv2.dilate(pours.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)
     tr = cv2.morphologyEx(tr.astype(np.uint8), cv2.MORPH_OPEN, np.ones((2, 2), np.uint8)).astype(bool)
     tracks = vectorize_tracks(tr, [(g, c) for _, g, c in allpads], REDNESS)
-    tracks = mend(tracks, [(g, c) for _, g, c in allpads], join=1.5, reach=0.8, minlen=0.6)
-    geoms = [g for _, g, _ in allpads] + [l.buffer(w / 2, 16) for l, w in tracks]
+    hid = silk | (T & ~(cls[sl] == R) & ~pmask)
+    tracks = mend(tracks, [(g, c) for _, g, c in allpads], join=1.5, reach=0.8, minlen=0.3, hidden=hid)
+    tracks = march(tracks, [(g, c) for _, g, c in allpads], (cls[sl] == R) & ~pmask, hid)
+    tracks = [(l, w) for l, w in tracks if l.length >= 0.6]
+    tpours = pour_polys(pours) if pours.any() else Polygon()
+    if not tpours.is_empty:
+        tpours = tpours.buffer(-0.1).buffer(0.1)
+    geoms = [g for _, g, _ in allpads] + [l.buffer(w / 2, 16) for l, w in tracks] + [tpours] + links
     return unary_union(geoms), tracks, allpads
 
 def pour_polys(comp):
@@ -429,32 +549,45 @@ def build_bottom(clear):
     return unary_union(geoms), tracks
 
 def build_bottom_negative(clear):
-    """Bottom copper = board minus its gaps. The visible gaps are thin white
-    lines of one width (vectorised as 45-degree strokes), rings around pads
-    not on the pour's net (circles), and a few open areas (polygons)."""
-    B = BOT[sl]
+    """Bottom copper in two regimes. Large open (white) regions such as the
+    lamp area hold ordinary tracks, vectorised directly. Everywhere else the
+    copper is a pour: board minus its gaps -- thin white lines of one width
+    (45-degree strokes) and rings round pads not on the pour's net. Areas the
+    image hides are assumed to be pour; pads there get an isolating ring."""
+    B = BOT[sl]; U = z['unres_b'][sl]
     known = th_pad_shapes()
     padm = raster([g for _, g, _ in known], B.shape, 0.04)
-    gap = ~B & ~padm
-    # rings: a pad whose surroundings are mostly gap gets a round clearance
+    gap = ~B & ~padm & ~U
+    seen = ~U
+    # open regions: big white areas, closed over 3 mm so the tracks and pads
+    # inside them belong to them (but never across solid pour)
+    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(0.9 * S) | 1, int(0.9 * S) | 1))
+    opened = cv2.morphologyEx(gap.astype(np.uint8), cv2.MORPH_OPEN, k)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(opened)
+    openm = np.isin(lab, [i for i in range(1, n) if st[i, 4] > 1.0 * S * S]).astype(np.uint8)
+    k3 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(3.0 * S) | 1, int(3.0 * S) | 1))
+    k15 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(1.5 * S) | 1, int(1.5 * S) | 1))
+    solid = cv2.morphologyEx(((B | U) & ~padm).astype(np.uint8), cv2.MORPH_OPEN, k15).astype(bool)
+    openc = (cv2.morphologyEx(openm, cv2.MORPH_CLOSE, k3).astype(bool) & ~solid) | openm.astype(bool)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(openc.astype(np.uint8))
+    big = np.isin(lab, [i for i in range(1, n) if st[i, 4] > 10 * S * S])
+    areas = pour_polys(cv2.dilate(openc.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool))
+    aream = raster([areas], B.shape, 0.05) if not areas.is_empty else np.zeros_like(B)
     rings = []
     for kind, g, cc in known:
+        if areas.contains(g.centroid): continue
         ann = raster([g.buffer(clear * 0.8)], B.shape) & ~raster([g.buffer(0.1)], B.shape)
-        if ann.any() and gap[ann].mean() > 0.5:
+        if not ann.any(): continue
+        vis = ann & seen
+        if vis.sum() < 0.4 * ann.sum() or gap[vis].mean() > 0.5:
             rings.append(g.buffer(clear, 32))
     ringm = raster(rings, B.shape, 0.05) if rings else np.zeros_like(B)
-    k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (int(0.9 * S) | 1, int(0.9 * S) | 1))
-    opened = cv2.morphologyEx(gap.astype(np.uint8), cv2.MORPH_OPEN, k).astype(bool)
-    n, lab, st, _ = cv2.connectedComponentsWithStats(opened.astype(np.uint8))
-    openm = np.isin(lab, [i for i in range(1, n) if st[i, 4] > 1.0 * S * S])
-    areas = pour_polys(cv2.dilate(openm.astype(np.uint8), np.ones((3, 3), np.uint8)).astype(bool))
-    aream = raster([areas], B.shape, 0.05) if not areas.is_empty else np.zeros_like(B)
     thin = gap & ~aream & ~ringm
     thin = cv2.morphologyEx(thin.astype(np.uint8), cv2.MORPH_OPEN, np.ones((2, 2), np.uint8)).astype(bool)
     n, lab, st, _ = cv2.connectedComponentsWithStats(thin.astype(np.uint8))
     thin = np.isin(lab, [i for i in range(1, n) if st[i, 4] > 0.08 * S * S])
     anchors = [(r, r.centroid.coords[0]) for r in rings]
-    for a in getattr(areas, 'geoms', [areas]):
+    for a in list(getattr(areas, 'geoms', [areas])):
         if not a.is_empty: anchors.append((a, a.representative_point().coords[0]))
     strokes = vectorize_tracks(thin, anchors, WHITENESS)
     strokes = mend(strokes, anchors)
@@ -462,11 +595,18 @@ def build_bottom_negative(clear):
     sw = widths[len(widths) // 2] if widths else clear
     print('gap strokes: %d, median width %.3f mm' % (len(strokes), sw))
     cut = [l.buffer(sw / 2, 16) for l, _ in strokes] + rings + [areas]
-    board = box(0, 0, BW, BH)
-    cu = board.difference(unary_union(cut))
+    cu = box(0, 0, BW, BH).difference(unary_union(cut))
     cu = cu.buffer(-0.1).buffer(0.1)
-    cu = unary_union([p for p in getattr(cu, 'geoms', [cu]) if p.area > 0.2])
-    return unary_union([cu] + [g for _, g, _ in known]), strokes
+    cu = unary_union([p for p in getattr(cu, 'geoms', [cu]) if p.area > 0.3])
+    # tracks in the open regions, as copper
+    inner = raster([areas.buffer(-0.1)], B.shape) if not areas.is_empty else np.zeros_like(B)
+    tm = B & inner & ~raster([g for _, g, _ in known], B.shape, 0.15)
+    tm = cv2.morphologyEx(tm.astype(np.uint8), cv2.MORPH_OPEN, np.ones((2, 2), np.uint8)).astype(bool)
+    anc2 = [(g, c) for _, g, c in known] + [(p, p.representative_point().coords[0]) for p in getattr(cu, 'geoms', [cu])]
+    tracks = vectorize_tracks(tm, anc2, NAVYNESS)
+    tracks = mend(tracks, anc2, join=2.0, reach=0.8, minlen=0.6)
+    print('bottom tracks in open regions: %d' % len(tracks))
+    return unary_union([cu] + [g for _, g, _ in known] + [l.buffer(w / 2, 16) for l, w in tracks]), strokes
 
 def measure_clearance():
     """Gap between the bottom pour and bottom tracks, from visible pixels."""
@@ -504,19 +644,38 @@ def write_regions(path, func, geom):
         s += 'X%dY%dD0%d*\n' % (c(x), c(y), d) if False else ''
     open(path, 'w').write(s + 'M02*\n')
 
+NPTH = []
+with open(os.path.join(HERE, 'holes.csv')) as f:
+    for row in csv.DictReader(f):
+        if row['measured_mm'] == 'NPTH': NPTH.append((float(row['x_mm']), float(row['y_mm']), float(row['drill_mm'])))
+
 if __name__ == '__main__':
+    import shutil
+    whole = len(sys.argv) < 5
     out = os.path.join(ROOT, 'vector'); os.makedirs(out, exist_ok=True)
     clear = measure_clearance()
     print('bottom pour clearance measured %.3f mm' % clear)
-    clear = min([0.2, 0.254, 0.3, 0.381, 0.4, 0.5], key=lambda t: abs(t - clear))
+    clear = min([8 * MIL, 10 * MIL, 12 * MIL, 15 * MIL, 20 * MIL], key=lambda t: abs(t - clear))
     top, ttr, pads = build_top()
     bot, btr = build_bottom_negative(clear)
-    print('clearance used %.3f; top: %d tracks, %d pads; bottom: %d tracks' % (clear, len(ttr), len(pads), len(btr)))
+    keep = unary_union([Point(x, y).buffer(d / 2 + 0.2, 32) for x, y, d in NPTH])
+    top, bot = top.difference(keep), bot.difference(keep)
+    print('clearance used %.3f; top: %d tracks, %d pads; bottom: %d gap strokes' % (clear, len(ttr), len(pads), len(btr)))
     from collections import Counter
-    print('top widths', sorted(Counter(round(w / MIL) for _, w in ttr).items()))
-    print('bottom widths', sorted(Counter(round(w / MIL) for _, w in btr).items()))
-    write_regions(os.path.join(out, 'F_Cu.gtl'), 'Copper,L1,Top', top.intersection(CLIP))
-    write_regions(os.path.join(out, 'B_Cu.gbl'), 'Copper,L2,Bot', bot.intersection(CLIP))
+    print('top widths (mil)', sorted(Counter(round(w / MIL) for _, w in ttr).items()))
+    P = 'electroNIX3a-' if whole else ''
+    write_regions(os.path.join(out, P + 'F_Cu.gtl'), 'Copper,L1,Top', top.intersection(CLIP))
+    write_regions(os.path.join(out, P + 'B_Cu.gbl'), 'Copper,L2,Bot', bot.intersection(CLIP))
+    # mask: every pad +0.05 mm; vias tented
+    mtop = unary_union([g.buffer(0.05, 16) for k, g, _ in pads if k != 'via'])
+    mbot = unary_union([g.buffer(0.05, 16) for k, g, _ in pads if k == 'th'])
+    write_regions(os.path.join(out, P + 'F_Mask.gts'), 'Soldermask,Top', mtop.intersection(CLIP))
+    write_regions(os.path.join(out, P + 'B_Mask.gbs'), 'Soldermask,Bot', mbot.intersection(CLIP))
+    if whole:
+        g = os.path.join(ROOT, 'gerbers')
+        for n in ('Edge_Cuts.gm1', 'PTH.drl', 'NPTH.drl'):
+            shutil.copy(os.path.join(g, 'electroNIX3a-' + n), os.path.join(out, 'electroNIX3a-' + n))
+    if whole: sys.exit(0)
     with open(os.path.join(out, 'frame.gm1'), 'w') as f:
         f.write('%FSLAX46Y46*%\n%MOMM*%\n%ADD10C,0.050000*%\nD10*\n')
         x0, y0, x1, y1 = CLIP.bounds
