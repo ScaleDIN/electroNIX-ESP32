@@ -41,6 +41,10 @@ between the 0.8 mm-pitch QFP pads, so any standard 6/6 mil process is enough.
   - stroke-drawn pads (round, obround, QFP) that sit on a drill hole or slot
     or carry one of Altium's pad labels from the PDF.
 
+  Pad labels are printed on both pages, so each component is assigned to
+  the side where most of its labels land on pads. This matters for U2: it
+  has decoupling caps directly underneath it on the bottom.
+
   Copper pours stay covered. So do short track stubs in standard track
   widths.
 - **Paste:** SMD pads with no expansion. Only needed for a stencil.

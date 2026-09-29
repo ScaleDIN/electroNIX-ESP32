@@ -122,6 +122,8 @@ holes = []         # (x, y, dia) per page (deduped later)
 slots = []         # (x1,y1,x2,y2,width)
 outline_segs = []
 pad_marks = {0: [], 1: []}
+pad_names = []    # (designator label, point) from page 0
+designators = set()
 track_w = {0: set(), 1: set()}   # stroke widths used by real tracks
 stroke_w = {}
 
@@ -167,6 +169,10 @@ for pg in (0, 1):
     for w in page.get_text('words'):
         if w[4].startswith('PA'):
             pad_marks[pg].append(tf(pg, (w[0] + w[2]) / 2, (w[1] + w[3]) / 2))
+            if pg == 0:
+                pad_names.append((w[4][2:], pad_marks[pg][-1]))
+        elif w[4].startswith('CO'):
+            designators.add(w[4][2:])
 
 # ---- drills: dedupe across pages, check alignment between layers
 def dedupe(hs):
@@ -207,11 +213,26 @@ def find_pads():
     # anything plated through: holes and slot ends
     tht = [Point(h[0], h[1]) for h in H if h[2] >= 0.6] + \
           [Point(p) for a, b, w in SL for p in (a, b)]
-    marks = [Point(m) for m in pad_marks[0]]   # same annotations on both pages
     single_fills = {pg: unary_union([g for g, k in PADPRIMS[pg] if k == 'fill']) for pg in (0, 1)}
+    # Pad labels ("PA" + designator + pad no.) are printed on both pages. Put each
+    # component on the side where most of its labels land on pad-like copper.
+    def comp(name):
+        c = [d for d in designators if name.startswith(d)]
+        return max(c, key=len) if c else name
+    hits = {}
+    for name, m in pad_names:
+        pt = Point(m)
+        for pg in (0, 1):
+            if any(g.distance(pt) < 1e-6 for g, k in PADPRIMS[pg]):
+                hits.setdefault(comp(name), [0, 0])[pg] += 1
+    side = {c: (1 if h[1] > h[0] else 0) for c, h in hits.items()}
+    marks_on = {0: [], 1: []}
+    for name, m in pad_names:
+        c = comp(name)
+        for pg in ((side[c],) if c in side and hits[c][0] != hits[c][1] else (0, 1)):
+            marks_on[pg].append(Point(m))
     out = {0: [], 1: []}
     for pg in (0, 1):
-        other = single_fills[1 - pg]
         for g, k in PADPRIMS[pg]:
             is_via = g.area < 1.0 and any(g.contains(v) for v in via_centres)
             if is_via:
@@ -227,12 +248,12 @@ def find_pads():
                         any(h is not g and h.contains(t) and (k2 == 'fill' or stroke_w[id(h)] not in track_w[pg])
                             for h, k2 in PADPRIMS[pg]) for t in own):
                     out[pg].append(g)
-            elif size(g) >= 0.55 and stroke_w[id(g)] not in track_w[pg]:
-                # (a short stroke in a track width is a track stub, not a pad)
-                # stroke-drawn SMD pad (QFP, obround): an Altium pad label must sit
-                # on it, and not on a filled pad of the other layer
-                for m in marks:
-                    if g.distance(m) < 0.1 and other.distance(m) > 0.4:
+            elif size(g) >= 0.55 and not g.intersects(single_fills[pg]):
+                # (a short stroke touching a filled pad is a track stub leaving it)
+                # stroke-drawn SMD pad (QFP, obround): a pad label of a component
+                # on this side must sit on it
+                for m in marks_on[pg]:
+                    if g.distance(m) < 0.4:
                         out[pg].append(g)
                         break
     return out
