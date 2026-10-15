@@ -158,7 +158,8 @@ Notes:
   (~0.6 mA each; one driver handles two neons on the 6-tube build). The
   original 430k base resistor leaves the transistor current-limited at
   3.3 V.
-- Off-cathode bias filter: one 2.2 µF/50 V cap instead of 4 × 470 nF.
+- Off-cathode bias: kept as PCB-036 had it: 430k/100k divider with 4 × 470 nF/50 V
+  in series across the 100k (118 nF, 200 V string).
 - A second colon neon (SEC_1) is fitted from the start. The original Z573M
   kit had one; leave NE2 off for a single dot.
 

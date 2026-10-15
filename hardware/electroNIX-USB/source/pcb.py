@@ -165,7 +165,14 @@ def placement(nl, tubes):
     # ---------------- front band: output cap + KBIAS at the left end
     Cout = [r for r in nl.on('+170V', 'C') if '250V' in val(r)][0]; put(Cout, 6.6, 47.5, 0)
     kr = nl.on('KBIAS', 'R'); kr430 = [r for r in kr if val(r) == '430k'][0]; kr100 = [r for r in kr if r != kr430][0]
-    put(kr430, 4.8, 53.2, 0); put(nl.one('KBIAS', 'C'), 4.8, 56.4, 0); put(kr100, 8.6, 54.6, 90)
+    put(kr430, 4.8, 52.3, 0); put(kr100, 10.6, 55.5, 90)
+    # 4 x 470n in series, KBIAS -> GND, as a short row
+    c, node, string = nl.one('KBIAS', 'C'), 'KBIAS', []
+    while True:
+        string.append(c); pin = '2' if nl.pnet(c, '1') == node else '1'; node = nl.pnet(c, pin)
+        if node == 'GND': break
+        c = [x for x in nl.on(node, 'C') if x not in string][0]
+    for i, c in enumerate(string): put(c, 1.8 + i * 2.2, 55.6, 90)
 
     # ---------------- front band: cathode switches (R | Q over clamp D)
     x0, x1 = 14.0, W - 8.0

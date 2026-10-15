@@ -267,7 +267,9 @@ def sheet_display():
     sh.label('KBIAS', round(xs[-1] + 10.16, 2), yk, 0)
     R(sh, '430k', 450, 250, '+170V', 'KBIAS', fp=FP_RHV)
     R(sh, '100k', 470, 250, 'KBIAS', 'GND')
-    C(sh, '2u2 50V', 490, 250, 'KBIAS', 'GND', fp=FP_C1206)
+    # PCB-036: C41-C44, 4 x 470n/50V in SERIES (118 nF, 200 V string) across R46
+    for i in range(4):
+        C(sh, '470n 50V', 490, 240 + i * 7.62, 'KBIAS' if i == 0 else '-', 'GND' if i == 3 else '-')
     sh.text('KBIAS = 170 V x 100k/530k = ~32 V. Off cathodes are held at or below it,\n'
             'so the lit anode cannot glow them and the MMBTA42s stay well under VCEO.', 415, 280)
     return sh

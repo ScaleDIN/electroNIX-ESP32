@@ -2419,20 +2419,20 @@
     (uuid "aaf6c415-4169-5fec-af6c-4ad68715a529"))
   (wire
     (pts
-      (xy 490.22 246.38)
-      (xy 490.22 243.84))
+      (xy 490.22 236.22)
+      (xy 490.22 233.68))
     (stroke
       (width 0)
       (type default))
-    (uuid "1d2374eb-41e4-50f3-8c63-2d80b252a913"))
+    (uuid "aa2b5805-2890-5871-bb2d-fb7152ef27ff"))
   (wire
     (pts
-      (xy 490.22 254)
-      (xy 490.22 256.54))
+      (xy 490.22 266.7)
+      (xy 490.22 269.24))
     (stroke
       (width 0)
       (type default))
-    (uuid "86140123-753a-566f-88e2-0b3c82867279"))
+    (uuid "fe01528f-6d36-5b16-bdc2-cf68de22768c"))
   (global_label "W_1"
     (shape passive)
     (at 34.29 80.01 180)
@@ -3494,13 +3494,13 @@
       (justify left bottom))
     (uuid "6634ef8b-9e4c-5d2e-a875-34ce12a1d15f"))
   (label "KBIAS"
-    (at 490.22 243.84 90)
+    (at 490.22 233.68 90)
     (fields_autoplaced)
     (effects
       (font
         (size 1.27 1.27))
       (justify left bottom))
-    (uuid "587bea47-2883-5482-81cb-4ee07b360d29"))
+    (uuid "05d54b48-04ec-519b-b78e-5a65fc4a2356"))
   (rectangle
     (start 20 25)
     (end 400 105)
@@ -8546,68 +8546,33 @@
           (reference "R53")
           (unit 1)))))
   (symbol
-    (lib_id "power:GND")
-    (at 490.22 256.54 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "71655b10-be96-5315-a984-808f7f610313")
-    (property "Reference" "#PWR5122"
-      (at 490.22 256.54 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Value" "GND"
-      (at 490.22 259.74 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Footprint" ""
-      (at 490.22 256.54 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Datasheet" ""
-      (at 490.22 256.54 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (pin "1"
-      (uuid "a78c0100-32a6-5658-8bb4-680191ea5589"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "#PWR5122")
-          (unit 1)))))
-  (symbol
     (lib_id "Device:C")
-    (at 490.22 250.19 0)
+    (at 490.22 240.03 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "1b24fb1c-5375-5826-a49a-1f24c5f7dea6")
     (property "Reference" "C21"
-      (at 491.49 248.92 0)
+      (at 491.49 238.76 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "2u2 50V"
-      (at 491.49 251.46 0)
+    (property "Value" "470n 50V"
+      (at 491.49 241.3 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
-      (at 490.22 250.19 0)
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 490.22 240.03 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 490.22 250.19 0)
+      (at 490.22 240.03 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -8620,4 +8585,162 @@
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
           (reference "C21")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:C")
+    (at 490.22 247.65 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f73cfbc6-1b01-509e-9045-afe065c210d3")
+    (property "Reference" "C22"
+      (at 491.49 246.38 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470n 50V"
+      (at 491.49 248.92 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 490.22 247.65 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 490.22 247.65 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "6b196a1d-46c8-5371-893d-fd5028f6144c"))
+    (pin "2"
+      (uuid "6efcd7de-7ab8-5d2a-8be8-e50ae57bcbf4"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "C22")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:C")
+    (at 490.22 255.27 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c85bb306-74c2-5f09-864d-ef7b49a950f6")
+    (property "Reference" "C23"
+      (at 491.49 254 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470n 50V"
+      (at 491.49 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 490.22 255.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 490.22 255.27 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "4d559cf7-b2be-5502-85bb-220933c7bb70"))
+    (pin "2"
+      (uuid "116d749c-2b9c-55d8-9e34-7aeb2d50d68d"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "C23")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 490.22 269.24 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "569021c0-32ed-544b-ab33-1166c017ea98")
+    (property "Reference" "#PWR5125"
+      (at 490.22 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 490.22 272.44 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 490.22 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 490.22 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "aa285bfe-446d-5570-9821-642e970bfbf9"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5125")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:C")
+    (at 490.22 262.89 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d7500d65-6d26-51f6-ae3c-42f8949864f4")
+    (property "Reference" "C24"
+      (at 491.49 261.62 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "470n 50V"
+      (at 491.49 264.16 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+      (at 490.22 262.89 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 490.22 262.89 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "912a8b5e-4678-50e5-943d-a0f16ad04a0b"))
+    (pin "2"
+      (uuid "36fcaf1f-23b9-540f-b679-03b69300469c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "C24")
           (unit 1))))))
