@@ -44,7 +44,7 @@ def NPN(sh, val, x, y, b, c, e, sym='MMBTA42', **kw):
 def flag(sh, net, x, y):
     sh.part(f'#FLG{sh.page}{len(sh.syms):02d}', 'power', 'PWR_FLAG', 'PWR_FLAG', x, y, {'1': net}, 0, '', show_val=False)
 
-def npn_driver(sh, x, y, inp, coll, rb='15k', val='MMBTA42', sym='MMBTA42'):
+def npn_driver(sh, x, y, inp, coll, rb='6k8', val='MMBTA42', sym='MMBTA42'):
     """Base resistor touching the base of an NPN switch, emitter to GND."""
     R(sh, rb, x - 8.89, y, inp, '-', rot=90)
     NPN(sh, val, x, y, '-', coll, 'GND', sym=sym)
@@ -72,7 +72,8 @@ def sheet_power():
             fp='Package_TO_SOT_SMD:SOT-23-6', refpos=(124, 93), valpos=(124, 118))
     sh.text('VBUS feeds the boost converter and the 3.3 V LDO only.\n'
             'Budget from a 500 mA port: ESP32 ~250 mA avg (500 mA WiFi peaks),\n'
-            'HV supply ~150 mA (multiplexed: same for 4 or 6 tubes). A USB-C source gives 1.5-3 A at 5V.', 25, 140)
+            'HV supply ~0.3 A (4 tubes) / ~0.4 A (6 tubes). Total ~0.5-0.8 A:\n'
+            'use a USB-C charger rated >= 1 A at 5 V (any phone charger), not a PC USB-A port.', 25, 140)
 
     sh.box(185, 25, 300, 95, '3.3 V regulator')
     C(sh, '10u', 200, 60, '+5V', 'GND', fp=FP_C1206)
@@ -162,7 +163,7 @@ def sheet_hv():
     sh.box(20, 25, 150, 120, 'Boost switch (as PCB-036)')
     C(sh, '22u 10V', 35, 60, '+5V', 'GND', fp=FP_C1206)
     C(sh, '100n', 47, 60, '+5V', 'GND')
-    sh.part(ref('L'), 'Device', 'L', '33u WE 7447715330', 70, 50, {'1': '+5V', '2': 'HV_SW'}, 0,
+    sh.part(ref('L'), 'Device', 'L', '33u WE 7447715330' if TUBES == 4 else '22u WE 7447715220', 70, 50, {'1': '+5V', '2': 'HV_SW'}, 0,
             'Inductor_SMD:L_Wuerth_WE-PD-Typ-LS')
     sh.part(ref('Q'), 'Device', 'Q_NMOS_GDS', 'IRLR3110ZPBF', 100, 80, {'G': '-', 'D': 'HV_SW', 'S': 'GND'}, 0,
             'Package_TO_SOT_SMD:TO-252-2')
@@ -171,15 +172,15 @@ def sheet_hv():
     sh.text('IO2 drives the logic-level FET directly, 32 kHz,\nduty clamped to ~41 % by firmware (HV_DUTY_MAX).\n'
             '10k keeps the gate (and IO2) low during boot.', 25, 105)
 
-    sh.box(160, 25, 400, 120, 'Cockcroft-Walton multiplier, 7 x 10MQ100N, 7 x 1u/100V (as PCB-036)')
+    sh.box(160, 25, 400, 120, 'Cockcroft-Walton multiplier, 7 x 10MQ100N, 7 x 2u2/100V (PCB-036 used 1u)')
     # DC column (top) and AC column (bottom), drawn like the original
     top = ['+170V', 'CW_T3', 'CW_T2', 'CW_T1', 'GND']
     bot = ['CW_B3', 'CW_B2', 'CW_B1', 'HV_SW']
     x0, yt, yb = 185, 50, 95
     for i in range(4):
-        C(sh, '1u 100V', x0 + 15 + i * 50, yt, top[i], top[i + 1], rot=90, fp=FP_C1210)
+        C(sh, '2u2 100V', x0 + 15 + i * 50, yt, top[i], top[i + 1], rot=90, fp=FP_C1210)
     for i in range(3):
-        C(sh, '1u 100V', x0 + 40 + i * 50, yb, bot[i], bot[i + 1], rot=90, fp=FP_C1210)
+        C(sh, '2u2 100V', x0 + 40 + i * 50, yb, bot[i], bot[i + 1], rot=90, fp=FP_C1210)
     # diodes, alternate direction: HV_SW -> T1 -> B1 -> T2 -> B2 -> T3 -> B3 -> +170V
     chain = [('HV_SW', 'CW_T1'), ('CW_T1', 'CW_B1'), ('CW_B1', 'CW_T2'), ('CW_T2', 'CW_B2'),
              ('CW_B2', 'CW_T3'), ('CW_T3', 'CW_B3'), ('CW_B3', '+170V')]
@@ -208,6 +209,9 @@ def sheet_display():
     T = TUBES
     W = {n: f'W_{n+1}' for n in range(6)}
     pitch = 90 if T == 4 else 62
+    # Z573M: Ik 1.5-2.5 mA continuous, 12 mA pulse. Multiplexed at 1/T duty,
+    # peak = (V_HV - 140 V) / RA: 4 tubes 5k6 -> 5.4 mA, 6 tubes 3k9 -> 7.7 mA at 170 V.
+    RA = '5k6' if T == 4 else '3k9'
     sh = Sheet('Display', 'display.kicad_sch', f'electroNIX-USB - {T} x Z573M, multiplexed', 5, paper='A2')
     sh.box(20, 25, 400, 105, 'Anode switches (one per tube, MMBTA42 level shift + MMBTA92 high side)')
     for n in range(T):
@@ -218,21 +222,23 @@ def sheet_display():
         R(sh, '100k', X + 2.54, Y - 16.51, '+170V', '-', fp=FP_RHV)
         sh.part(ref('Q'), 'Transistor_BJT', 'MMBTA92', 'MMBTA92', X + 7.62, Y - 12.7,
                 {'B': '-', 'E': '+170V', 'C': '-'}, 0, FP_SOT23, mirror='x')
-        R(sh, '10k', X + 10.16, Y - 3.81, '-', f'A_{n+1}', fp=FP_RHV)
+        R(sh, RA, X + 10.16, Y - 3.81, '-', f'A_{n+1}', fp=FP_RHV)
         sh.junction(round(X + 2.54, 2), round(Y - 12.7, 2))
-    sh.text('W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak.'
+    sh.text(f'W_n high -> tube n anode at +170V through {RA}: ~{30/(5.6 if T == 4 else 3.9):.1f} mA peak at 170 V, '
+            f'~{30/(5.6 if T == 4 else 3.9)/T:.1f} mA average per tube (Z573M: 1.5-2.5 mA cont., 12 mA pulse).\n'
+            'Peak current follows (V_HV - 140 V): keep the firmware HV setpoint <= 180 V.'
             + ('  W_5/W_6 = IO12/IO15 (seconds tubes).' if T == 6 else
-               '  6-tube build (--tubes 6): two more of these on IO12/IO15.'), 25, 98)
+               '  6-tube build (--tubes 6): two more of these on IO12/IO15.'), 25, 95)
 
-    sh.box(20, 115, 400, 210, 'Tubes (RFT Z573M, B13D base, pin 7 at front)')
+    sh.box(20, 115, 400, 210, 'Tubes (RFT Z573M side-view, 13 flying leads on 9.53 mm circle, wire 7 at front)')
     for n in range(T):
         conns = {'13': f'A_{n+1}', '12': 'K_0', '1': 'K_1', '2': 'K_2', '3': 'K_3', '5': 'K_4',
                  '6': 'K_5', '7': 'K_6', '8': 'K_7', '9': 'K_8', '11': 'K_9'}
         tx = r1(60 + n * pitch)
-        sh.part(ref('N'), 'electronix', 'Z573M', 'Z573M', tx, 160, conns, 0, '',
+        sh.part(ref('N'), 'electronix', 'Z573M', 'Z573M', tx, 160, conns, 0, 'electronix:Nixie_RFT_Z573M',
                 refpos=(tx - 16, 151), valpos=(tx + 4, 151), byname=False)
-    sh.text('Pin 4 = internal connection (leave open). Pin 10 = PR sign (unused).\n'
-            'Pinout from tube-tester.com Z573M page; check against a real tube before layout.', 25, 195)
+    sh.text('Pin 4 = internal connection (leave open). Pin 10 = decimal point (unused).\n'
+            'Pinout per RFT data book (frank.pocnet.net/sheets/084/z/Z573M.pdf).', 25, 195)
 
     sh.box(20, 220, 400, 300, 'Cathode switches (MMBTA42, shared by all tubes)')
     for k in range(10):
@@ -315,6 +321,11 @@ def main(out):
         open(os.path.join(out, s.fname), 'w').write(s.render(glob, date=date))
     if os.path.abspath(libs.EXTRA['electronix']) != os.path.abspath(os.path.join(out, 'electronix.kicad_sym')):
         shutil.copy(libs.EXTRA['electronix'], os.path.join(out, 'electronix.kicad_sym'))
+    pretty = os.path.join(os.path.dirname(libs.EXTRA['electronix']), 'electronix.pretty')
+    if os.path.abspath(pretty) != os.path.abspath(os.path.join(out, 'electronix.pretty')):
+        shutil.copytree(pretty, os.path.join(out, 'electronix.pretty'), dirs_exist_ok=True)
+    open(os.path.join(out, 'fp-lib-table'), 'w').write(
+        '(fp_lib_table\n  (version 7)\n  (lib (name "electronix")(type "KiCad")(uri "${KIPRJMOD}/electronix.pretty")(options "")(descr "electroNIX project footprints"))\n)\n')
     open(os.path.join(out, 'sym-lib-table'), 'w').write(
         '(sym_lib_table\n  (version 7)\n  (lib (name "electronix")(type "KiCad")(uri "${KIPRJMOD}/electronix.kicad_sym")(options "")(descr "electroNIX project symbols"))\n)\n')
     pro = {"meta": {"filename": "electroNIX-USB.kicad_pro", "version": 1},

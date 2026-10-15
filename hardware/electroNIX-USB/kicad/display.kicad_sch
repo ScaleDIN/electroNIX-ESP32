@@ -508,17 +508,17 @@
           (font
             (size 1.27 1.27))
           (justify left)))
-      (property "Footprint" ""
+      (property "Footprint" "electronix:Nixie_RFT_Z573M"
         (at 0 0 0)
         (effects
           (font
             (size 1.27 1.27)) hide))
-      (property "Datasheet" "https://www.tube-tester.com/sites/nixie/data/z573m/z573m.htm"
+      (property "Datasheet" "https://frank.pocnet.net/sheets/084/z/Z573M.pdf"
         (at 0 0 0)
         (effects
           (font
             (size 1.27 1.27)) hide))
-      (property "ki_description" "RFT Z573M top-view nixie, 13 mm digits, B13D base (pin 7 at front). Pin 4 internal connection - do not connect. Pin 10 = PR sign."
+      (property "ki_description" "RFT Z573M / Z5730M side-view nixie, 13 mm digits, decimal point right. 13 flying leads on 9.53 mm circle, wire 7 at front. Pin 4 internal connection - do not connect. Ik 1.5-2.5 mA continuous, 12 mA pulse."
         (at 0 0 0)
         (effects
           (font
@@ -664,7 +664,7 @@
         (pin passive line
           (at 11.43 -10.16 90)
           (length 3.81)
-          (name "PR"
+          (name "DP"
             (effects
               (font
                 (size 1.016 1.016))))
@@ -2971,13 +2971,13 @@
         (size 2 2) bold)
       (justify left top))
     (uuid "5fbf3bfc-8af3-5fd3-9b38-6f0c6d0e7c4b"))
-  (text "W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak.  6-tube build (--tubes 6): two more of these on IO12/IO15."
-    (at 25 98 0)
+  (text "W_n high -> tube n anode at +170V through 5k6: ~5.4 mA peak at 170 V, ~1.3 mA average per tube (Z573M: 1.5-2.5 mA cont., 12 mA pulse).\nPeak current follows (V_HV - 140 V): keep the firmware HV setpoint <= 180 V.  6-tube build (--tubes 6): two more of these on IO12/IO15."
+    (at 25 95 0)
     (effects
       (font
         (size 1.27 1.27))
       (justify left top))
-    (uuid "eee54c8e-a1bf-53c8-86e8-0a7fd9a07b33"))
+    (uuid "5931b955-5e83-57c7-b366-91e90c9e10fb"))
   (rectangle
     (start 20 115)
     (end 400 210)
@@ -2987,14 +2987,14 @@
     (fill
       (type none))
     (uuid "fadc25ef-5ab7-5808-baa3-b82e34a2a1c5"))
-  (text "Tubes (RFT Z573M, B13D base, pin 7 at front)"
+  (text "Tubes (RFT Z573M side-view, 13 flying leads on 9.53 mm circle, wire 7 at front)"
     (at 21.27 116.27 0)
     (effects
       (font
         (size 2 2) bold)
       (justify left top))
-    (uuid "39a85589-92a8-5e78-a6ef-b309bd730dd2"))
-  (text "Pin 4 = internal connection (leave open). Pin 10 = PR sign (unused).\nPinout from tube-tester.com Z573M page; check against a real tube before layout."
+    (uuid "ad9dacf6-8e18-53f8-83c0-4a9fbac158cc"))
+  (text "Pin 4 = internal connection (leave open). Pin 10 = decimal point (unused).\nPinout per RFT data book (frank.pocnet.net/sheets/084/z/Z573M.pdf)."
     (at 25 195 0)
     (effects
       (font
@@ -3390,7 +3390,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "10k"
+    (property "Value" "5k6"
       (at 60.96 77.47 0)
       (effects
         (font
@@ -3744,7 +3744,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "10k"
+    (property "Value" "5k6"
       (at 151.13 77.47 0)
       (effects
         (font
@@ -4098,7 +4098,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "10k"
+    (property "Value" "5k6"
       (at 241.3 77.47 0)
       (effects
         (font
@@ -4452,7 +4452,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "10k"
+    (property "Value" "5k6"
       (at 331.47 77.47 0)
       (effects
         (font
@@ -4499,7 +4499,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Nixie_RFT_Z573M"
       (at 59.69 160.02 0)
       (effects
         (font
@@ -4562,7 +4562,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Nixie_RFT_Z573M"
       (at 149.86 160.02 0)
       (effects
         (font
@@ -4625,7 +4625,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Nixie_RFT_Z573M"
       (at 240.03 160.02 0)
       (effects
         (font
@@ -4688,7 +4688,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Nixie_RFT_Z573M"
       (at 330.2 160.02 0)
       (effects
         (font
@@ -4744,7 +4744,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 35.56 273.05 90)
       (effects
         (font
@@ -4861,7 +4861,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 72.39 273.05 90)
       (effects
         (font
@@ -4978,7 +4978,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 107.95 273.05 90)
       (effects
         (font
@@ -5095,7 +5095,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 143.51 273.05 90)
       (effects
         (font
@@ -5212,7 +5212,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 180.34 273.05 90)
       (effects
         (font
@@ -5329,7 +5329,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 215.9 273.05 90)
       (effects
         (font
@@ -5446,7 +5446,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 252.73 273.05 90)
       (effects
         (font
@@ -5563,7 +5563,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 288.29 273.05 90)
       (effects
         (font
@@ -5680,7 +5680,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 323.85 273.05 90)
       (effects
         (font
@@ -5797,7 +5797,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "15k"
+    (property "Value" "6k8"
       (at 360.68 273.05 90)
       (effects
         (font

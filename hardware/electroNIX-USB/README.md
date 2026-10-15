@@ -3,16 +3,17 @@
 A new KiCad design: an ESP32 version of the TESTA-QUADRA **electroNIXclock 3**
 (PCB-036, 2013). That was the micro-USB powered board; its schematic is filed as
 `original electronix clock/z573m/schema_204xZ573M.pdf`. The tube is the RFT Z573M.
-A Z566M variant comes later. This revision is **schematic only**; the PCB is
-the next step.
+A Z566M variant comes later. This revision is the **schematic plus the
+tube footprint**; the PCB layout is the next step.
 
 | Path | Contents |
 |---|---|
-| `kicad/` | **4-tube** KiCad project (HH:MM): root sheet plus 4 sub-sheets, project symbol library (`electronix.kicad_sym`: Z573M, `+170V`) |
+| `kicad/` | **4-tube** KiCad project (HH:MM): root sheet plus 4 sub-sheets, project symbol library (`electronix.kicad_sym`: Z573M, `+170V`) and footprint library (`electronix.pretty`: `Nixie_RFT_Z573M`) |
 | `kicad-6tube/` | **6-tube** KiCad project (HH:MM:SS), same layout of sheets |
 | `electroNIX-USB-{4,6}tube-schematic.pdf` | Plots of all 5 sheets |
 | `electroNIX-USB-{4,6}tube-bom.csv` | BOMs grouped by value and footprint |
 | `source/gen.py` | Generator: `python3 source/gen.py kicad` or `python3 source/gen.py kicad-6tube --tubes 6` |
+| `source/footprint.py` | Writes the Z573M footprint: `python3 source/footprint.py kicad/electronix.pretty` |
 
 The files are in KiCad 7 format, so KiCad 7, 8 and 9 all open them (8 and 9
 upgrade on save). Once you start editing in KiCad, the KiCad files are the
@@ -27,14 +28,70 @@ over hand edits.
 2. **ESP32:** ESP32-WROOM-32E, EN/BOOT buttons, two-transistor DTR/RTS
    auto-reset, light sensor, SET button. No buzzer and no RTC: time
    comes from NTP.
-3. **HV supply:** the PCB-036 converter, unchanged. IO2 drives an IRLR3110Z
-   into a 33 µH WE 7447715330. The switch node feeds a 7-diode / 7-capacitor
-   Cockcroft-Walton ladder (10MQ100N, 1 µF/100 V) that makes 170 V. Feedback
-   is 430k/6k2, the same ratio as `HV_DIV_RATIO`.
-4. **Display:** 4 × Z573M. Anodes are switched high-side (MMBTA42 level
-   shift into MMBTA92, 10k anode resistor). 10 shared MMBTA42 cathode
-   switches. The 1N4148 off-cathode clamp to a ~32 V bias is kept from
-   PCB-036. Two colon neons.
+3. **HV supply:** the PCB-036 converter. IO2 drives an IRLR3110Z into a
+   33 µH WE 7447715330 (22 µH on the 6-tube build). The switch node feeds a
+   7-diode / 7-capacitor Cockcroft-Walton ladder (10MQ100N, 2.2 µF/100 V)
+   that makes 170 V. Feedback is 430k/6k2, the same ratio as
+   `HV_DIV_RATIO`.
+4. **Display:** 4 or 6 × Z573M. Anodes are switched high-side (MMBTA42
+   level shift into MMBTA92, 5k6 or 3k9 anode resistor). 10 shared MMBTA42
+   cathode switches. The 1N4148 off-cathode clamp to a ~32 V bias is kept
+   from PCB-036. Colon neons.
+
+## Z573M (RFT data book p.101/103)
+
+Source: [frank.pocnet.net/sheets/084/z/Z573M.pdf](https://frank.pocnet.net/sheets/084/z/Z573M.pdf).
+Z5730M is the same tube without the contrast-filter coating.
+
+- **Tube:** side-view, 13 mm digits, decimal point on the right. Bulb is
+  Ø19 × 47.6 mm with 38 mm flying leads.
+- **Pinout:** 1–3 = k1–k3, 4 = ic (internal, leave open), 5–9 = k4–k8,
+  10 = dp, 11 = k9, 12 = k0, 13 = anode. This matches the symbol.
+- **Lead layout:** 13 leads on a **Ø9.53 mm** circle in 14 equal
+  positions (25.7°), with the gap opposite **wire 7, which faces the
+  front**.
+- **Electrical:** V_ign 150 V, V_maint 140 V, V_ext 120 V, minimum supply
+  170 V. **Cathode current 1.5–2.5 mA continuous, 12 mA pulse maximum.**
+
+### Footprint `electronix:Nixie_RFT_Z573M`
+
+- **Geometry:** a top view with wire 7 toward +Y, so the board's front
+  edge goes toward +Y. The data book draws the leads from below,
+  numbered clockwise; on the footprint they run counter-clockwise. Pad 1
+  is square.
+- **Pads:** 0.8 mm drill, 1.35 mm pad, 2.12 mm centre spacing.
+- **Silkscreen:** the Ø19 bulb outline and a FRONT mark.
+- **Before ordering:** print it 1:1 and push a tube's leads through, so the
+  mirroring is proven before the PCB is made.
+
+### Tube current
+
+PCB-036 used 10k anode resistors. With 170 V − 140 V across them that is
+3 mA peak, so at 1/4 duty each tube averaged only ~0.75 mA. That is half
+of the 1.5 mA minimum, and running nixies under-current invites uneven
+cathode wear ("poisoning"). The resistors are now sized for an average
+near the minimum while keeping peaks well under 12 mA:
+
+| Build | R_anode | Peak at 170 V | Peak at 180 V | Average per tube |
+|---|---|---|---|---|
+| 4 tubes | 5k6 | 5.4 mA | 7.1 mA | 1.3–1.8 mA |
+| 6 tubes | 3k9 | 7.7 mA | 10.3 mA | 1.3–1.7 mA |
+
+The current follows (V_HV − 140 V), so the firmware's HV setpoint sets
+the brightness. Keep it at 180 V or below on the 6-tube build. The
+cathode switches got 6k8 base resistors, about 15 mA capability at
+hFE 40.
+
+The extra current costs power. HV output is ~0.9 W (4 tubes) or ~1.3 W
+(6 tubes), roughly 0.3 / 0.4 A from 5 V. With the ESP32 that totals
+**~0.5–0.8 A**, so the clock needs a USB-C charger rated for at least
+1 A at 5 V (any phone charger), not a computer's USB-A port. These
+changes follow from the same budget:
+- **Ladder caps are now 2.2 µF:** X7R loses about half its value at
+  50 V DC bias, and the multiplier droop scales with I / (f·C).
+- **The 6-tube build uses a 22 µH inductor.** At the firmware's 41 %
+  duty clamp, 33 µH can deliver only ~2 W into the converter. That is
+  enough for 4 tubes but marginal for 6.
 
 ## 4 and 6 tubes
 
@@ -81,8 +138,11 @@ Notes:
   power-fail divider are gone, and so is the buzzer. Time comes from NTP.
 - The feedback clamp now goes to **3V3** (BAT54S); the original clamped to
   5 V.
-- Base resistors are 15k for 3.3 V drive. The original 33k gives only
-  ~80 µA of base current at 3.3 V.
+- Base resistors for 3.3 V drive: 6k8 on the cathode switches, 15k on the
+  anode level shifters (they only sink ~0.4 mA). The original 33k gives
+  only ~80 µA of base current at 3.3 V.
+- Anode resistors are 5k6 (4 tubes) or 3k9 (6 tubes) instead of 10k. See
+  *Tube current* above.
 - Neons have a 47k base resistor and 150k series resistor per neon
   (~0.6 mA each; one driver handles two neons on the 6-tube build). The
   original 430k base resistor leaves the transistor current-limited at
@@ -93,20 +153,13 @@ Notes:
 
 ## Open points (check before or during layout)
 
-- **Z573M pinout** is taken from the tube-tester.com Z573M page (the
-  frank.pocnet.net Z573M sheet is the better source, but the build
-  environment couldn't reach it yet): B13D base,
-  pin 7 at front, 1–3 = digits 1–3, 4 = internal connection, 5–9 = digits
-  4–8, 10 = PR, 11 = 9, 12 = 0, 13 = anode. I couldn't open the original
-  RFT sheet. **Check it with a tube** (light each pin from a current-limited
-  supply) before the footprint is drawn.
-- **Tube and neon footprints** aren't assigned yet. They'll be drawn with
-  the PCB: the B13D pin circle, plus a socket or flying-lead pads.
+- **Neon footprints** are still unassigned. Pick the lamp (NE-2 or INS-1)
+  with the layout.
 - **WE 7447715330:** the KiCad footprint is WE-PD "Typ LS" (12 × 12 mm),
   which is the same series as the 7447715906 in its datasheet link.
-  Confirm 33 µH and the saturation current (≥ 2.5 A) when ordering.
-- **1 µF/100 V ladder caps:** X7R loses about half its capacitance at 50 V
-  DC bias. Use 1210 X7R (as drawn) or 2.2 µF if the HV droops at 4 tubes.
+  Confirm 33 µH and the saturation current (≥ 2.5 A) when ordering. For
+  the 6-tube build's 22 µH, `7447715220` is inferred from the same part
+  numbering: check that it exists and that I_sat ≥ 3 A.
 - **ERC:** the KiCad 7 command line here has no ERC, so I checked
   connectivity on the exported netlist instead. No single-pin nets, every
   driver chain was traced, and the multiplier matches PCB-036 diode for
@@ -116,5 +169,5 @@ Notes:
 ## Z566M and other tubes
 
 Only sheet 5 changes: the tube symbol and footprint, and the anode
-resistor. The tube count is already a generator option. Z566M is a 30 mm top-view tube (pin 8 at front
-according to the RFT data table). Its full pinout still has to be found.
+resistor. The tube count is already a generator option. The Z566M
+(30 mm digits) still needs its data sheet for the pinout and lead layout.

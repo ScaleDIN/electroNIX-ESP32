@@ -1987,7 +1987,7 @@
     (fill
       (type none))
     (uuid "1213c13f-78f9-5358-8cd6-bf25310db023"))
-  (text "Cockcroft-Walton multiplier, 7 x 10MQ100N, 7 x 1u/100V (as PCB-036)"
+  (text "Cockcroft-Walton multiplier, 7 x 10MQ100N, 7 x 2u2/100V (PCB-036 used 1u)"
     (at 161.27 26.27 0)
     (effects
       (font
@@ -2295,7 +2295,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "33u WE 7447715330"
+    (property "Value" "22u WE 7447715220"
       (at 71.12 50.8 0)
       (effects
         (font
@@ -2563,7 +2563,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 199.39 52.07 90)
       (effects
         (font
@@ -2602,7 +2602,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 250.19 52.07 90)
       (effects
         (font
@@ -2641,7 +2641,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 299.72 52.07 90)
       (effects
         (font
@@ -2715,7 +2715,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 350.52 52.07 90)
       (effects
         (font
@@ -2754,7 +2754,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 224.79 97.79 90)
       (effects
         (font
@@ -2793,7 +2793,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 275.59 97.79 90)
       (effects
         (font
@@ -2832,7 +2832,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "1u 100V"
+    (property "Value" "2u2 100V"
       (at 325.12 97.79 90)
       (effects
         (font
