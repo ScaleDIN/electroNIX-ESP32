@@ -1,0 +1,6945 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "834578a4-f2b4-5b7b-bb0d-eb7f4b5e9ae0")
+  (paper "A2")
+  (title_block
+    (title "electroNIX-USB - 4 x Z573M, multiplexed")
+    (date "2026-10-15")
+    (rev "0.1")
+    (company "electroNIX-USB (Z573M)")
+    (comment 1 "ESP32 rework of TESTA-QUADRA electroNIXclock 3 (PCB-036), USB powered")
+    (comment 2 "Licensed with the repository; see LICENSE"))
+  (lib_symbols
+    (symbol "Device:R"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "R"
+        (at 2.032 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "R"
+        (at 0 0 90)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at -1.778 0 90)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "R res resistor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Resistor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "R_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "R_0_1"
+        (rectangle
+          (start -1.016 -2.54)
+          (end 1.016 2.54)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "R_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 1.27)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Transistor_BJT:MMBTA42"
+      (pin_names
+        (offset 0) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "Q"
+        (at 5.08 1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "MMBTA42"
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+        (at 5.08 -1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27) italic)
+          (justify left) hide))
+      (property "Datasheet" "https://www.onsemi.com/pub/Collateral/MMBTA42LT1-D.PDF"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left) hide))
+      (property "ki_keywords" "NPN High Voltage Transistor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "0.5A Ic, 300V Vce, NPN High Voltage Transistor, SOT-23"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "SOT?23*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "MMBTA42_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0.635 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 0.635)
+            (xy 2.54 2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 -0.635)
+            (xy 2.54 -2.54)
+            (xy 2.54 -2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 1.905)
+            (xy 0.635 -1.905)
+            (xy 0.635 -1.905))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 -1.778)
+            (xy 1.778 -1.27)
+            (xy 2.286 -2.286)
+            (xy 1.27 -1.778)
+            (xy 1.27 -1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (circle
+          (center 1.27 0)
+          (radius 2.8194)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "MMBTA42_1_1"
+        (pin input line
+          (at -5.08 0 0)
+          (length 5.08)
+          (name "B"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 -5.08 90)
+          (length 2.54)
+          (name "E"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 5.08 270)
+          (length 2.54)
+          (name "C"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "power:GND"
+      (power)
+      (pin_names
+        (offset 0))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "#PWR"
+        (at 0 -6.35 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Value" "GND"
+        (at 0 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "global power"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Power symbol creates a global label with name \"GND\" , ground"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "GND_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 -1.27)
+            (xy 1.27 -1.27)
+            (xy 0 -2.54)
+            (xy -1.27 -1.27)
+            (xy 0 -1.27))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "GND_1_1"
+        (pin power_in line
+          (at 0 0 270)
+          (length 0) hide
+          (name "GND"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "electronix:+170V"
+      (power)
+      (pin_names
+        (offset 0))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "#PWR"
+        (at 0 3.048 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Value" "+170V"
+        (at 0 2.286 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "global power"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Power symbol creates a global label with name \"+170V\" (nixie high voltage)"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "+170V_0_0"
+        (pin power_in line
+          (at 0 0 90)
+          (length 0) hide
+          (name "+170V"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27))))))
+      (symbol "+170V_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0 1.016)
+            (xy 0 1.016))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 1.016)
+            (xy 0.508 0.508)
+            (xy 0 1.778)
+            (xy -0.508 0.508)
+            (xy 0 1.016)
+            (xy 0 1.016))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))))
+    (symbol "Transistor_BJT:MMBTA92"
+      (pin_names
+        (offset 0) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "Q"
+        (at 5.08 1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "MMBTA92"
+        (at 5.08 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+        (at 5.08 -1.905 0)
+        (effects
+          (font
+            (size 1.27 1.27) italic)
+          (justify left) hide))
+      (property "Datasheet" "https://www.onsemi.com/pub/Collateral/MMBTA92LT1-D.PDF"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left) hide))
+      (property "ki_keywords" "PNP High Voltage Transistor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "0.5A Ic, 300V Vce, PNP High Voltage Transistor, SOT-23"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "SOT?23*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "MMBTA92_0_1"
+        (polyline
+          (pts
+            (xy 0 0)
+            (xy 0.635 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 -2.54)
+            (xy 0.635 -0.635))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 2.54 2.54)
+            (xy 0.635 0.635))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0.635 1.905)
+            (xy 0.635 -1.905)
+            (xy 0.635 -1.905))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type outline)))
+        (polyline
+          (pts
+            (xy 1.905 -2.413)
+            (xy 2.413 -1.905)
+            (xy 1.397 -1.397)
+            (xy 1.905 -2.413)
+            (xy 1.905 -2.413))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (circle
+          (center 1.27 0)
+          (radius 2.8194)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "MMBTA92_1_1"
+        (pin input line
+          (at -5.08 0 0)
+          (length 5.08)
+          (name "B"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 -5.08 90)
+          (length 2.54)
+          (name "E"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 2.54 5.08 270)
+          (length 2.54)
+          (name "C"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "3"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "electronix:Z573M"
+      (pin_names
+        (offset 0.508))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "N"
+        (at -15.24 7.62 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "Z573M"
+        (at 3.81 7.62 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "https://www.tube-tester.com/sites/nixie/data/z573m/z573m.htm"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "RFT Z573M top-view nixie, 13 mm digits, B13D base (pin 7 at front). Pin 4 internal connection - do not connect. Pin 10 = PR sign."
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "nixie tube RFT Z573M ZM1080"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Z573M_0_1"
+        (rectangle
+          (start -16.51 6.35)
+          (end 16.51 -6.35)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type background)))
+        (circle
+          (center 0 0)
+          (radius 4.445)
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (text "Z573M"
+          (at 0 0 0)
+          (effects
+            (font
+              (size 1.27 1.27)))))
+      (symbol "Z573M_1_1"
+        (pin passive line
+          (at -13.97 -10.16 90)
+          (length 3.81)
+          (name "0"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "12"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at -11.43 -10.16 90)
+          (length 3.81)
+          (name "1"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "1"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at -8.89 -10.16 90)
+          (length 3.81)
+          (name "2"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "2"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at -6.35 -10.16 90)
+          (length 3.81)
+          (name "3"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "3"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at -3.81 -10.16 90)
+          (length 3.81)
+          (name "4"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "5"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at -1.27 -10.16 90)
+          (length 3.81)
+          (name "5"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "6"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at 1.27 -10.16 90)
+          (length 3.81)
+          (name "6"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "7"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at 3.81 -10.16 90)
+          (length 3.81)
+          (name "7"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "8"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at 6.35 -10.16 90)
+          (length 3.81)
+          (name "8"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "9"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at 8.89 -10.16 90)
+          (length 3.81)
+          (name "9"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "11"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at 11.43 -10.16 90)
+          (length 3.81)
+          (name "PR"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "10"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin no_connect line
+          (at 13.97 -10.16 90)
+          (length 3.81)
+          (name "IC"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "4"
+            (effects
+              (font
+                (size 1.016 1.016)))))
+        (pin passive line
+          (at 0 10.16 270)
+          (length 3.81)
+          (name "A"
+            (effects
+              (font
+                (size 1.016 1.016))))
+          (number "13"
+            (effects
+              (font
+                (size 1.016 1.016)))))))
+    (symbol "Device:Lamp_Neon"
+      (pin_names
+        (offset 0.0254) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "NE"
+        (at 0.635 3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "Lamp_Neon"
+        (at 0.635 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0 2.54 90)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 2.54 90)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "neon lamp"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Neon lamp"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "Lamp_Neon_0_1"
+        (rectangle
+          (start -1.524 -0.508)
+          (end 1.524 -0.762)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (rectangle
+          (start -1.524 0.762)
+          (end 1.524 0.508)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline)))
+        (polyline
+          (pts
+            (xy 0 -2.54)
+            (xy 0 -0.762))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 0 0.762)
+            (xy 0 2.54))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 0 0)
+          (radius 2.54)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (circle
+          (center 1.016 -1.27)
+          (radius 0.254)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "Lamp_Neon_1_1"
+        (pin passive line
+          (at 0 -5.08 90)
+          (length 2.54)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 5.08 270)
+          (length 2.54)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:D"
+      (pin_numbers hide)
+      (pin_names
+        (offset 1.016) hide)
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "D"
+        (at 0 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "D"
+        (at 0 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Sim.Device" "D"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Sim.Pins" "1=K 2=A"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Diode"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "D_0_1"
+        (polyline
+          (pts
+            (xy -1.27 1.27)
+            (xy -1.27 -1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 0)
+            (xy -1.27 0))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy 1.27 1.27)
+            (xy 1.27 -1.27)
+            (xy -1.27 0)
+            (xy 1.27 1.27))
+          (stroke
+            (width 0.254)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "D_1_1"
+        (pin passive line
+          (at -3.81 0 0)
+          (length 2.54)
+          (name "K"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 3.81 0 180)
+          (length 2.54)
+          (name "A"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:C"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0.254))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "C"
+        (at 0.635 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "C"
+        (at 0.635 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0.9652 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "cap capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Unpolarized capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "C_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "C_0_1"
+        (polyline
+          (pts
+            (xy -2.032 -0.762)
+            (xy 2.032 -0.762))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -2.032 0.762)
+            (xy 2.032 0.762))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "C_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
+            (effects
+              (font
+                (size 1.27 1.27))))))))
+  (wire
+    (pts
+      (xy 36.83 80.01)
+      (xy 34.29 80.01))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ae1a1994-94ff-580e-8cce-7a6de975f65c"))
+  (wire
+    (pts
+      (xy 52.07 85.09)
+      (xy 52.07 87.63))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e9bc1ec4-0844-5352-a5ca-0e3337013c0c"))
+  (wire
+    (pts
+      (xy 52.07 59.69)
+      (xy 52.07 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "97a163d9-1a12-5ea3-9a18-e16b9532a833"))
+  (wire
+    (pts
+      (xy 59.69 62.23)
+      (xy 59.69 59.69))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9c88961b-7886-5e03-b48f-5ba1ded101b9"))
+  (wire
+    (pts
+      (xy 59.69 80.01)
+      (xy 59.69 82.55))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "bc12d239-eaed-520f-a0ef-0272becd20ac"))
+  (junction
+    (at 52.07 67.31)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "38f43f20-69bf-5d4c-88f6-f1c988b62282"))
+  (wire
+    (pts
+      (xy 127 80.01)
+      (xy 124.46 80.01))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "778dc28d-5923-5cd6-bd81-55733e6fb853"))
+  (wire
+    (pts
+      (xy 142.24 85.09)
+      (xy 142.24 87.63))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5f42db4c-b614-5f2e-b6d1-eb6eb5852721"))
+  (wire
+    (pts
+      (xy 142.24 59.69)
+      (xy 142.24 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "eb858cc1-7bc9-5a3e-98a8-1f487fb7ecbf"))
+  (wire
+    (pts
+      (xy 149.86 62.23)
+      (xy 149.86 59.69))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "7fefe458-d340-58be-bbe9-2d317f839e19"))
+  (wire
+    (pts
+      (xy 149.86 80.01)
+      (xy 149.86 82.55))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3bf0f9e1-03b8-5cad-81a1-d0a7d4533135"))
+  (junction
+    (at 142.24 67.31)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "9ecfe3c7-2927-5c93-98e2-4ace5bb70096"))
+  (wire
+    (pts
+      (xy 217.17 80.01)
+      (xy 214.63 80.01))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d8c521df-d87a-59da-947d-dc0a10d2ca63"))
+  (wire
+    (pts
+      (xy 232.41 85.09)
+      (xy 232.41 87.63))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "203c0db5-2a25-57c6-8929-431dfd0c1abc"))
+  (wire
+    (pts
+      (xy 232.41 59.69)
+      (xy 232.41 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e7101b8d-2ee4-5bc9-a203-487110448552"))
+  (wire
+    (pts
+      (xy 240.03 62.23)
+      (xy 240.03 59.69))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5486ab16-fc46-5034-8803-0ae61fcfe8e6"))
+  (wire
+    (pts
+      (xy 240.03 80.01)
+      (xy 240.03 82.55))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "95960be3-6174-5628-8a75-d9f02b50b1bb"))
+  (junction
+    (at 232.41 67.31)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "adc4b431-8c59-509a-bc3f-9d6f8f47f370"))
+  (wire
+    (pts
+      (xy 307.34 80.01)
+      (xy 304.8 80.01))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "01f45843-bc2b-5d94-bd8c-f4260748e419"))
+  (wire
+    (pts
+      (xy 322.58 85.09)
+      (xy 322.58 87.63))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "4287dc9b-75b9-5222-92d6-3d2e9cd340fa"))
+  (wire
+    (pts
+      (xy 322.58 59.69)
+      (xy 322.58 57.15))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d55aa772-e514-506a-a265-6f68148f61a8"))
+  (wire
+    (pts
+      (xy 330.2 62.23)
+      (xy 330.2 59.69))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "78a1fbc5-7ecf-5747-baf6-339bcce5e78e"))
+  (wire
+    (pts
+      (xy 330.2 80.01)
+      (xy 330.2 82.55))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0afcd90a-0ace-5716-a364-4967c9404d5a"))
+  (junction
+    (at 322.58 67.31)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "8fea33ad-0faf-5b84-aa70-b04a2be60352"))
+  (wire
+    (pts
+      (xy 45.72 170.18)
+      (xy 45.72 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "cb1c707c-a883-52f4-a05f-6702f9945bf0"))
+  (wire
+    (pts
+      (xy 48.26 170.18)
+      (xy 48.26 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c56ccd87-5388-5997-8eed-90c3a92b95d4"))
+  (wire
+    (pts
+      (xy 50.8 170.18)
+      (xy 50.8 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f3841b11-a7cf-5139-8d60-ae7ace4a2cba"))
+  (wire
+    (pts
+      (xy 53.34 170.18)
+      (xy 53.34 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "350d4f0c-b51b-5bd7-a2a4-bdee0d63c352"))
+  (wire
+    (pts
+      (xy 55.88 170.18)
+      (xy 55.88 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d8998fa8-3043-504c-af01-6e6abbbbe6cf"))
+  (wire
+    (pts
+      (xy 58.42 170.18)
+      (xy 58.42 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f655dcd6-1b1b-5f70-a85a-fe65e68d6542"))
+  (wire
+    (pts
+      (xy 60.96 170.18)
+      (xy 60.96 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "89ac0121-854c-57b8-9cd4-45c9c00a9390"))
+  (wire
+    (pts
+      (xy 63.5 170.18)
+      (xy 63.5 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "43833c01-9fc5-5df3-81f1-cb977e5a66db"))
+  (wire
+    (pts
+      (xy 66.04 170.18)
+      (xy 66.04 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e3ff7b87-7c6c-5ea3-88d2-b77fe75ea235"))
+  (wire
+    (pts
+      (xy 68.58 170.18)
+      (xy 68.58 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "759c2156-032f-5f4d-b737-c541b9a0603e"))
+  (no_connect
+    (at 71.12 170.18)
+    (uuid "05bc6196-3972-527c-9881-78c4cc8f764c"))
+  (no_connect
+    (at 73.66 170.18)
+    (uuid "227b9d72-dce1-50be-8331-32ef56cc9c99"))
+  (wire
+    (pts
+      (xy 59.69 149.86)
+      (xy 59.69 147.32))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0032b1b8-8d58-557f-a2fa-fc74c78bd018"))
+  (wire
+    (pts
+      (xy 135.89 170.18)
+      (xy 135.89 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2cea4fdb-161b-5ec1-97a2-40e1033c7b9e"))
+  (wire
+    (pts
+      (xy 138.43 170.18)
+      (xy 138.43 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "34a8e68e-131a-51e1-9d0c-793298053c48"))
+  (wire
+    (pts
+      (xy 140.97 170.18)
+      (xy 140.97 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ee9d309e-f27a-5f50-9d62-dfb40beefe44"))
+  (wire
+    (pts
+      (xy 143.51 170.18)
+      (xy 143.51 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ce5b3e70-abd3-5f43-a163-a70e7c9bdf9b"))
+  (wire
+    (pts
+      (xy 146.05 170.18)
+      (xy 146.05 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c9232269-3a4d-597f-8b0d-4e127b8c800d"))
+  (wire
+    (pts
+      (xy 148.59 170.18)
+      (xy 148.59 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b5bbc3b1-575e-5158-bcc2-5e9e8cbce853"))
+  (wire
+    (pts
+      (xy 151.13 170.18)
+      (xy 151.13 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "94a0b6d3-7e91-5f22-a0ed-576e00153a05"))
+  (wire
+    (pts
+      (xy 153.67 170.18)
+      (xy 153.67 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5c95cdb9-16bd-5198-b3d5-d3c8f23d9932"))
+  (wire
+    (pts
+      (xy 156.21 170.18)
+      (xy 156.21 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c4d138fd-f41c-5755-9275-4d9d7a6ff702"))
+  (wire
+    (pts
+      (xy 158.75 170.18)
+      (xy 158.75 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "6521226c-22b8-5f5b-9db8-a8fe3cfa3d5e"))
+  (no_connect
+    (at 161.29 170.18)
+    (uuid "08caca2e-705e-59e7-8c21-41a1a01558bc"))
+  (no_connect
+    (at 163.83 170.18)
+    (uuid "c221313b-dc5d-5958-8137-ca288d453234"))
+  (wire
+    (pts
+      (xy 149.86 149.86)
+      (xy 149.86 147.32))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "be459789-aad6-5a9d-a12a-2ac00dbd6812"))
+  (wire
+    (pts
+      (xy 226.06 170.18)
+      (xy 226.06 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b53c71de-6740-5726-ad1b-c014792c2751"))
+  (wire
+    (pts
+      (xy 228.6 170.18)
+      (xy 228.6 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b385b7eb-f1ed-5bd8-b200-8eb4edf609b4"))
+  (wire
+    (pts
+      (xy 231.14 170.18)
+      (xy 231.14 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3c486223-6672-50f2-83ba-ca53d00a194d"))
+  (wire
+    (pts
+      (xy 233.68 170.18)
+      (xy 233.68 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2181736e-1b2d-54ae-920f-5cd11fbcadb9"))
+  (wire
+    (pts
+      (xy 236.22 170.18)
+      (xy 236.22 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ec7c6f65-c6f4-5fe2-b186-efdf73c81aa9"))
+  (wire
+    (pts
+      (xy 238.76 170.18)
+      (xy 238.76 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b01b20b6-2bc3-59da-b87f-203243683f02"))
+  (wire
+    (pts
+      (xy 241.3 170.18)
+      (xy 241.3 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2192ad0b-4de1-5111-b7e0-e0140a5d3afe"))
+  (wire
+    (pts
+      (xy 243.84 170.18)
+      (xy 243.84 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "641a0694-721a-5937-b989-3c487df9f6c3"))
+  (wire
+    (pts
+      (xy 246.38 170.18)
+      (xy 246.38 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "8973d0c1-b04b-5d5d-a703-50261bc90db2"))
+  (wire
+    (pts
+      (xy 248.92 170.18)
+      (xy 248.92 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f830e2e3-b2c1-5270-8b42-fee99436face"))
+  (no_connect
+    (at 251.46 170.18)
+    (uuid "c8b6b4b3-ef56-59dc-8aac-432a4f450223"))
+  (no_connect
+    (at 254 170.18)
+    (uuid "743429a9-8f3f-53d4-a949-f46e0c274eca"))
+  (wire
+    (pts
+      (xy 240.03 149.86)
+      (xy 240.03 147.32))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "63db842a-9fe6-598f-8239-67a552bbe942"))
+  (wire
+    (pts
+      (xy 316.23 170.18)
+      (xy 316.23 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "283b0603-1b31-5195-88f7-8c9a273f06fa"))
+  (wire
+    (pts
+      (xy 318.77 170.18)
+      (xy 318.77 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "bece2c18-a08b-5ca0-9eed-15d66c90f18f"))
+  (wire
+    (pts
+      (xy 321.31 170.18)
+      (xy 321.31 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "31ca59d2-cd99-5b1f-8350-b6b9d9f6eaa9"))
+  (wire
+    (pts
+      (xy 323.85 170.18)
+      (xy 323.85 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "6313e244-f5f6-5ea6-8570-83004fa3994e"))
+  (wire
+    (pts
+      (xy 326.39 170.18)
+      (xy 326.39 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "45349661-4f00-5900-b42e-05d0ae88793a"))
+  (wire
+    (pts
+      (xy 328.93 170.18)
+      (xy 328.93 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "510ef9d0-829b-52a3-a9e7-72bbaaed2d80"))
+  (wire
+    (pts
+      (xy 331.47 170.18)
+      (xy 331.47 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b98d2618-7f40-5323-b256-accb9e6590cd"))
+  (wire
+    (pts
+      (xy 334.01 170.18)
+      (xy 334.01 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b9a70b1f-b6e4-5516-be22-28499575094e"))
+  (wire
+    (pts
+      (xy 336.55 170.18)
+      (xy 336.55 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3d6d2b32-fdee-5328-bc61-5f7ef4745cda"))
+  (wire
+    (pts
+      (xy 339.09 170.18)
+      (xy 339.09 172.72))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "317ba4fb-5e92-5e8e-a1de-1dfd79b77943"))
+  (no_connect
+    (at 341.63 170.18)
+    (uuid "fc961aad-2902-5397-9d93-448259ded368"))
+  (no_connect
+    (at 344.17 170.18)
+    (uuid "0c7cc275-0f39-5339-997c-3652412770a6"))
+  (wire
+    (pts
+      (xy 330.2 149.86)
+      (xy 330.2 147.32))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3c8bf97b-939d-5f06-96bb-dbe3da003638"))
+  (wire
+    (pts
+      (xy 31.75 270.51)
+      (xy 29.21 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ab076046-efa3-5e5c-9e5f-320874810660"))
+  (wire
+    (pts
+      (xy 46.99 275.59)
+      (xy 46.99 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5ab507fd-29c6-5018-88a1-2808ce2212ac"))
+  (wire
+    (pts
+      (xy 46.99 265.43)
+      (xy 46.99 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "11b781f0-aab1-5ced-8f8f-dad6c9b68458"))
+  (wire
+    (pts
+      (xy 68.58 270.51)
+      (xy 66.04 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0eb64b5c-d7bf-508f-be2b-4e22b5d950e0"))
+  (wire
+    (pts
+      (xy 83.82 275.59)
+      (xy 83.82 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c42f0fbe-af39-558c-9306-ea359962e126"))
+  (wire
+    (pts
+      (xy 83.82 265.43)
+      (xy 83.82 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "68a0866f-845a-5df4-8180-90637c97ad09"))
+  (wire
+    (pts
+      (xy 104.14 270.51)
+      (xy 101.6 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "60c4d0a7-9e18-5a22-aed5-1f7b9d629840"))
+  (wire
+    (pts
+      (xy 119.38 275.59)
+      (xy 119.38 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9b1ff263-3e71-5841-a637-18360447cd86"))
+  (wire
+    (pts
+      (xy 119.38 265.43)
+      (xy 119.38 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b198911e-f6fe-5322-ad8f-74d074e8c97e"))
+  (wire
+    (pts
+      (xy 139.7 270.51)
+      (xy 137.16 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "5f35a998-0a76-53c4-a168-87b59f9cf670"))
+  (wire
+    (pts
+      (xy 154.94 275.59)
+      (xy 154.94 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "bdaed863-caa4-503a-93af-f179cd194e53"))
+  (wire
+    (pts
+      (xy 154.94 265.43)
+      (xy 154.94 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ee640968-65bc-5149-a7be-2964105784eb"))
+  (wire
+    (pts
+      (xy 176.53 270.51)
+      (xy 173.99 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0955bc68-ba6c-59bc-a047-703eee002830"))
+  (wire
+    (pts
+      (xy 191.77 275.59)
+      (xy 191.77 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "1794b0b5-0e98-586f-808c-8a89670eb52d"))
+  (wire
+    (pts
+      (xy 191.77 265.43)
+      (xy 191.77 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "90badf09-0450-514a-9669-bbc19a88a6c7"))
+  (wire
+    (pts
+      (xy 212.09 270.51)
+      (xy 209.55 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9d5e185b-3824-565a-bf4c-a7bb3d681722"))
+  (wire
+    (pts
+      (xy 227.33 275.59)
+      (xy 227.33 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "05b58c22-f7fe-5c5f-bcc4-a81493fd64a3"))
+  (wire
+    (pts
+      (xy 227.33 265.43)
+      (xy 227.33 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "44401147-e921-53e1-81e7-6e1a4359b8c2"))
+  (wire
+    (pts
+      (xy 248.92 270.51)
+      (xy 246.38 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0880862d-f356-52b9-8862-e4bdbe59409e"))
+  (wire
+    (pts
+      (xy 264.16 275.59)
+      (xy 264.16 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a8d81d55-381b-5fe6-b61b-e3b00f6a3778"))
+  (wire
+    (pts
+      (xy 264.16 265.43)
+      (xy 264.16 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "6d755279-a925-57ef-a7ef-a61d287c6114"))
+  (wire
+    (pts
+      (xy 284.48 270.51)
+      (xy 281.94 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "17885262-a6d7-5a3a-be14-0b04c17216cc"))
+  (wire
+    (pts
+      (xy 299.72 275.59)
+      (xy 299.72 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "cd0adb09-8496-5014-83e5-cd14b16c5253"))
+  (wire
+    (pts
+      (xy 299.72 265.43)
+      (xy 299.72 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "819d5347-30f5-58ca-a025-6ba9df511889"))
+  (wire
+    (pts
+      (xy 320.04 270.51)
+      (xy 317.5 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "dfb541d5-adf7-5332-8a74-29f651b3a9cf"))
+  (wire
+    (pts
+      (xy 335.28 275.59)
+      (xy 335.28 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "81396218-6f70-539d-bbf9-00b538d45998"))
+  (wire
+    (pts
+      (xy 335.28 265.43)
+      (xy 335.28 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "eaba3538-a277-5a8e-a187-2c85f44c5305"))
+  (wire
+    (pts
+      (xy 356.87 270.51)
+      (xy 354.33 270.51))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "69570c4e-ca01-521e-a978-1b7f1e1d18fc"))
+  (wire
+    (pts
+      (xy 372.11 275.59)
+      (xy 372.11 278.13))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c156314c-4454-50fd-9f3a-46951975d37c"))
+  (wire
+    (pts
+      (xy 372.11 265.43)
+      (xy 372.11 262.89))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ae3e3c6b-468c-5f4f-8769-64aab07ad18e"))
+  (wire
+    (pts
+      (xy 436.88 110.49)
+      (xy 434.34 110.49))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "ff184c72-3d29-5231-8244-7bf822d7dfd2"))
+  (wire
+    (pts
+      (xy 452.12 115.57)
+      (xy 452.12 118.11))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "75106b56-b2b0-50c4-b289-174978b347a4"))
+  (wire
+    (pts
+      (xy 452.12 87.63)
+      (xy 452.12 85.09))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c12c02c3-f238-585d-81e1-f6974db7176b"))
+  (wire
+    (pts
+      (xy 497.84 110.49)
+      (xy 495.3 110.49))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e50de4f0-3a0f-53c7-b299-0032827545e0"))
+  (wire
+    (pts
+      (xy 513.08 115.57)
+      (xy 513.08 118.11))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3da93faf-b89e-56b6-b3e6-8a6190a29952"))
+  (wire
+    (pts
+      (xy 513.08 87.63)
+      (xy 513.08 85.09))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f7f0699a-7200-562b-9b91-3382af3cf2c2"))
+  (wire
+    (pts
+      (xy 425.45 195.58)
+      (xy 425.45 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "c01706e7-27ec-53de-907b-fa390b53128a"))
+  (wire
+    (pts
+      (xy 439.42 195.58)
+      (xy 439.42 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "e08788ba-a4ed-5558-b1b7-27afcba0421c"))
+  (wire
+    (pts
+      (xy 453.39 195.58)
+      (xy 453.39 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "993a0b56-fc3b-5bae-8164-c99b5a6c23e0"))
+  (wire
+    (pts
+      (xy 467.36 195.58)
+      (xy 467.36 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d36cc448-e29a-5522-a8a6-abbaf21053a6"))
+  (wire
+    (pts
+      (xy 481.33 195.58)
+      (xy 481.33 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "05da4d2e-24f0-526c-b24e-f4b040184bc1"))
+  (wire
+    (pts
+      (xy 495.3 195.58)
+      (xy 495.3 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "2bb84814-c15f-58ff-ad7a-bea38c32d323"))
+  (wire
+    (pts
+      (xy 509.27 195.58)
+      (xy 509.27 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "329e8d69-2d2e-57a3-900e-06f125a8e160"))
+  (wire
+    (pts
+      (xy 523.24 195.58)
+      (xy 523.24 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a8a4032b-20c2-5865-9b1e-d81d30a1420a"))
+  (wire
+    (pts
+      (xy 537.21 195.58)
+      (xy 537.21 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "d0559983-f25b-57ff-a0ff-72d8b4aef155"))
+  (wire
+    (pts
+      (xy 551.18 195.58)
+      (xy 551.18 193.04))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b2bfd22f-51d9-5d87-9eb3-b4a65aded5a6"))
+  (wire
+    (pts
+      (xy 425.45 203.2)
+      (xy 439.42 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "a7a727c0-4807-50ae-9f5c-0f6b7798a26d"))
+  (wire
+    (pts
+      (xy 439.42 203.2)
+      (xy 453.39 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "de5735b1-fcd4-5df1-802a-a581bf5a4ada"))
+  (wire
+    (pts
+      (xy 453.39 203.2)
+      (xy 467.36 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0a26bede-e366-5bbd-b445-703e97b6a96c"))
+  (wire
+    (pts
+      (xy 467.36 203.2)
+      (xy 481.33 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "53a0fb64-784f-541b-b872-20ac567422eb"))
+  (wire
+    (pts
+      (xy 481.33 203.2)
+      (xy 495.3 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "665ffd28-7d67-5a4f-a4fb-369d25a34bf8"))
+  (wire
+    (pts
+      (xy 495.3 203.2)
+      (xy 509.27 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f0e59f4e-0f68-54c6-8aab-cd328a4fee78"))
+  (wire
+    (pts
+      (xy 509.27 203.2)
+      (xy 523.24 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b037c9a2-95d7-56ad-a822-f24051b2cf4d"))
+  (wire
+    (pts
+      (xy 523.24 203.2)
+      (xy 537.21 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "9a88247b-f968-5380-8748-e2cbef89c1b8"))
+  (wire
+    (pts
+      (xy 537.21 203.2)
+      (xy 551.18 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "3f72e39c-14a4-5452-8960-b939f03dbb51"))
+  (wire
+    (pts
+      (xy 551.18 203.2)
+      (xy 561.34 203.2))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "f3609cd0-eb88-52f6-bb5a-8af22360feee"))
+  (junction
+    (at 439.42 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "66f42d42-e38b-52d8-b2a6-07404b67c6bf"))
+  (junction
+    (at 453.39 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "8f137e31-b608-5ee5-9004-92d7c7c7f4e6"))
+  (junction
+    (at 467.36 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "dcdea583-0d61-5983-a12b-d4d8c81dd395"))
+  (junction
+    (at 481.33 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "c30883cf-a9fd-537a-a059-b42f36d52db3"))
+  (junction
+    (at 495.3 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "0720d019-a530-5624-bd13-1969183c5942"))
+  (junction
+    (at 509.27 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "bab1675e-6ba6-506d-b694-bf8dc34baa5c"))
+  (junction
+    (at 523.24 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "a877075c-3126-54ff-9fca-bed842af5921"))
+  (junction
+    (at 537.21 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "85af4344-bdd6-5ba6-891c-f76ab6ce4d4d"))
+  (junction
+    (at 551.18 203.2)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "091af9e0-f6a7-59a5-ac9c-1b3d34d359c2"))
+  (wire
+    (pts
+      (xy 449.58 246.38)
+      (xy 449.58 243.84))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "aa58d92f-2fcd-592f-95e6-3f900040e51a"))
+  (wire
+    (pts
+      (xy 449.58 254)
+      (xy 449.58 256.54))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "98cbd5b0-dfb9-57b0-a859-ac2b2281986a"))
+  (wire
+    (pts
+      (xy 469.9 246.38)
+      (xy 469.9 243.84))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "6d017177-1d10-5b92-b746-93edd22c0814"))
+  (wire
+    (pts
+      (xy 469.9 254)
+      (xy 469.9 256.54))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "b06bbbb0-76b3-5eea-bdfe-6896f2b26abb"))
+  (wire
+    (pts
+      (xy 490.22 246.38)
+      (xy 490.22 243.84))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0d617fa3-68db-5adc-b8c8-22227eea1238"))
+  (wire
+    (pts
+      (xy 490.22 254)
+      (xy 490.22 256.54))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "435e3807-e780-5f00-ae29-92b01be3c24e"))
+  (global_label "W_1"
+    (shape passive)
+    (at 34.29 80.01 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "7d58e6ea-4e48-5885-af2a-a83438e4bfa0")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 34.29 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "A_1"
+    (at 59.69 82.55 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "0e742eb2-8435-5a34-9d27-63d01187088b"))
+  (global_label "W_2"
+    (shape passive)
+    (at 124.46 80.01 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "2bf00f78-8916-5e48-82e6-089f8e92554c")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 124.46 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "A_2"
+    (at 149.86 82.55 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "56a6f50c-ea17-5d4f-82a4-d4cfba92c9e7"))
+  (global_label "W_3"
+    (shape passive)
+    (at 214.63 80.01 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "846d69ca-cc27-5022-85cb-1fdd50c2d054")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 214.63 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "A_3"
+    (at 240.03 82.55 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "1a3bc0de-22fa-5cd7-894c-3ad68876947b"))
+  (global_label "W_4"
+    (shape passive)
+    (at 304.8 80.01 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "cdfc33ff-ff55-5296-be7f-470456289f45")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 304.8 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "A_4"
+    (at 330.2 82.55 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "3708c22e-bcfb-51db-9c85-3d7c897f68ee"))
+  (label "K_0"
+    (at 45.72 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "5643560c-33cb-512e-8472-5693a7a2ad5a"))
+  (label "K_1"
+    (at 48.26 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "b7bbd839-3853-5c2a-82a1-05afed7835c1"))
+  (label "K_2"
+    (at 50.8 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "7fa68603-f1c1-5db0-85a7-8379a8c6edd9"))
+  (label "K_3"
+    (at 53.34 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "9606ffc2-950a-5d91-8054-2cabae459445"))
+  (label "K_4"
+    (at 55.88 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f9b22224-9a85-5049-a6ba-252bafb07250"))
+  (label "K_5"
+    (at 58.42 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f7f2ee67-e704-5f45-a8c8-f8e15fa58f27"))
+  (label "K_6"
+    (at 60.96 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "414c42a7-4e16-58fc-9935-e67356ba562b"))
+  (label "K_7"
+    (at 63.5 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "461a5a96-d750-5ad3-bf9f-70f9ff9524cf"))
+  (label "K_8"
+    (at 66.04 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "cad35478-b403-55ba-9ecd-59f3c539c7a8"))
+  (label "K_9"
+    (at 68.58 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "21e30b20-e18e-58f4-b800-55c4c6efb5c2"))
+  (label "A_1"
+    (at 59.69 147.32 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "90d20004-9f31-5ab5-baac-a3d055fd877c"))
+  (label "K_0"
+    (at 135.89 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "a460bfaa-43ed-50ee-8b8b-c76211869a00"))
+  (label "K_1"
+    (at 138.43 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "491c0889-7d7b-5a92-adef-d041c734d744"))
+  (label "K_2"
+    (at 140.97 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f286574f-a6a2-54b6-8f3c-b7aaef26aa32"))
+  (label "K_3"
+    (at 143.51 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "a6a150a8-cd23-534f-a647-fb0fabaeb76f"))
+  (label "K_4"
+    (at 146.05 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "063676eb-7b33-5475-8515-0497af233adb"))
+  (label "K_5"
+    (at 148.59 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f4fbb701-a72c-583f-8dd0-976277132dbb"))
+  (label "K_6"
+    (at 151.13 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "73c10d8f-3d06-525f-90e3-55ff8f533462"))
+  (label "K_7"
+    (at 153.67 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "9fe0bf98-cc10-5bf0-b722-84e2ee0bca63"))
+  (label "K_8"
+    (at 156.21 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "815c4a22-1a57-5c98-8df8-0aa870dc7948"))
+  (label "K_9"
+    (at 158.75 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "6a9c4d7d-04f6-5470-9645-708c79cee3ce"))
+  (label "A_2"
+    (at 149.86 147.32 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "d5bc1147-171d-5210-8ac9-dc480028e769"))
+  (label "K_0"
+    (at 226.06 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "af6ecb08-e94a-5736-8622-2fb343176017"))
+  (label "K_1"
+    (at 228.6 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "2fdee0ca-fe20-5b60-b3f2-fc6fcdc19d3e"))
+  (label "K_2"
+    (at 231.14 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "a23fa588-f325-5136-83a5-7294706e000f"))
+  (label "K_3"
+    (at 233.68 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "5a6c5826-002e-5e6f-b1ae-4c14dbb04504"))
+  (label "K_4"
+    (at 236.22 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "d68a2397-142a-5513-8901-d20ed0f15b86"))
+  (label "K_5"
+    (at 238.76 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "43d04068-3303-5c64-bc5e-5cc55379c399"))
+  (label "K_6"
+    (at 241.3 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "ceda496e-09c8-5391-a89d-d0105a3b48f0"))
+  (label "K_7"
+    (at 243.84 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f0dd365e-03cc-53cc-be81-bda0efab162d"))
+  (label "K_8"
+    (at 246.38 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "d0e4132f-9d00-5047-9a90-234d0b1385f6"))
+  (label "K_9"
+    (at 248.92 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "c801ccbd-f8e8-535f-b42b-6ee3128dafbc"))
+  (label "A_3"
+    (at 240.03 147.32 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "b52b2213-401f-5ee2-830a-f7c26967cacd"))
+  (label "K_0"
+    (at 316.23 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "09642476-f829-584a-ad87-8817047a34b6"))
+  (label "K_1"
+    (at 318.77 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "12558a92-ff50-5cd8-95ad-12bc211f1aa6"))
+  (label "K_2"
+    (at 321.31 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "e521d853-e447-5402-b484-5a59fa792b71"))
+  (label "K_3"
+    (at 323.85 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f5e89143-75bd-5f39-b93b-62fa762091c4"))
+  (label "K_4"
+    (at 326.39 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "861d0f38-5998-5779-a516-b2f26837a840"))
+  (label "K_5"
+    (at 328.93 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "9d56a845-80ac-5469-b2b2-c5944e469df1"))
+  (label "K_6"
+    (at 331.47 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "926d551f-9cd9-5c37-b807-8f458cd92595"))
+  (label "K_7"
+    (at 334.01 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "cabc09c6-73c4-53cc-bb9f-ad1de29e90e9"))
+  (label "K_8"
+    (at 336.55 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "dc9ba147-7599-50a4-95f0-9d98da9c5b9a"))
+  (label "K_9"
+    (at 339.09 172.72 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f8a201dc-49b8-5ebd-8820-c1865165ec97"))
+  (label "A_4"
+    (at 330.2 147.32 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "7a1ee969-8742-50dc-9548-f7da9db3cd50"))
+  (global_label "C_0"
+    (shape passive)
+    (at 29.21 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "472c1c70-0e05-58d5-8d77-d82eb2a9e31a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 29.21 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_0"
+    (at 46.99 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "05a6aff9-c8ff-5f45-9674-a20d18b15783"))
+  (global_label "C_1"
+    (shape passive)
+    (at 66.04 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "f13bd214-6382-506a-9b9f-44caef246a07")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 66.04 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_1"
+    (at 83.82 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "cfdefd3c-5dd3-535a-a3e2-d53de3e08acc"))
+  (global_label "C_2"
+    (shape passive)
+    (at 101.6 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "45715078-5cfa-5a41-a4b3-2a159aad88d0")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 101.6 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_2"
+    (at 119.38 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "e0f5d3da-ef56-5762-9178-adf6d5a676fd"))
+  (global_label "C_3"
+    (shape passive)
+    (at 137.16 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "64821446-7ccd-5751-82e3-4b6d9bea56c2")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 137.16 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_3"
+    (at 154.94 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "f5ede266-79a0-5036-859b-78a75a4dc872"))
+  (global_label "C_4"
+    (shape passive)
+    (at 173.99 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "f767cb49-e61a-58c3-8ad9-a98212e9bdd6")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 173.99 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_4"
+    (at 191.77 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "3331dfc6-bfbc-5d7f-b0ad-37c3e3ed935c"))
+  (global_label "C_5"
+    (shape passive)
+    (at 209.55 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "b8d9c167-7767-5a16-bd79-dc1c90627e60")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 209.55 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_5"
+    (at 227.33 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "0c34b869-e556-5292-a813-91b12f9bfae5"))
+  (global_label "C_6"
+    (shape passive)
+    (at 246.38 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "e26d068e-2a89-5906-88e2-e30b24fba453")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 246.38 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_6"
+    (at 264.16 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "ca893683-e550-50fe-9ee5-fe713a378bda"))
+  (global_label "C_7"
+    (shape passive)
+    (at 281.94 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "d85c5617-49ff-5db6-8b34-094f6a4513fa")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 281.94 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_7"
+    (at 299.72 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "2dc9c3bb-a549-5bbe-8d1b-f54225905d1a"))
+  (global_label "C_8"
+    (shape passive)
+    (at 317.5 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "42163c97-8490-578e-b0e9-8463c8d91167")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 317.5 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_8"
+    (at 335.28 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "785a0a5e-1f2a-53b8-a685-28ae9bd949a4"))
+  (global_label "C_9"
+    (shape passive)
+    (at 354.33 270.51 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "e5772662-db1e-5d38-8a66-f72f926f5f03")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 354.33 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_9"
+    (at 372.11 262.89 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "79882711-7558-526d-857a-36791f916e76"))
+  (global_label "SEC_0"
+    (shape passive)
+    (at 434.34 110.49 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "df817d37-9af3-56fc-9e32-b77abc7cf1bb")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 434.34 110.49 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (global_label "SEC_1"
+    (shape passive)
+    (at 495.3 110.49 180)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right))
+    (uuid "6f00d2cc-97ac-56f3-91a1-e0eff9e6dc4a")
+    (property "Intersheetrefs" "${INTERSHEET_REFS}"
+      (at 495.3 110.49 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide)))
+  (label "K_0"
+    (at 425.45 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "338225c8-17d7-5be0-8d0c-ba350ed01730"))
+  (label "K_1"
+    (at 439.42 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "b1e98915-4358-59e8-bc4a-a2ed0bf22e21"))
+  (label "K_2"
+    (at 453.39 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "e5945113-144c-5da3-9bd9-e6fd997dea3c"))
+  (label "K_3"
+    (at 467.36 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "09ce5823-34fe-5d29-b364-e3efe3d9cf71"))
+  (label "K_4"
+    (at 481.33 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "7ef70946-19a0-5fa6-b6ba-440560dfcbb1"))
+  (label "K_5"
+    (at 495.3 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "c973e5c1-d3cd-57d6-b735-08ce60daf677"))
+  (label "K_6"
+    (at 509.27 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "d06b8dcb-549d-52ee-9b98-d17acdf50a9e"))
+  (label "K_7"
+    (at 523.24 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "ce549c74-62cb-5e50-91db-2dbda34a486c"))
+  (label "K_8"
+    (at 537.21 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "a1f38404-14e8-5b59-8b4e-3a90cdd95784"))
+  (label "K_9"
+    (at 551.18 193.04 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "2fe58349-6300-5dc0-ab6a-7f518b895633"))
+  (label "KBIAS"
+    (at 561.34 203.2 0)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "f01d469a-480d-5b77-890c-802210e26b7a"))
+  (label "KBIAS"
+    (at 449.58 256.54 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "7364817d-5040-5f39-8a69-9d5cc7a4bdb5"))
+  (label "KBIAS"
+    (at 469.9 243.84 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "fb3cf0ed-4cfa-5510-94f8-a6f6a0a0a5bb"))
+  (label "KBIAS"
+    (at 490.22 243.84 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "ae56b5b3-6d38-5424-9fea-0d9faac2b797"))
+  (rectangle
+    (start 20 25)
+    (end 400 105)
+    (stroke
+      (width 0.15)
+      (type dash))
+    (fill
+      (type none))
+    (uuid "6e221ca4-237c-540e-930f-03c047641778"))
+  (text "Anode switches (one per tube, MMBTA42 level shift + MMBTA92 high side)"
+    (at 21.27 26.27 0)
+    (effects
+      (font
+        (size 2 2) bold)
+      (justify left top))
+    (uuid "5fbf3bfc-8af3-5fd3-9b38-6f0c6d0e7c4b"))
+  (text "W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak."
+    (at 25 98 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left top))
+    (uuid "eee54c8e-a1bf-53c8-86e8-0a7fd9a07b33"))
+  (rectangle
+    (start 20 115)
+    (end 400 210)
+    (stroke
+      (width 0.15)
+      (type dash))
+    (fill
+      (type none))
+    (uuid "fadc25ef-5ab7-5808-baa3-b82e34a2a1c5"))
+  (text "Tubes (RFT Z573M, B13D base, pin 7 at front)"
+    (at 21.27 116.27 0)
+    (effects
+      (font
+        (size 2 2) bold)
+      (justify left top))
+    (uuid "39a85589-92a8-5e78-a6ef-b309bd730dd2"))
+  (text "Pin 4 = internal connection (leave open). Pin 10 = PR sign (unused).\nPinout from tube-tester.com Z573M page; check against a real tube before layout."
+    (at 25 195 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left top))
+    (uuid "f31ed8c6-5769-5fa3-974d-22077d3c73b8"))
+  (rectangle
+    (start 20 220)
+    (end 400 300)
+    (stroke
+      (width 0.15)
+      (type dash))
+    (fill
+      (type none))
+    (uuid "5a8a5b92-c9fa-5f89-a1d0-76e041a7bf16"))
+  (text "Cathode switches (MMBTA42, shared by all tubes)"
+    (at 21.27 221.27 0)
+    (effects
+      (font
+        (size 2 2) bold)
+      (justify left top))
+    (uuid "c6bf782e-eeef-57be-9a2b-31ed6aad0bf3"))
+  (rectangle
+    (start 410 25)
+    (end 575 140)
+    (stroke
+      (width 0.15)
+      (type dash))
+    (fill
+      (type none))
+    (uuid "8b3f5505-1522-5d88-b4de-1d594b704d91"))
+  (text "Colon neons (SEC_0 upper / SEC_1 lower)"
+    (at 411.27 26.27 0)
+    (effects
+      (font
+        (size 2 2) bold)
+      (justify left top))
+    (uuid "51b23fe8-09ec-5b3e-9cd2-e950675d7836"))
+  (text "Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\nfirmware drives them independently. 150k: ~0.6 mA at 170 V."
+    (at 415 125 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left top))
+    (uuid "97435a87-c8c8-507d-9c71-8be0e1725cb0"))
+  (rectangle
+    (start 410 150)
+    (end 575 300)
+    (stroke
+      (width 0.15)
+      (type dash))
+    (fill
+      (type none))
+    (uuid "a76e4989-9250-5537-a43f-0093799635a5"))
+  (text "Off-cathode clamp (anti-ghosting, as PCB-036)"
+    (at 411.27 151.27 0)
+    (effects
+      (font
+        (size 2 2) bold)
+      (justify left top))
+    (uuid "410616dd-5a40-57fd-8ee1-7d4a28473211"))
+  (text "KBIAS = 170 V x 100k/530k = ~32 V. Off cathodes are held at or below it,\nso the lit anode cannot glow them and the MMBTA42s stay well under VCEO."
+    (at 415 280 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left top))
+    (uuid "1bd197b3-012b-5151-98ff-3c50030de7c0"))
+  (symbol
+    (lib_id "Device:R")
+    (at 40.64 80.01 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1e3d14f1-d11d-5979-9dd2-4a1f88a74b0b")
+    (property "Reference" "R16"
+      (at 40.64 77.47 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 40.64 82.55 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 40.64 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 40.64 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "c86dc6c8-4dc2-5b09-a615-cd007c915dc2"))
+    (pin "2"
+      (uuid "c0c73d8f-62ca-5633-a391-2239548ee155"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R16")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 52.07 87.63 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "241bbd51-3fc4-5e41-a2d4-7d81d3ad0eea")
+    (property "Reference" "#PWR5001"
+      (at 52.07 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 52.07 90.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 52.07 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 52.07 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "777572ba-0bd0-554c-9076-9bd7f052b301"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5001")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 49.53 80.01 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1b8bf1ea-e450-5c35-9c00-1c606b390ecf")
+    (property "Reference" "Q5"
+      (at 53.34 78.74 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 53.34 81.28 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 49.53 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 49.53 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "c2d5908f-2b04-58a7-85e8-046f7395c050"))
+    (pin "2"
+      (uuid "441ea170-7f81-584d-a89e-3fe7f2730632"))
+    (pin "3"
+      (uuid "453ebf90-43c9-5abb-903d-87b9efcd2324"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q5")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 52.07 71.12 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d61b1f25-156a-59c0-9af3-86df65722c18")
+    (property "Reference" "R17"
+      (at 53.34 69.85 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "430k"
+      (at 53.34 72.39 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 52.07 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 52.07 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "ce37e410-289b-501c-9d12-3dcc98a9807a"))
+    (pin "2"
+      (uuid "d34f08bd-ed0e-5fff-ae44-da4996a5d8bd"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R17")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 52.07 57.15 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "2fe49ec5-bc54-5e09-b3b6-b3b41f0f9f21")
+    (property "Reference" "#PWR5004"
+      (at 52.07 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 52.07 53.95 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 52.07 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 52.07 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "db0fea5b-e84f-5ffc-96f8-e220cdb53114"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5004")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 52.07 63.5 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "14f9e455-892e-5287-adc4-ff5b0c88815e")
+    (property "Reference" "R18"
+      (at 53.34 62.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100k"
+      (at 53.34 64.77 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 52.07 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 52.07 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "5aeeab2f-3bbb-51e1-bc96-39a74c49b4d1"))
+    (pin "2"
+      (uuid "e724be6e-644f-5cec-abb6-9e469890efa4"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R18")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 59.69 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "85dfbf19-0cf3-55fa-9117-ca1b27aaf66d")
+    (property "Reference" "#PWR5006"
+      (at 59.69 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 59.69 56.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 59.69 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 59.69 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "7c476e09-e839-5351-af16-eeb6b1a8521f"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5006")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA92")
+    (at 57.15 67.31 0)
+    (mirror x)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "0384f47e-0ac1-5d37-bee1-473022799a8f")
+    (property "Reference" "Q6"
+      (at 60.96 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA92"
+      (at 60.96 68.58 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 57.15 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 57.15 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "ba22a1b3-4910-5820-b4b3-80aa7b60e823"))
+    (pin "2"
+      (uuid "41f6ea40-bb24-58b9-b4e7-8ff4e62dd396"))
+    (pin "3"
+      (uuid "57f99e5e-ba95-5acc-80d1-bf089ce24303"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q6")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 59.69 76.2 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "e383cf0d-7ebf-56bd-becd-b73ed40484ef")
+    (property "Reference" "R19"
+      (at 60.96 74.93 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10k"
+      (at 60.96 77.47 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 59.69 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 59.69 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "7e5cc429-0b7a-5cde-be40-cdf3d3fdee83"))
+    (pin "2"
+      (uuid "ab70b12a-d1e6-55a1-9c5d-797fe514a732"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R19")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 130.81 80.01 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "0a0de5df-3cc0-5e99-8ed9-4a2f4141b793")
+    (property "Reference" "R20"
+      (at 130.81 77.47 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 130.81 82.55 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 130.81 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 130.81 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "59ab9cd7-fb04-579e-969a-067afc2084a5"))
+    (pin "2"
+      (uuid "9b68681f-aa6b-555b-a0b4-1f548ec61d29"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R20")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 142.24 87.63 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "9db56fbc-5529-5bd9-972b-5654ae2bd103")
+    (property "Reference" "#PWR5010"
+      (at 142.24 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 142.24 90.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 142.24 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 142.24 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "2a83fb10-3365-5461-ae4b-5b2bb919f5a7"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5010")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 139.7 80.01 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "33220692-ca68-5654-aa8a-a95a3bd65311")
+    (property "Reference" "Q7"
+      (at 143.51 78.74 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 143.51 81.28 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 139.7 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 139.7 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "a11e9954-397a-5ea4-9ec7-37a7236791af"))
+    (pin "2"
+      (uuid "1ca79fb6-108e-5e9a-bcce-008dca4d65db"))
+    (pin "3"
+      (uuid "a3525b63-6b5b-5782-9313-5ade49dab8fa"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q7")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 142.24 71.12 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ce0cf57d-68ec-5d27-bf55-4652d37125cb")
+    (property "Reference" "R21"
+      (at 143.51 69.85 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "430k"
+      (at 143.51 72.39 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 142.24 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 142.24 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "1ee5d818-1d1f-5a6c-8a0e-6d5f259d2fa2"))
+    (pin "2"
+      (uuid "0b3fd107-9318-5788-9284-a1debedb340c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R21")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 142.24 57.15 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "9feb7ab5-2cfe-5c1c-982f-3893c7f7ecca")
+    (property "Reference" "#PWR5013"
+      (at 142.24 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 142.24 53.95 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 142.24 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 142.24 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "b444970a-b279-50fc-86ce-b94741075878"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5013")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 142.24 63.5 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f907ff3b-11e2-57f9-b25e-bd60a02893cf")
+    (property "Reference" "R22"
+      (at 143.51 62.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100k"
+      (at 143.51 64.77 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 142.24 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 142.24 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "70b5e4e7-a23c-5fa1-9cac-254389012043"))
+    (pin "2"
+      (uuid "c204af9b-a855-5594-87af-e157c89bf949"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R22")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 149.86 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "95f80845-bddf-5e2a-9498-10dad8323763")
+    (property "Reference" "#PWR5015"
+      (at 149.86 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 149.86 56.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 149.86 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 149.86 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "fe846a1f-cf11-53ab-b996-b9483158ce5b"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5015")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA92")
+    (at 147.32 67.31 0)
+    (mirror x)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "6c4b14de-dd29-5020-916e-c7a2b31c014e")
+    (property "Reference" "Q8"
+      (at 151.13 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA92"
+      (at 151.13 68.58 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 147.32 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 147.32 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "ffac86f6-5d9f-5879-947f-cf32bc6b1684"))
+    (pin "2"
+      (uuid "e22fbb53-d049-53f3-b867-4bd943eef106"))
+    (pin "3"
+      (uuid "ad5f93f4-a32e-5fd1-a070-0608f8c4a633"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q8")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 149.86 76.2 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "363e6131-f213-5219-8dd9-6b99b7a8942e")
+    (property "Reference" "R23"
+      (at 151.13 74.93 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10k"
+      (at 151.13 77.47 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 149.86 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 149.86 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "4f94dc03-79b3-52f3-b9e1-d74979fc2d8a"))
+    (pin "2"
+      (uuid "e66c429f-8751-54ab-993a-b445b29eac15"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R23")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 220.98 80.01 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "12d80850-6c29-5090-8af8-00731e046937")
+    (property "Reference" "R24"
+      (at 220.98 77.47 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 220.98 82.55 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 220.98 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 220.98 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "938f15f8-9071-52f9-a350-eb9701e0c394"))
+    (pin "2"
+      (uuid "99a9813f-f45f-5299-b53e-5f9c3683a58e"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R24")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 232.41 87.63 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "da325fa2-ce66-59ec-a9b1-c26f2304fa5a")
+    (property "Reference" "#PWR5019"
+      (at 232.41 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 232.41 90.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 232.41 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 232.41 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "ea74b534-3b2e-5691-8dd0-564d661bd60c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5019")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 229.87 80.01 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "996762dc-2da0-5aeb-9e9a-985665d4dac0")
+    (property "Reference" "Q9"
+      (at 233.68 78.74 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 233.68 81.28 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 229.87 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 229.87 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "bf3e631c-96f1-559b-a171-f209eb59548a"))
+    (pin "2"
+      (uuid "5ad5819d-ce9d-56de-8090-ec4bdc3a714b"))
+    (pin "3"
+      (uuid "644e5d11-c2a2-5c24-a1fc-aefaaa9e0fb8"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q9")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 232.41 71.12 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "cb203e28-6cb9-5b2b-ab34-eafb7c92b89c")
+    (property "Reference" "R25"
+      (at 233.68 69.85 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "430k"
+      (at 233.68 72.39 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 232.41 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 232.41 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "06883d59-02bf-56f8-9d1e-2fafda8ad608"))
+    (pin "2"
+      (uuid "a29ca7d3-94fb-5c4d-9fc5-88345b785af1"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R25")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 232.41 57.15 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "8ec192b1-2454-5ec4-82f6-4623865196a3")
+    (property "Reference" "#PWR5022"
+      (at 232.41 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 232.41 53.95 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 232.41 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 232.41 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "3f8778fb-78c8-5ff0-9f37-d51313e10628"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5022")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 232.41 63.5 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "758fc4f3-5371-5947-9478-81e80251e3b8")
+    (property "Reference" "R26"
+      (at 233.68 62.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100k"
+      (at 233.68 64.77 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 232.41 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 232.41 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "2416cf97-74e1-5583-bcc1-d38d56c369e4"))
+    (pin "2"
+      (uuid "a1f244e0-4b46-509b-9807-61e8d599a4e9"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R26")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 240.03 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "90571574-8c4e-59cb-a45e-3ba21dc60b11")
+    (property "Reference" "#PWR5024"
+      (at 240.03 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 240.03 56.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 240.03 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 240.03 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "76dcaa35-ac86-55ad-8763-f13b7f5d4c41"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5024")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA92")
+    (at 237.49 67.31 0)
+    (mirror x)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "74949994-09a5-57e2-bad8-e72ae9de46f3")
+    (property "Reference" "Q10"
+      (at 241.3 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA92"
+      (at 241.3 68.58 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 237.49 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 237.49 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "eab73461-09a8-5716-ba78-68065bef5fc4"))
+    (pin "2"
+      (uuid "b67841f2-87e5-5f4f-8ec8-a3b3c0e48354"))
+    (pin "3"
+      (uuid "f2b4437a-0e4d-5c76-82fa-6a54398defab"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q10")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 240.03 76.2 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "42dd23e3-1dd1-5541-86d2-bf054a56537c")
+    (property "Reference" "R27"
+      (at 241.3 74.93 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10k"
+      (at 241.3 77.47 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 240.03 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 240.03 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "0cbc0ec2-4241-515d-9c89-509fcb6322cd"))
+    (pin "2"
+      (uuid "9ec4c3b8-da8d-56a8-a3c3-0ce153c8a7b4"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R27")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 311.15 80.01 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1b8bd34e-8cf0-5a12-9196-b4aaa6424fee")
+    (property "Reference" "R28"
+      (at 311.15 77.47 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 311.15 82.55 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 311.15 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 311.15 80.01 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "b1278372-444d-517a-a431-a9ec264d04fd"))
+    (pin "2"
+      (uuid "0d391c18-2821-5adf-9841-6dcead076dbd"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R28")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 322.58 87.63 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "0cce9fcb-4d8a-5ddb-84c9-e3df2c1fdd06")
+    (property "Reference" "#PWR5028"
+      (at 322.58 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 322.58 90.83 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 322.58 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 322.58 87.63 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "5629f5b5-579f-5d72-970b-16c4b3fbd0ce"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5028")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 320.04 80.01 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "34a76b27-6286-5d91-a0da-1e92666029f8")
+    (property "Reference" "Q11"
+      (at 323.85 78.74 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 323.85 81.28 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 320.04 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 320.04 80.01 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "8d63b566-8504-5371-b0db-8b5d5154635f"))
+    (pin "2"
+      (uuid "ee7eb276-ad23-53d7-8606-43115400a8f2"))
+    (pin "3"
+      (uuid "94723977-ccef-53a9-879a-88cc4a5ea6e4"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q11")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 322.58 71.12 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "3209937c-d8a6-5b3b-bb28-55c3877397de")
+    (property "Reference" "R29"
+      (at 323.85 69.85 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "430k"
+      (at 323.85 72.39 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 322.58 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 322.58 71.12 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "b7e37e35-7527-5b49-922c-c3dc1d7683ff"))
+    (pin "2"
+      (uuid "ea0d2ca3-2ac8-5e8b-a1b9-1068bfe7c6d6"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R29")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 322.58 57.15 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "7ee3fc63-61be-5b92-b06b-26816702ea84")
+    (property "Reference" "#PWR5031"
+      (at 322.58 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 322.58 53.95 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 322.58 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 322.58 57.15 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "8285c96b-b274-5cd1-aedd-c630ad8caf83"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5031")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 322.58 63.5 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "79488256-f3ed-5fed-a01c-4e8c439ae66d")
+    (property "Reference" "R30"
+      (at 323.85 62.23 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100k"
+      (at 323.85 64.77 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 322.58 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 322.58 63.5 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "6f2bf90a-6e2a-5790-b102-4924787957f6"))
+    (pin "2"
+      (uuid "553a8c38-b93a-55b6-828c-28528f0983a4"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R30")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 330.2 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "741d832b-bb51-5c14-b057-ecb8f973aa5c")
+    (property "Reference" "#PWR5033"
+      (at 330.2 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 330.2 56.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 330.2 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 330.2 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "38efe830-7e6d-5db3-b960-3446bd52a478"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5033")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA92")
+    (at 327.66 67.31 0)
+    (mirror x)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a4ca2e75-f00f-5e49-85b3-a1fa72f87144")
+    (property "Reference" "Q12"
+      (at 331.47 66.04 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA92"
+      (at 331.47 68.58 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 327.66 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 327.66 67.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "7662ebf5-4cd7-5f5d-848a-e394396e3fde"))
+    (pin "2"
+      (uuid "a88dbfdc-c524-5a7c-a3be-3e39b3f93169"))
+    (pin "3"
+      (uuid "ec77d8f5-cddb-5a2d-9f5e-1af3cbe9f444"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q12")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 330.2 76.2 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ecf6d460-651f-5703-9456-94beed26de3c")
+    (property "Reference" "R31"
+      (at 331.47 74.93 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "10k"
+      (at 331.47 77.47 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 330.2 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 330.2 76.2 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "bf3c8a35-482b-5d7e-be08-8081dad370bb"))
+    (pin "2"
+      (uuid "68347bea-d698-59a1-bfd9-056aa4e60285"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R31")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:Z573M")
+    (at 59.69 160.02 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "58d0f3d3-804c-5b4f-ba6c-b619677b0974")
+    (property "Reference" "N1"
+      (at 44 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "Z573M"
+      (at 64 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 59.69 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 59.69 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "12"
+      (uuid "af637da1-864a-513e-8d0d-438a813d180a"))
+    (pin "1"
+      (uuid "7aca3e83-4f46-537e-9f7a-ef85fc525362"))
+    (pin "2"
+      (uuid "6c9399a6-5e2c-5b12-ad00-d43b72c008e5"))
+    (pin "3"
+      (uuid "f02d6052-b8aa-51d1-a096-158cc03a885b"))
+    (pin "5"
+      (uuid "fc27501f-e623-5a76-bb7d-19c07e6c8d38"))
+    (pin "6"
+      (uuid "458349de-3cb0-5484-b166-5653e9b5dfb3"))
+    (pin "7"
+      (uuid "e6469f61-574a-5f76-839e-da0f8a5c4b79"))
+    (pin "8"
+      (uuid "54a2caed-cddb-5851-ac54-5afd331d75a6"))
+    (pin "9"
+      (uuid "9ea8f980-7057-5888-8013-414bd60297a0"))
+    (pin "11"
+      (uuid "f1f9c64b-dde2-56ee-be46-6f1b1696a59c"))
+    (pin "10"
+      (uuid "0bd13692-dfde-5044-acb8-2ae5212f9269"))
+    (pin "4"
+      (uuid "136c1f55-e1e0-57bf-9071-4a2069af0b33"))
+    (pin "13"
+      (uuid "2c68a846-21ba-5b88-b584-d1057235997e"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "N1")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:Z573M")
+    (at 149.86 160.02 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5d387b0d-151d-5926-ae1b-3b4b7a5b53ac")
+    (property "Reference" "N2"
+      (at 134 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "Z573M"
+      (at 154 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 149.86 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 149.86 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "12"
+      (uuid "eabbb2c1-a492-5d93-a549-3e9cc5ef72ed"))
+    (pin "1"
+      (uuid "36bea466-6e67-5067-b7a1-0a52edfcf09a"))
+    (pin "2"
+      (uuid "bebfcee2-bd4b-5ba3-bbfa-d83086426671"))
+    (pin "3"
+      (uuid "4f073ddb-cc40-5ee9-954c-d3ba75ed239b"))
+    (pin "5"
+      (uuid "a1ce5f7a-21f4-55fe-a23c-90b7eef8f42c"))
+    (pin "6"
+      (uuid "cd7d18cc-c083-5381-b68c-d5e83f7b1ebb"))
+    (pin "7"
+      (uuid "8d2c5895-ff90-5ef7-8059-25ac3d526ff0"))
+    (pin "8"
+      (uuid "a929ad9a-cfad-53dc-a293-5584a98bed2b"))
+    (pin "9"
+      (uuid "38e13387-1cc0-5251-96b4-2e5cb8985174"))
+    (pin "11"
+      (uuid "9aad83b6-2355-59ef-a735-b9fbc542fe9e"))
+    (pin "10"
+      (uuid "5c23f112-ac95-5a5f-b94a-555a15cbf9ac"))
+    (pin "4"
+      (uuid "1b5beacc-94c4-5ece-b6e7-91af962aac64"))
+    (pin "13"
+      (uuid "4e77c89f-1590-5eb4-a10c-99580cf5551b"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "N2")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:Z573M")
+    (at 240.03 160.02 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "3ed7b2cc-2a42-5b80-afde-fdba46cb3512")
+    (property "Reference" "N3"
+      (at 224 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "Z573M"
+      (at 244 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 240.03 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 240.03 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "12"
+      (uuid "36ca6740-8b15-5bcf-95e3-03d8dae1bcc1"))
+    (pin "1"
+      (uuid "986464c9-e910-5a8d-83e8-97e9c6631a3d"))
+    (pin "2"
+      (uuid "6639b00f-73db-585c-84b9-71b776fb6404"))
+    (pin "3"
+      (uuid "f3df63a4-74f2-550f-8e9a-4ff4db2408c5"))
+    (pin "5"
+      (uuid "b6a5479d-bfa3-5ba7-a259-b977449ccac1"))
+    (pin "6"
+      (uuid "129aa83a-a2ea-5dbc-8ebc-847252187306"))
+    (pin "7"
+      (uuid "78f0baa9-7c5f-5326-ac32-6109cfc6f298"))
+    (pin "8"
+      (uuid "ecbc3fa1-165f-51d8-a3cc-8db350155859"))
+    (pin "9"
+      (uuid "279b6af7-9c06-57bd-99ab-58e6c4d7e442"))
+    (pin "11"
+      (uuid "e11be689-c2a1-582b-88a2-e602d8c9ae16"))
+    (pin "10"
+      (uuid "d1b843f3-b9c7-56a8-a3a9-2acd34384b5a"))
+    (pin "4"
+      (uuid "7463f5b3-87e7-54ca-aefd-2400cdd77741"))
+    (pin "13"
+      (uuid "d7634b9e-5bb1-5b7d-98db-d8b95fe15ddf"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "N3")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:Z573M")
+    (at 330.2 160.02 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "23bb6260-70e9-5c62-bde2-f356bd9589d4")
+    (property "Reference" "N4"
+      (at 314 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "Z573M"
+      (at 334 151 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 330.2 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 330.2 160.02 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "12"
+      (uuid "0aa3ab0e-db27-582f-9a1d-ef061ca6a7cf"))
+    (pin "1"
+      (uuid "100c6183-8025-5120-a924-b722aa8647e9"))
+    (pin "2"
+      (uuid "fe026c89-2607-517b-885a-53b1832a72f1"))
+    (pin "3"
+      (uuid "555016f0-e0f3-51f4-82d0-69bf6f257388"))
+    (pin "5"
+      (uuid "f7cbefd0-fbe7-5dda-a429-6ff5fce9f50b"))
+    (pin "6"
+      (uuid "364029b6-5aef-5474-aca3-2503a39ede1a"))
+    (pin "7"
+      (uuid "6378341e-69b2-5e13-81dc-ad479c06d9a4"))
+    (pin "8"
+      (uuid "6ba3cd81-856d-51c4-9ac0-118d7150715f"))
+    (pin "9"
+      (uuid "2e319b10-0d27-53f9-94d0-f4b91ae3f422"))
+    (pin "11"
+      (uuid "26b1c474-6360-599d-bbdf-5df5131e288f"))
+    (pin "10"
+      (uuid "064d35b9-44f5-5f6e-bbc8-45f03a31b4e3"))
+    (pin "4"
+      (uuid "c73d9969-4b43-5e00-bb84-28c811e607d6"))
+    (pin "13"
+      (uuid "99266153-c1a7-5895-8cc3-68e5c50a785a"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "N4")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 35.56 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "94961a1a-c690-5c2f-aa0e-a860510d9631")
+    (property "Reference" "R32"
+      (at 35.56 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 35.56 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 35.56 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 35.56 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "ce067bbb-bb37-5604-8352-87158737ea5d"))
+    (pin "2"
+      (uuid "0795e3da-4f1a-5bb6-b68a-4a75f332bf20"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R32")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 46.99 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d03ea613-ac96-5d9c-8205-4052be0ac339")
+    (property "Reference" "#PWR5041"
+      (at 46.99 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 46.99 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 46.99 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 46.99 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "81fb56a2-a4cd-56ea-a1c8-ff2d8d7f13c3"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5041")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 44.45 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "51aff322-baf3-55fc-9ebe-0c6b03ea3c49")
+    (property "Reference" "Q13"
+      (at 48.26 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 48.26 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 44.45 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 44.45 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "46a9ecea-8b91-5eae-b0db-acba9b8cdb98"))
+    (pin "2"
+      (uuid "5bf7a83c-ba2e-596f-a9a3-0e2737eee2fd"))
+    (pin "3"
+      (uuid "b3888103-18cf-5e4a-9844-c91b469c3ee0"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q13")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 72.39 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "800e0d2b-7d90-5509-9775-b306cc44835d")
+    (property "Reference" "R33"
+      (at 72.39 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 72.39 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 72.39 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 72.39 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "f593a83b-539c-5b43-b8aa-370f4924ac28"))
+    (pin "2"
+      (uuid "6d3a5131-e0c3-55f5-a6e0-892fd3ce10c8"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R33")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 83.82 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "045b14b7-3b5f-5300-92d8-e30d977b1a95")
+    (property "Reference" "#PWR5044"
+      (at 83.82 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 83.82 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 83.82 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 83.82 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "fabcedfb-4cef-5dfb-8cf2-e550bb91a0eb"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5044")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 81.28 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1dc937bd-53b1-571b-b481-a63d9d497992")
+    (property "Reference" "Q14"
+      (at 85.09 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 85.09 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 81.28 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 81.28 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "25859f6c-154e-5c90-8cae-a3dedbb1ffd3"))
+    (pin "2"
+      (uuid "dd232664-8c61-57ea-adf8-178212125442"))
+    (pin "3"
+      (uuid "36dfb7c5-a978-578d-b277-2cc6c9bfd611"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q14")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 107.95 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1cb842ba-d28b-5118-864d-6dfcd121cf77")
+    (property "Reference" "R34"
+      (at 107.95 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 107.95 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 107.95 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 107.95 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "b86ed3cc-8311-5eec-b522-97d23107bcdd"))
+    (pin "2"
+      (uuid "e1ab4aba-101b-59ad-b902-31ef4ce4d4b2"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R34")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 119.38 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "02fee076-9c4d-5b30-8226-8c22df298e1f")
+    (property "Reference" "#PWR5047"
+      (at 119.38 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 119.38 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 119.38 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 119.38 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "aef23532-e8ae-5f59-9253-889007f5d714"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5047")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 116.84 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "e24652ec-246e-562a-8ba7-42816b46ca53")
+    (property "Reference" "Q15"
+      (at 120.65 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 120.65 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 116.84 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 116.84 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "e01acbee-72be-5597-800f-194e663130e4"))
+    (pin "2"
+      (uuid "94c590cb-ea0d-5b1a-a211-abe28b05cb14"))
+    (pin "3"
+      (uuid "526f5d60-ec7e-5edc-8088-6314f442fe9c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q15")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 143.51 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a2014a69-4924-5d67-90d8-ed810cf518e6")
+    (property "Reference" "R35"
+      (at 143.51 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 143.51 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 143.51 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 143.51 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "207d8e7d-0bcd-5137-b9e0-2cfb52393b17"))
+    (pin "2"
+      (uuid "1286f14c-604b-5e96-a183-b06082da5c61"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R35")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 154.94 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "38894a7d-69c5-52f8-a86c-98e92494aa2c")
+    (property "Reference" "#PWR5050"
+      (at 154.94 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 154.94 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 154.94 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 154.94 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "f916f543-59f2-51cb-bd9a-7860b3b4e639"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5050")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 152.4 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "fb0bea1d-0691-5f8f-96e8-87aa5a4582c2")
+    (property "Reference" "Q16"
+      (at 156.21 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 156.21 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 152.4 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 152.4 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "abd78eea-dc3b-5f04-a16b-1a246fd898ef"))
+    (pin "2"
+      (uuid "1a3bb4b1-c222-53d2-bff6-c576ff553e52"))
+    (pin "3"
+      (uuid "ec58c24b-fbb5-5fb1-b12a-e6b341a3a59b"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q16")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 180.34 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "2c0a4628-9f2f-535f-8e35-331144938ec0")
+    (property "Reference" "R36"
+      (at 180.34 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 180.34 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 180.34 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 180.34 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "6e3e2d3e-8da9-514c-9377-2ead646b3598"))
+    (pin "2"
+      (uuid "ae2f62f3-d812-5609-a585-68b975ac4541"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R36")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 191.77 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f6a7b138-0ece-5a9b-b29b-34432d7f29a4")
+    (property "Reference" "#PWR5053"
+      (at 191.77 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 191.77 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 191.77 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 191.77 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "fa202402-8a19-5587-8926-49e4db67e188"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5053")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 189.23 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "48bfce71-4a57-557b-af67-f433690a5601")
+    (property "Reference" "Q17"
+      (at 193.04 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 193.04 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 189.23 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 189.23 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "966febcb-fdce-55ee-bb2d-6119d9cf6736"))
+    (pin "2"
+      (uuid "ef1b7d28-2fa8-501c-aea7-ffaa69bf5ad4"))
+    (pin "3"
+      (uuid "c1682e0b-f803-53af-ad0c-56a3824acd77"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q17")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 215.9 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "59641216-733f-5dff-b6fb-f7fcd0ee697f")
+    (property "Reference" "R37"
+      (at 215.9 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 215.9 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 215.9 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 215.9 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "fb9c052a-18b3-53af-bbaa-a3c884e1d235"))
+    (pin "2"
+      (uuid "f1b926d9-5da9-56b4-bf4a-19e26fd7d98c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R37")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 227.33 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "3fee5e48-b461-5b50-9c3f-fb3fb5cf21a6")
+    (property "Reference" "#PWR5056"
+      (at 227.33 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 227.33 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 227.33 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 227.33 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "743cbeba-f64f-588f-8713-396fb8dc73b6"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5056")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 224.79 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "33f9f94e-a24d-59a9-94c3-4ffb52d860b7")
+    (property "Reference" "Q18"
+      (at 228.6 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 228.6 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 224.79 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 224.79 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "e847c6ba-cfac-55ef-9345-ff211c61b41a"))
+    (pin "2"
+      (uuid "7465a0cf-799c-5dce-a8fe-00c96fa0391a"))
+    (pin "3"
+      (uuid "5db47e7f-e3fc-56f2-8d39-f0de3573b3e0"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q18")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 252.73 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a0e9af6b-bb90-588f-8477-49c294eb6960")
+    (property "Reference" "R38"
+      (at 252.73 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 252.73 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 252.73 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 252.73 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "d63ce8ca-afcd-5e19-bcf8-b0cbe6a82533"))
+    (pin "2"
+      (uuid "bd40021d-f391-5491-affd-29530b0dc8c1"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R38")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 264.16 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "be8108ab-8964-55b8-879a-230a66a17f63")
+    (property "Reference" "#PWR5059"
+      (at 264.16 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 264.16 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 264.16 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 264.16 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "cc96bc55-ec08-5a65-a0bd-8b12da49b274"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5059")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 261.62 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "cc67242c-7320-5c46-8567-cff20e23e1da")
+    (property "Reference" "Q19"
+      (at 265.43 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 265.43 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 261.62 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 261.62 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "baafd971-f847-55b5-a318-4eee0e75b565"))
+    (pin "2"
+      (uuid "f7bfee28-fac9-52ce-85be-afc4d147c060"))
+    (pin "3"
+      (uuid "0134b291-c8dd-5a56-9dea-33fe79d43733"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q19")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 288.29 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b234b7cc-2ad1-54c9-a134-f6f8916291fb")
+    (property "Reference" "R39"
+      (at 288.29 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 288.29 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 288.29 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 288.29 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "27025179-d416-54b7-ab28-83d91c77bb52"))
+    (pin "2"
+      (uuid "3e076f91-c379-50fe-b334-08905c9230cc"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R39")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 299.72 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "73b13b8c-a1fa-5b55-86c3-81dc7249741a")
+    (property "Reference" "#PWR5062"
+      (at 299.72 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 299.72 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 299.72 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 299.72 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "e1c9ce67-37d9-5599-8b07-0caacfead7f5"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5062")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 297.18 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1c7b8375-9a39-5771-966a-c78592e7a728")
+    (property "Reference" "Q20"
+      (at 300.99 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 300.99 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 297.18 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 297.18 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "26d7a540-f09b-53df-8148-ef8859db1448"))
+    (pin "2"
+      (uuid "f242e9bc-f875-504b-a72c-f9a8f07fffba"))
+    (pin "3"
+      (uuid "5d2aeba4-74e0-5c0a-b9da-a8e951c1276c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q20")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 323.85 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "3276d324-1b58-5ac7-a470-4229ce554d59")
+    (property "Reference" "R40"
+      (at 323.85 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 323.85 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 323.85 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 323.85 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "f486728c-40ba-5de1-b0a1-3d89cc11433f"))
+    (pin "2"
+      (uuid "f1f0fd6d-c21c-5ccd-a2c8-de7546791e9b"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R40")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 335.28 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d9e71b3a-5d2f-59cd-b076-26abb8db2351")
+    (property "Reference" "#PWR5065"
+      (at 335.28 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 335.28 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 335.28 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 335.28 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "a2853c3c-50f1-51bb-8227-67d4679b98a2"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5065")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 332.74 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "e3bfde06-65cf-5e4a-a533-85d78169b2a7")
+    (property "Reference" "Q21"
+      (at 336.55 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 336.55 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 332.74 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 332.74 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "c9672246-55ca-5ab7-9e91-2a29c9047f6a"))
+    (pin "2"
+      (uuid "82ad234d-b5e2-5ff0-b23c-e4eae78093bf"))
+    (pin "3"
+      (uuid "c187b4ab-4ce2-548c-921a-df1f6a1d8230"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q21")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 360.68 270.51 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5b67f319-4c82-5829-bdc1-e79268fc266e")
+    (property "Reference" "R41"
+      (at 360.68 267.97 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "15k"
+      (at 360.68 273.05 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 360.68 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 360.68 270.51 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "d0276734-7e2b-5a3a-91d1-64925824b2bd"))
+    (pin "2"
+      (uuid "f27eab73-bb2a-550e-bf87-28e4ded07679"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R41")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 372.11 278.13 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5575126c-91c0-530e-9b0e-c4190fc7d9d0")
+    (property "Reference" "#PWR5068"
+      (at 372.11 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 372.11 281.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 372.11 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 372.11 278.13 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "41656f72-7727-5e9b-b062-89cbb3c82311"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5068")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 369.57 270.51 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "ee4b8c2a-7216-5d73-a34f-2a845e7efc23")
+    (property "Reference" "Q22"
+      (at 373.38 269.24 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 373.38 271.78 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 369.57 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 369.57 270.51 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "b858d4fc-1acd-5aa4-800d-d20fe5c58edd"))
+    (pin "2"
+      (uuid "122ff33d-347e-557b-b8f1-b6c1594a2731"))
+    (pin "3"
+      (uuid "f48a328d-9fd6-513e-abe7-d8a7d911d312"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q22")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 440.69 110.49 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d27fa221-3a57-5235-9ab0-190644c35380")
+    (property "Reference" "R42"
+      (at 440.69 107.95 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "100k"
+      (at 440.69 113.03 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 440.69 110.49 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 440.69 110.49 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "9759bcfc-de9b-526f-96e9-a5cb85a704cc"))
+    (pin "2"
+      (uuid "e51a16be-d88b-54d3-9830-7df79a807f38"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R42")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 452.12 118.11 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "7465c0d8-9241-5b51-93df-f6ac908100bc")
+    (property "Reference" "#PWR5071"
+      (at 452.12 118.11 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 452.12 121.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 452.12 118.11 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 452.12 118.11 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "44f3198d-5835-5f45-8f31-2306396c08a1"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5071")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 449.58 110.49 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b131a3e0-1519-5c08-832a-3da979147a07")
+    (property "Reference" "Q23"
+      (at 453.39 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 453.39 111.76 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 449.58 110.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 449.58 110.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "ee8e73b9-2902-5cf4-96dc-fe4136573cba"))
+    (pin "2"
+      (uuid "d6856457-9d1e-566b-b7b1-865bd6263d0c"))
+    (pin "3"
+      (uuid "33b33f0c-2509-562a-ae1e-cd7c87979874"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q23")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:Lamp_Neon")
+    (at 452.12 100.33 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d7a93751-4189-57d2-b066-fe71da549184")
+    (property "Reference" "NE1"
+      (at 453.39 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "NE-2 / INS-1"
+      (at 453.39 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 452.12 100.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 452.12 100.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "25485f6b-b74b-5a19-9824-9e932898bc2a"))
+    (pin "2"
+      (uuid "875e1dc0-b7f5-5283-9509-26091468b103"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "NE1")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 452.12 85.09 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f08085d7-4362-57d1-8931-216895a55967")
+    (property "Reference" "#PWR5074"
+      (at 452.12 85.09 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 452.12 81.89 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 452.12 85.09 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 452.12 85.09 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "6dbdf592-2aec-5ba4-bdc8-9d9e729563d2"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5074")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 452.12 91.44 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "fc6b7023-4b22-57e8-a40d-fba90e58077c")
+    (property "Reference" "R43"
+      (at 453.39 90.17 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "150k"
+      (at 453.39 92.71 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 452.12 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 452.12 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "861333e5-60ca-5639-ace0-008593c42700"))
+    (pin "2"
+      (uuid "6e9e1c80-4ca5-53d1-b6a0-f177763eb96f"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R43")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 501.65 110.49 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "b7df2be5-8e32-529a-a24a-ed593f8a85d8")
+    (property "Reference" "R44"
+      (at 501.65 107.95 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Value" "100k"
+      (at 501.65 113.03 90)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 501.65 110.49 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 501.65 110.49 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "839be357-1474-5cec-9946-d116317708a1"))
+    (pin "2"
+      (uuid "7be2fc60-d3b0-5a50-957b-7a7c8dc0dd76"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R44")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 513.08 118.11 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "f0a4f504-f7a7-56a5-980f-3388a7416023")
+    (property "Reference" "#PWR5077"
+      (at 513.08 118.11 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 513.08 121.31 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 513.08 118.11 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 513.08 118.11 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "5f04fa58-ffca-50c1-bb5e-209532e6fc16"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5077")
+          (unit 1)))))
+  (symbol
+    (lib_id "Transistor_BJT:MMBTA42")
+    (at 510.54 110.49 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "4c5e4525-1e57-5adf-ad15-07681aa652b9")
+    (property "Reference" "Q24"
+      (at 514.35 109.22 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "MMBTA42"
+      (at 514.35 111.76 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
+      (at 510.54 110.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 510.54 110.49 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "9c3e2919-8e6f-540a-9fe2-e05f14805459"))
+    (pin "2"
+      (uuid "8c4a40a6-c6c9-5557-b350-22edb8f0fe7b"))
+    (pin "3"
+      (uuid "c58b6127-14e5-59ef-9f34-cb174b44c0f2"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "Q24")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:Lamp_Neon")
+    (at 513.08 100.33 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a36fa567-454c-5890-8c83-ba5bcec472e3")
+    (property "Reference" "NE2"
+      (at 514.35 99.06 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "NE-2 / INS-1"
+      (at 514.35 101.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" ""
+      (at 513.08 100.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 513.08 100.33 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "185a0b77-b5b6-5763-b763-5956a10afe38"))
+    (pin "2"
+      (uuid "27fab131-4b33-5695-83e5-9d910a69cabe"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "NE2")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 513.08 85.09 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1dbce290-56db-573a-a2d1-965e4f24ae88")
+    (property "Reference" "#PWR5080"
+      (at 513.08 85.09 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 513.08 81.89 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 513.08 85.09 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 513.08 85.09 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "cf5c3327-edf4-50be-b743-bf4f18cbaa8c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5080")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 513.08 91.44 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "3e97d90e-457d-54fe-9440-ea020969f3ca")
+    (property "Reference" "R45"
+      (at 514.35 90.17 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "150k"
+      (at 514.35 92.71 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 513.08 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 513.08 91.44 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "4cd7042b-0c38-5afe-9c15-040d235676c8"))
+    (pin "2"
+      (uuid "1358a996-b05f-5d2e-9f7b-cb468d7e3254"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R45")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 425.45 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "01430cb0-4f1a-5944-8c91-8cdfb66b7b61")
+    (property "Reference" "D12"
+      (at 426.72 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 426.72 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 425.45 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 425.45 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "f6dad027-92c9-5255-95a4-78e99c544aa4"))
+    (pin "2"
+      (uuid "f3a43716-2f91-559a-952e-ab2cc711026e"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D12")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 439.42 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "e3136185-e92e-5da2-b036-3a2e18f27ba4")
+    (property "Reference" "D13"
+      (at 440.69 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 440.69 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 439.42 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 439.42 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "4597ed2c-f1c2-5173-9f5f-778b973a861b"))
+    (pin "2"
+      (uuid "c0eca03e-b819-5dd8-bae4-e656b70f706d"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D13")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 453.39 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "47799d42-2da8-5f34-b3d0-ce8f321bb9f8")
+    (property "Reference" "D14"
+      (at 454.66 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 454.66 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 453.39 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 453.39 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "a7a33298-4b44-5052-acfc-93ede783110f"))
+    (pin "2"
+      (uuid "f84e626e-2d24-599e-982a-66fb6fe9e90c"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D14")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 467.36 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "d41c721f-9fdc-566d-acc8-9fa0d2ab61c6")
+    (property "Reference" "D15"
+      (at 468.63 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 468.63 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 467.36 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 467.36 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "357a803f-0243-5db2-bab6-55c313878bac"))
+    (pin "2"
+      (uuid "d1f5f127-6158-5bb4-b299-fdea791846c2"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D15")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 481.33 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "2c4d6aa9-d733-5efc-9fbc-482cabf81d72")
+    (property "Reference" "D16"
+      (at 482.6 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 482.6 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 481.33 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 481.33 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "787044e2-53f4-5b11-baaf-4416b3eb3409"))
+    (pin "2"
+      (uuid "e133fc35-0212-5b57-b2ef-9c709412773b"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D16")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 495.3 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "1c2ce94d-3ece-5972-9606-dc4507590ca9")
+    (property "Reference" "D17"
+      (at 496.57 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 496.57 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 495.3 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 495.3 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "9f1beb0e-d48a-5eef-9fe8-7f1c16516572"))
+    (pin "2"
+      (uuid "0cb2b980-56b7-5073-ac26-b05e2de06a15"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D17")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 509.27 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "57196ff2-3f55-5e1c-834b-9c28ca6bbfa7")
+    (property "Reference" "D18"
+      (at 510.54 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 510.54 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 509.27 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 509.27 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "d47391c0-0bac-5da6-99fd-bfec7ffcf76a"))
+    (pin "2"
+      (uuid "9669626c-07b5-58ff-a3bc-df0a9820ca57"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D18")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 523.24 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a893ef9b-0799-5147-bb63-456d4e3c0fef")
+    (property "Reference" "D19"
+      (at 524.51 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 524.51 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 523.24 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 523.24 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "639ec81a-6b5f-5e27-85de-5c502820d0d0"))
+    (pin "2"
+      (uuid "3777c563-fed2-528a-a0be-1754748b7f82"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D19")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 537.21 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5755243f-fa83-57ba-b1ea-4f1c27d56a92")
+    (property "Reference" "D20"
+      (at 538.48 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 538.48 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 537.21 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 537.21 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "7f5f1e1f-724b-5318-9edc-504f78d94d09"))
+    (pin "2"
+      (uuid "377b4273-b356-5abb-b37c-fd0c72e889a7"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D20")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:D")
+    (at 551.18 199.39 90)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "90b9bfa8-7d0b-5901-bc4c-99fbed6aac5f")
+    (property "Reference" "D21"
+      (at 552.45 198.12 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "1N4148W"
+      (at 552.45 200.66 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Diode_SMD:D_SOD-123"
+      (at 551.18 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 551.18 199.39 90)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "e4fcdaa5-e486-528c-ad4d-218fe6ada7a1"))
+    (pin "2"
+      (uuid "57d7dcf4-6554-5023-a353-e123426cfcdf"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "D21")
+          (unit 1)))))
+  (symbol
+    (lib_id "electronix:+170V")
+    (at 449.58 243.84 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5ef3a1fc-23cd-5511-9370-80a57762772f")
+    (property "Reference" "#PWR5092"
+      (at 449.58 243.84 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 449.58 240.64 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 449.58 243.84 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 449.58 243.84 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "5b688e8d-4ff2-5bc7-a10b-48aa8eb3d647"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5092")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 449.58 250.19 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "e3889951-60b8-547d-9022-19db15bee7dc")
+    (property "Reference" "R46"
+      (at 450.85 248.92 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "430k"
+      (at 450.85 251.46 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+      (at 449.58 250.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 449.58 250.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "45ea392c-4c74-585c-b552-d3a71884418c"))
+    (pin "2"
+      (uuid "cd73960c-a2a8-5d99-ac7b-24173525f7f8"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R46")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 469.9 256.54 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5477ace9-6676-5192-b9c4-7fd77aee7b9d")
+    (property "Reference" "#PWR5094"
+      (at 469.9 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 469.9 259.74 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 469.9 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 469.9 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "d8ffc32b-8a26-59aa-91f9-807a6b0e7255"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5094")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:R")
+    (at 469.9 250.19 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "2aa34e77-f5b2-5af2-af8e-78bca1f308b1")
+    (property "Reference" "R47"
+      (at 471.17 248.92 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "100k"
+      (at 471.17 251.46 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+      (at 469.9 250.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 469.9 250.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "6cf56d05-8db5-5f4a-a51f-4f23c819c937"))
+    (pin "2"
+      (uuid "42a764ae-72ec-5f05-87ec-b1a5a55adc00"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "R47")
+          (unit 1)))))
+  (symbol
+    (lib_id "power:GND")
+    (at 490.22 256.54 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "5c5ee28c-9f86-5137-9f4e-b975c3e1da7a")
+    (property "Reference" "#PWR5096"
+      (at 490.22 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "GND"
+      (at 490.22 259.74 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 490.22 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 490.22 256.54 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (pin "1"
+      (uuid "4f141ad5-dc2b-5ddd-a120-866c48ecc7a4"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "#PWR5096")
+          (unit 1)))))
+  (symbol
+    (lib_id "Device:C")
+    (at 490.22 250.19 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "c85bb306-74c2-5f09-864d-ef7b49a950f6")
+    (property "Reference" "C23"
+      (at 491.49 248.92 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "2u2 50V"
+      (at 491.49 251.46 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+      (at 490.22 250.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 490.22 250.19 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (pin "1"
+      (uuid "4d559cf7-b2be-5502-85bb-220933c7bb70"))
+    (pin "2"
+      (uuid "116d749c-2b9c-55d8-9e34-7aeb2d50d68d"))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
+          (reference "C23")
+          (unit 1))))))

@@ -1,0 +1,324 @@
+(kicad_sch
+  (version 20230121)
+  (generator eeschema)
+  (uuid "af167dc7-e2c9-570c-bdf4-28156a519677")
+  (paper "A3")
+  (title_block
+    (title "electroNIX-USB (Z573M) - overview")
+    (date "2026-10-15")
+    (rev "0.1")
+    (company "electroNIX-USB (Z573M)")
+    (comment 1 "ESP32 rework of TESTA-QUADRA electroNIXclock 3 (PCB-036), USB powered")
+    (comment 2 "Licensed with the repository; see LICENSE"))
+  (lib_symbols
+    (symbol "Mechanical:MountingHole"
+      (pin_names
+        (offset 1.016))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "H"
+        (at 0 5.08 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Value" "MountingHole"
+        (at 0 3.175 0)
+        (effects
+          (font
+            (size 1.27 1.27))))
+      (property "Footprint" ""
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "mounting hole"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Mounting Hole without connection"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "MountingHole*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "MountingHole_0_1"
+        (circle
+          (center 0 0)
+          (radius 1.27)
+          (stroke
+            (width 1.27)
+            (type default))
+          (fill
+            (type none))))))
+  (text "electroNIX-USB: USB-C powered ESP32 nixie clock, 4 x Z573M\n\nElectrical design follows TESTA-QUADRA electroNIXclock 3 (PCB-036, 2013),\nthe micro-USB powered board: 5 V boost + 7-diode multiplier to 170 V,\nMMBTA42/MMBTA92 discrete tube drivers, neon colon, buzzer, light sensor.\n\nChanges from PCB-036:\n - ATmega16 replaced by ESP32-WROOM-32E with the firmware's electroNIX 3 GPIO map\n - USB-C (5k1 sink) + polyfuse + TVS + USBLC6, CH340C for programming\n - DS3231M + CR2032 instead of the 32 kHz crystal and supercap\n - HV feedback clamp to 3V3, base resistors resized for 3.3 V drive\n - buzzer moved IO0 -> IO12 (IO0 pull-down through the buzzer base forced download mode)\n - two independent colon neons (SEC_0, SEC_1)"
+    (at 30 180 0)
+    (effects
+      (font
+        (size 1.5 1.5))
+      (justify left top))
+    (uuid "3ba6391d-d36a-5dbb-a554-51baf9969e3f"))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 289.56 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a87e560c-ed14-5846-b895-faf8d26aa18b")
+    (property "Reference" "H1"
+      (at 290.83 58.42 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 290.83 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 289.56 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 289.56 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (reference "H1")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 304.8 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "2c6995e6-10b3-5bb0-9aa9-0970f1fa5513")
+    (property "Reference" "H2"
+      (at 306.07 58.42 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 306.07 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 304.8 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 304.8 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (reference "H2")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 320.04 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "df9d5fdf-6899-546a-8a1a-7497bbf6c788")
+    (property "Reference" "H3"
+      (at 321.31 58.42 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 321.31 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 320.04 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 320.04 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (reference "H3")
+          (unit 1)))))
+  (symbol
+    (lib_id "Mechanical:MountingHole")
+    (at 335.28 59.69 0)
+    (unit 1)
+    (in_bom yes)
+    (on_board yes)
+    (dnp no)
+    (uuid "a78f8cde-c039-573f-b478-e443fd63e97f")
+    (property "Reference" "H4"
+      (at 336.55 58.42 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Value" "M3"
+      (at 336.55 60.96 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left)))
+    (property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
+      (at 335.28 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (property "Datasheet" "~"
+      (at 335.28 59.69 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left) hide))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (reference "H4")
+          (unit 1)))))
+  (sheet
+    (at 30 50)
+    (size 90 40)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "e155e9fd-892f-5b79-b020-27adffa85822")
+    (property "Sheetname" "Power & USB"
+      (at 30 49.3 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "power_usb.kicad_sch"
+      (at 30 90.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (page "2")))))
+  (sheet
+    (at 150 50)
+    (size 90 40)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "8d4ed13a-c701-5bd9-9f90-dd62e40aa6af")
+    (property "Sheetname" "ESP32"
+      (at 150 49.3 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "mcu.kicad_sch"
+      (at 150 90.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (page "3")))))
+  (sheet
+    (at 30 110)
+    (size 90 40)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "f6fa350a-459e-5361-98c1-1f12d068c3cb")
+    (property "Sheetname" "HV supply"
+      (at 30 109.3 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "hv_supply.kicad_sch"
+      (at 30 150.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (page "4")))))
+  (sheet
+    (at 150 110)
+    (size 90 40)
+    (fields_autoplaced)
+    (stroke
+      (width 0.1524)
+      (type solid))
+    (fill
+      (color 0 0 0 0))
+    (uuid "e1c1bd65-1db2-544e-8cf9-3d73564eba6a")
+    (property "Sheetname" "Display"
+      (at 150 109.3 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left bottom)))
+    (property "Sheetfile" "display.kicad_sch"
+      (at 150 150.6 0)
+      (effects
+        (font
+          (size 1.27 1.27))
+        (justify left top)))
+    (instances
+      (project "electroNIX-USB"
+        (path "/af167dc7-e2c9-570c-bdf4-28156a519677"
+          (page "5")))))
+  (sheet_instances
+    (path "/"
+      (page "1"))))
