@@ -121,8 +121,8 @@ def placement(nl, tubes):
     put(nl.one('CC1', 'J'), mid, 3.675, 180)
     put(nl.one('CC1', 'R'), mid - 6.0, 12.0, 90); put(nl.one('CC2', 'R'), mid + 6.0, 12.0, 90)
     put([r for r in nl.on('USB_DP', 'U') if val(r).startswith('USBLC6')][0], mid, 12.0, 0)
-    put(nl.one('VBUS', 'F'), mid - 8.2, 5.5, 90)
-    put(pk('Power', '22u 35V tant.'), mid - 12.1, 5.5, 90)
+    put(nl.one('VBUS', 'F'), mid - 7.9, 5.5, 90)
+    put(pk('Power', '22u 35V tant.'), mid - 11.5, 5.5, 90)
     put([r for r in nl.on('+5V', 'D') if 'SMBJ' in val(r)][0], mid - 10.8, 12.3, 0)
     put(pk('Power', '10u'), mid - 11.0, 20.0, 90)
     put([r for r in nl.on('+3V3', 'U') if 'AMS1117' in val(r)][0], mid - 4.5, 20.0, 0)
@@ -139,7 +139,7 @@ def placement(nl, tubes):
     put(q1, sx, 3.2, 0); put(nl.one(nl.pnet(q1, '1'), 'R'), sx, 6.9, 0)
     put(q2, sx, 10.4, 0); put(nl.one(nl.pnet(q2, '1'), 'R'), sx, 14.1, 0)
     put(pk('ESP32', '10k', 'IO0'), sx, 23.0, 0)                 # IO0 pull-up, next to pin 25
-    U4 = nl.one('EN', 'U'); put(U4, EX, 15.79, 0)
+    U4 = nl.one('EN', 'U'); put(U4, EX, 16.1, 0)       # antenna end 0.3 mm inside the edge
     # strip between the module's right-hand pins (3V3, EN, IO34, IO35) and the board edge
     ca, cb = EX + 10.9, EX + 14.5
     put(pk('ESP32', '100n', '+3V3'), ca, 9.4, 90); put(pk('ESP32', '22u'), cb, 10.2, 90)       # 3V3, pin 2
@@ -166,14 +166,14 @@ def placement(nl, tubes):
     # output electrolytic lies flat along the left edge, body toward the front
     Cout = [r for r in nl.on('+170V', 'C') if '250V' in val(r)][0]; put(Cout, 5.75, 43.8, 0)
     kr = nl.on('KBIAS', 'R'); kr430 = [r for r in kr if val(r) == '430k'][0]; kr100 = [r for r in kr if r != kr430][0]
-    put(kr430, 10.4, 45.6, 90); put(kr100, 13.4, 45.6, 90)
+    put(kr430, 10.2, 45.6, 90); put(kr100, 13.8, 45.6, 90)
     # 4 x 470n in series, KBIAS -> GND, as a short row
     c, node, string = nl.one('KBIAS', 'C'), 'KBIAS', []
     while True:
         string.append(c); pin = '2' if nl.pnet(c, '1') == node else '1'; node = nl.pnet(c, pin)
         if node == 'GND': break
         c = [x for x in nl.on(node, 'C') if x not in string][0]
-    for i, c in enumerate(string): put(c, (10.4, 13.4)[i % 2], 49.8 + (i // 2) * 3.6, 90)
+    for i, c in enumerate(string): put(c, (10.2, 13.8)[i % 2], 49.6 + (i // 2) * 3.9, 90)
 
     # ---------------- front band: cathode switches (R | Q over clamp D)
     x0, x1 = 19.0, W - 8.0
@@ -194,7 +194,7 @@ def placement(nl, tubes):
         put(r430, cx - 4.6, 61.2, 0); put(r100, cx + 0.4, 61.2, 0); put(ra, cx + 4.4, 61.2, 0)
 
     rest = [r for r in nl.comps if r not in P]
-    return P, (W, H), dict(tx=tx, TY=TY, colons=colons, esp=(EX, 15.79), mid=mid), rest
+    return P, (W, H), dict(tx=tx, TY=TY, colons=colons, esp=(EX, 16.1), mid=mid), rest
 
 # ---------------------------------------------------------------- board
 def fp_load(spec, kdir):
@@ -300,74 +300,91 @@ def build(kdir, tubes):
         for p in f.Pads():
             n = nl.pinnet.get((ref, p.GetNumber()))
             if n and n in nets: p.SetNet(nets[n])
+    # ESP32: the stock footprint carries a 48 mm wide keep-out zone and a courtyard
+    # drawn around it. Replace both with a body-sized courtyard; the antenna
+    # keep-out is added below as a board rule area.
+    for f in board.GetFootprints():
+        if f.GetFPID().GetLibItemName() != 'ESP32-WROOM-32D': continue
+        for z in list(f.Zones()): f.Remove(z)
+        for g in list(f.GraphicalItems()):
+            if g.GetLayer() in (pcbnew.F_CrtYd, pcbnew.B_CrtYd) or g.GetLayerName() in ('Cmts.User', 'Dwgs.User'):
+                f.Remove(g)
+        r = pcbnew.FP_SHAPE(f, pcbnew.SHAPE_T_RECT)
+        cx, cy = f.GetPosition().x, f.GetPosition().y
+        r.SetStart(pcbnew.VECTOR2I(cx - FM(9.6), cy - FM(16.3))); r.SetEnd(pcbnew.VECTOR2I(cx + FM(9.6), cy + FM(10.8)))
+        r.SetLayer(pcbnew.B_CrtYd if f.IsFlipped() else pcbnew.F_CrtYd); r.SetWidth(FM(0.05))
+        r.SetLocalCoord(); f.Add(r)
+    ds.m_MinThroughDrill = FM(0.2)        # ESP32 exposed-pad vias are 0.2 mm
+    ds.m_HoleToHoleMin = FM(0.25)
     outline(board, W, H)
     ex, ey = geo['esp']
-    zone(board, [pcbnew.F_Cu, pcbnew.B_Cu], [(ex - 10, 0), (ex + 10, 0), (ex + 10, ey - 9.3), (ex - 10, ey - 9.3)],
+    zone(board, [pcbnew.F_Cu, pcbnew.B_Cu], [(ex - 9.6, 0), (ex + 9.6, 0), (ex + 9.6, ey - 9.3), (ex - 9.6, ey - 9.3)],
          rule=True, name='ESP32 antenna keepout')
     return board, nl, P, (W, H), geo
 
-def place_refs(board, size=0.7, min_size=0.5, margin=0.15):
-    """Move every silkscreen reference to a free spot next to its part:
-    no overlap with other references, pads, silkscreen outlines or the board
-    edge. Shrinks the text if nothing fits at full size."""
+def place_refs(board, size=0.8, margin=0.15):
+    """Move every silkscreen reference to a free spot next to its part, clear
+    of other references, of every part's silkscreen extent and pads, and of
+    the board edge. Last resort: inside its own part, between the pads."""
     M = FM(margin)
-    edge = board.GetBoardEdgesBoundingBox()
-    edge = pcbnew.BOX2I(pcbnew.VECTOR2I(edge.GetLeft() + FM(0.5), edge.GetTop() + FM(0.5)),
-                        pcbnew.VECTOR2I(edge.GetWidth() - FM(1.0), edge.GetHeight() - FM(1.0)))
-    obst = {pcbnew.F_SilkS: [], pcbnew.B_SilkS: []}
-    cu = {pcbnew.F_SilkS: pcbnew.F_Cu, pcbnew.B_SilkS: pcbnew.B_Cu}
+    e = board.GetBoardEdgesBoundingBox()
+    edge = pcbnew.BOX2I(pcbnew.VECTOR2I(e.GetLeft() + FM(0.5), e.GetTop() + FM(0.5)),
+                        pcbnew.VECTOR2I(e.GetWidth() - FM(1.0), e.GetHeight() - FM(1.0)))
     def grow(bb, m):
         return pcbnew.BOX2I(pcbnew.VECTOR2I(bb.GetLeft() - m, bb.GetTop() - m),
                             pcbnew.VECTOR2I(bb.GetWidth() + 2 * m, bb.GetHeight() + 2 * m))
+    SIDES = {pcbnew.F_SilkS: pcbnew.F_Cu, pcbnew.B_SilkS: pcbnew.B_Cu}
+    pads = {sl: [] for sl in SIDES}          # copper, per side (+margin)
+    rawpads = {sl: [] for sl in SIDES}
+    bodies = {sl: [] for sl in SIDES}        # (ref, silk extent) per side
     for f in board.GetFootprints():
-        for p in f.Pads():
-            for sl, c in cu.items():
-                if p.IsOnLayer(c): obst[sl].append(grow(p.GetBoundingBox(), M))
-        for g in f.GraphicalItems():
-            if g.GetLayer() in obst and g.IsVisible() if hasattr(g, 'IsVisible') else True:
-                if g.GetLayer() in obst and g.GetClass() != 'PCB_TEXT':
-                    obst[g.GetLayer()].append(grow(g.GetBoundingBox(), M))
-                elif g.GetLayer() in obst:
-                    obst[g.GetLayer()].append(grow(g.GetBoundingBox(), M))
-        for z in []: pass
-    # holes without copper (mounting holes)
+        for sl, c in SIDES.items():
+            ext = None
+            for p in f.Pads():
+                if p.IsOnLayer(c):
+                    pads[sl].append(grow(p.GetBoundingBox(), M)); rawpads[sl].append(grow(p.GetBoundingBox(), FM(0.02)))
+            for g in f.GraphicalItems():
+                if g.GetLayer() == sl:
+                    bb = g.GetBoundingBox()
+                    if ext is None: ext = pcbnew.BOX2I(bb.GetOrigin(), bb.GetSize())
+                    else: ext.Merge(bb)
+            if ext is not None: bodies[sl].append((f.GetReference(), grow(ext, M)))
+    labels = {sl: [] for sl in SIDES}
     fps = sorted(board.GetFootprints(), key=lambda f: -f.GetBoundingBox(False, False).GetArea())
     failed = []
     for f in fps:
         t = f.Reference()
-        if not t.IsVisible(): continue
         sl = t.GetLayer()
-        if sl not in obst: continue
-        body = f.GetBoundingBox(False, False)         # silk + pads, no texts
+        if not t.IsVisible() or sl not in SIDES: continue
+        t.SetTextSize(pcbnew.VECTOR2I(FM(size), FM(size))); t.SetTextThickness(FM(0.15))
+        body = f.GetBoundingBox(False, False)
         cx, cy = body.GetCenter().x, body.GetCenter().y
-        placed = False
-        for sz in [size, 0.6, min_size]:
-            t.SetTextSize(pcbnew.VECTOR2I(FM(sz), FM(sz))); t.SetTextThickness(FM(sz * 0.15))
-            gap = FM(0.25) + FM(sz) // 2
-            cands = []
-            for ang in (0, 90):
-                t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
-                tb = t.GetBoundingBox(); hw, hh = tb.GetWidth() // 2, tb.GetHeight() // 2
-                for dx, dy in ((0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (1, -1), (-1, 1), (1, 1)):
-                    x = cx + dx * (body.GetWidth() // 2 + hw + FM(0.2))
-                    y = cy + dy * (body.GetHeight() // 2 + hh + FM(0.2))
-                    cands.append((abs(dx) + abs(dy) + (0.5 if ang else 0), ang, x, y))
-                for k in range(1, 4):              # further out, straight above/below
-                    for dy in (-1, 1):
-                        cands.append((3 + k, ang, cx, cy + dy * (body.GetHeight() // 2 + hh + FM(0.2) + k * FM(1.2))))
-            for _, ang, x, y in sorted(cands):
-                t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(int(x), int(y)))
-                tb = grow(t.GetBoundingBox(), FM(0.05))
-                if not edge.Contains(tb): continue
-                if any(tb.Intersects(o) for o in obst[sl]): continue
-                placed = True; break
-            if placed: break
-        if placed:
-            obst[sl].append(grow(t.GetBoundingBox(), M))
-        else:
-            failed.append(f.GetReference())
-            t.SetTextAngleDegrees(0); t.SetPosition(pcbnew.VECTOR2I(cx, cy))   # fall back to the centre
-            obst[sl].append(grow(t.GetBoundingBox(), M))
+        others = [bb for r, bb in bodies[sl] if r != f.GetReference()]
+        own = [bb for r, bb in bodies[sl] if r == f.GetReference()]
+        def free(tb, inside=False):
+            if not edge.Contains(tb): return False
+            if any(tb.Intersects(o) for o in labels[sl] + others): return False
+            if any(tb.Intersects(o) for o in (rawpads[sl] if inside else pads[sl])): return False
+            if not inside and any(tb.Intersects(o) for o in own): return False
+            return True
+        cands = []
+        for ang in (0, 90):
+            t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
+            tb = t.GetBoundingBox(); hw, hh = tb.GetWidth() // 2, tb.GetHeight() // 2
+            for k in range(0, 14):
+                for j in range(16):
+                    th = 2 * math.pi * j / 16
+                    x = cx + math.cos(th) * (body.GetWidth() // 2 + hw + FM(0.2) + k * FM(0.5))
+                    y = cy + math.sin(th) * (body.GetHeight() // 2 + hh + FM(0.2) + k * FM(0.5))
+                    cands.append((k + abs(math.sin(2 * th)) * 0.3 + (0.2 if ang else 0), ang, x, y, False))
+            cands.append((99 + (0 if ang else 0.5), ang, cx, cy, True))     # inside, between the pads
+        ok = False
+        for _, ang, x, y, inside in sorted(cands):
+            t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(int(x), int(y)))
+            if free(grow(t.GetBoundingBox(), FM(0 if inside else 0.05)), inside): ok = True; break
+        if not ok:
+            failed.append(f.GetReference()); t.SetTextAngleDegrees(0); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
+        labels[sl].append(grow(t.GetBoundingBox(), M))
     return failed
 
 def courtyard_overlaps(board):
@@ -376,7 +393,7 @@ def courtyard_overlaps(board):
     for f in fps:
         for lay in (pcbnew.F_CrtYd, pcbnew.B_CrtYd):
             c = f.GetCourtyard(lay)
-            if c.OutlineCount() and f.GetFPID().GetLibItemName() != 'ESP32-WROOM-32D': polys.setdefault(f.GetReference(), []).append((lay, c))
+            if c.OutlineCount(): polys.setdefault(f.GetReference(), []).append((lay, c))
     refs = list(polys)
     for i in range(len(refs)):
         for j in range(i + 1, len(refs)):
@@ -406,7 +423,7 @@ def courtyard_overlaps(board):
                         pcbnew.VECTOR2I(FM(18.1), FM(25.6)))
     for ref, lst in polys.items():
         for lay, c in lst:
-            if lay == pcbnew.B_CrtYd and c.BBox().Intersects(body):
+            if lay == pcbnew.B_CrtYd and ref != esp.GetReference() and c.BBox().Intersects(body):
                 out.append((ref, esp.GetReference(), 'ESP body'))
     return out
 

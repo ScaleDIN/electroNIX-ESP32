@@ -51,13 +51,16 @@ def tube(name, r, drill, pad, oval=None, anode_clear=None, descr=''):
           circle(9.5, 'F.SilkS', 0.12, name + 'silk'), circle(9.5, 'F.Fab', 0.1, name + 'fab'),
           circle(10.0, 'F.CrtYd', 0.05, name + 'crt'),
           line(-2, 9.9, 2, 9.9, 'F.SilkS', 0.2, name + 'fl')]
+    x1, y1, _ = pin_xy(1, r + (oval[0] if oval else pad) / 2 + 0.6)      # pin-1 dot outside the ring
+    L.append(f'  (fp_circle (center {x1} {y1}) (end {round(x1 + 0.3, 4)} {y1}) (stroke (width 0.2) (type solid)) '
+             f'(fill solid) (layer "F.SilkS") (tstamp {u(name, "pin1")}))')
     for k in range(1, 14):
         x, y, ang = pin_xy(k, r)
         if oval:
             # long axis radial; KiCad pad angle is CCW-positive in the y-down frame
             shape, size, rot = 'oval', f'{oval[0]} {oval[1]}', f' {round(ang % 180, 2)}'
         else:
-            shape, size, rot = ('rect' if k == 1 else 'circle'), f'{pad} {pad}', ''
+            shape, size, rot = 'circle', f'{pad} {pad}', ''   # round: a square pad 1 crowds pad 2
         if k == 1 and oval: shape = 'roundrect'
         extra = ' (roundrect_rratio 0.25)' if shape == 'roundrect' else ''
         cl = f' (clearance {anode_clear})' if (anode_clear and k == 13) else ''

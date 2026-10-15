@@ -207,6 +207,16 @@ Block by block against `schema_204xZ573M.pdf`:
     KBIAS next to it, 10 cathode
     switches (base resistor, transistor, clamp diode), and one anode
     cluster under each tube.
+- **Silkscreen:** references are 0.8 mm (KiCad's default minimum) and are
+  placed automatically clear of other references, pads, part outlines and
+  the board edge. Where a column is too dense, the reference sits inside
+  its own part between the pads (the ladder caps, D9).
+- **ESP32 footprint:** the stock footprint's 48 mm-wide keep-out and
+  matching courtyard are replaced by a body-sized courtyard plus a board
+  keep-out under the antenna. The module sits 0.3 mm inside the back edge.
+  Minimum drill is 0.2 mm for the module's exposed-pad vias.
+- **Known DRC item:** the USB-C footprint's locating pegs are 0.19 mm from
+  its own pads (stock GCT USB4105 footprint). Exclude it in DRC.
 - **Net classes:** HV (0.4 mm clearance) for +170 V, anodes, the ladder
   and the neon nets; Power (0.5 mm track) for GND/+5V/+3V3/VBUS.
 
