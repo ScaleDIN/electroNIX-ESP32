@@ -102,7 +102,7 @@ def placement(nl, tubes):
     # FET drain tab) faces right, straight into the ladder's first diode.
     L = nl.one('HV_SW', 'L'); put(L, 14.5, 8.0, 180)
     Q = nl.one('HV_SW', 'Q'); put(Q, 15.5, 21.0, 180)
-    put(pk('HV', '22u 10V'), 3.6, 11.2, 90); put(pk('HV', '100n', '+5V'), 3.6, 15.4, 90)
+    put(pk('HV', '22u 35V tant.'), 3.6, 12.2, 90); put(pk('HV', '100n', '+5V'), 3.6, 18.6, 90)
     Rg = nl.one('PWM', 'R')                   # 10R series gate resistor
     put(Rg, 6.6, 19.0, 90); put([r for r in nl.on(nl.pnet(Q, '1'), 'R') if r != Rg][0], 6.6, 23.6, 90)
     # multiplier ladder right beside the switch: diode column + capacitor column,
@@ -121,9 +121,9 @@ def placement(nl, tubes):
     put(nl.one('CC1', 'J'), mid, 3.675, 180)
     put(nl.one('CC1', 'R'), mid - 6.0, 12.0, 90); put(nl.one('CC2', 'R'), mid + 6.0, 12.0, 90)
     put([r for r in nl.on('USB_DP', 'U') if val(r).startswith('USBLC6')][0], mid, 12.0, 0)
-    put(nl.one('VBUS', 'F'), mid - 9.5, 5.5, 90)
-    put(pk('Power', '22u 10V'), mid - 12.2, 5.5, 90)
-    put([r for r in nl.on('+5V', 'D') if 'SMBJ' in val(r)][0], mid - 10.8, 11.5, 0)
+    put(nl.one('VBUS', 'F'), mid - 8.2, 5.5, 90)
+    put(pk('Power', '22u 35V tant.'), mid - 12.1, 5.5, 90)
+    put([r for r in nl.on('+5V', 'D') if 'SMBJ' in val(r)][0], mid - 10.8, 12.3, 0)
     put(pk('Power', '10u'), mid - 11.0, 20.0, 90)
     put([r for r in nl.on('+3V3', 'U') if 'AMS1117' in val(r)][0], mid - 4.5, 20.0, 0)
     put(pk('Power', '22u'), mid + 2.3, 20.0, 90); put(pk('Power', '100n', '+3V3'), mid + 5.2, 20.0, 90)

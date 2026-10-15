@@ -951,7 +951,7 @@
             (effects
               (font
                 (size 1.27 1.27)))))))
-    (symbol "Device:C"
+    (symbol "Device:C_Polarized"
       (pin_numbers hide)
       (pin_names
         (offset 0.254))
@@ -963,7 +963,7 @@
           (font
             (size 1.27 1.27))
           (justify left)))
-      (property "Value" "C"
+      (property "Value" "C_Polarized"
         (at 0.635 -2.54 0)
         (effects
           (font
@@ -984,36 +984,52 @@
         (effects
           (font
             (size 1.27 1.27)) hide))
-      (property "ki_description" "Unpolarized capacitor"
+      (property "ki_description" "Polarized capacitor"
         (at 0 0 0)
         (effects
           (font
             (size 1.27 1.27)) hide))
-      (property "ki_fp_filters" "C_*"
+      (property "ki_fp_filters" "CP_*"
         (at 0 0 0)
         (effects
           (font
             (size 1.27 1.27)) hide))
-      (symbol "C_0_1"
-        (polyline
-          (pts
-            (xy -2.032 -0.762)
-            (xy 2.032 -0.762))
+      (symbol "C_Polarized_0_1"
+        (rectangle
+          (start -2.286 0.508)
+          (end 2.286 1.016)
           (stroke
-            (width 0.508)
+            (width 0)
             (type default))
           (fill
             (type none)))
         (polyline
           (pts
-            (xy -2.032 0.762)
-            (xy 2.032 0.762))
+            (xy -1.778 2.286)
+            (xy -0.762 2.286))
           (stroke
-            (width 0.508)
+            (width 0)
             (type default))
           (fill
-            (type none))))
-      (symbol "C_1_1"
+            (type none)))
+        (polyline
+          (pts
+            (xy -1.27 2.794)
+            (xy -1.27 1.778))
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type none)))
+        (rectangle
+          (start 2.286 -0.508)
+          (end -2.286 -1.016)
+          (stroke
+            (width 0)
+            (type default))
+          (fill
+            (type outline))))
+      (symbol "C_Polarized_1_1"
         (pin passive line
           (at 0 3.81 270)
           (length 2.794)
@@ -1420,6 +1436,91 @@
               (font
                 (size 1.27 1.27))))
           (number "6"
+            (effects
+              (font
+                (size 1.27 1.27)))))))
+    (symbol "Device:C"
+      (pin_numbers hide)
+      (pin_names
+        (offset 0.254))
+      (in_bom yes)
+      (on_board yes)
+      (property "Reference" "C"
+        (at 0.635 2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Value" "C"
+        (at 0.635 -2.54 0)
+        (effects
+          (font
+            (size 1.27 1.27))
+          (justify left)))
+      (property "Footprint" ""
+        (at 0.9652 -3.81 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "Datasheet" "~"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_keywords" "cap capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_description" "Unpolarized capacitor"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (property "ki_fp_filters" "C_*"
+        (at 0 0 0)
+        (effects
+          (font
+            (size 1.27 1.27)) hide))
+      (symbol "C_0_1"
+        (polyline
+          (pts
+            (xy -2.032 -0.762)
+            (xy 2.032 -0.762))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none)))
+        (polyline
+          (pts
+            (xy -2.032 0.762)
+            (xy 2.032 0.762))
+          (stroke
+            (width 0.508)
+            (type default))
+          (fill
+            (type none))))
+      (symbol "C_1_1"
+        (pin passive line
+          (at 0 3.81 270)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "1"
+            (effects
+              (font
+                (size 1.27 1.27)))))
+        (pin passive line
+          (at 0 -3.81 90)
+          (length 2.794)
+          (name "~"
+            (effects
+              (font
+                (size 1.27 1.27))))
+          (number "2"
             (effects
               (font
                 (size 1.27 1.27)))))))
@@ -3068,7 +3169,7 @@
           (reference "#PWR2015")
           (unit 1)))))
   (symbol
-    (lib_id "Device:C")
+    (lib_id "Device:C_Polarized")
     (at 154.94 59.69 0)
     (unit 1)
     (in_bom yes)
@@ -3081,13 +3182,13 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Value" "22u 10V"
+    (property "Value" "22u 35V tant."
       (at 156.21 60.96 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
+    (property "Footprint" "Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D"
       (at 154.94 59.69 0)
       (effects
         (font

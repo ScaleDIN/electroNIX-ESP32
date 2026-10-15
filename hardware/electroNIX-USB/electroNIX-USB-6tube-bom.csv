@@ -1,5 +1,5 @@
 References,Qty,Value,Footprint
-"C1, C10",2,22u 10V,C_1206_3216Metric
+"C1, C10",2,22u 35V tant.,CP_EIA-7343-31_Kemet-D
 C2,1,10u,C_1206_3216Metric
 "C3, C6",2,22u,C_1206_3216Metric
 "C4, C5, C7, C9, C11, C20",6,100n,C_0805_2012Metric

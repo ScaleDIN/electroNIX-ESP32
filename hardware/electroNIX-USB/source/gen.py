@@ -65,7 +65,7 @@ def sheet_power():
     sh.part(ref('F'), 'Device', 'Polyfuse', '1.1 A hold', 115, 50, {'1': 'VBUS', '2': '+5V'}, 90,
             'Fuse:Fuse_1206_3216Metric')
     D(sh, 'SMBJ5.0CA', 140, 60, '+5V', 'GND', rot=270, sym='D_TVS', fp='Diode_SMD:D_SMB')
-    C(sh, '22u 10V', 155, 60, '+5V', 'GND', fp=FP_C1206)
+    CP(sh, '22u 35V tant.', 155, 60, '+5V', 'GND', 'Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D')   # tantalum as PCB-036 (damps USB hot-plug ringing)
     flag(sh, 'VBUS', 100, 40); flag(sh, '+5V', 130, 40); flag(sh, 'GND', 160, 140)
     sh.part(ref('U'), 'Power_Protection', 'USBLC6-2SC6', 'USBLC6-2SC6', 130, 105,
             {'1': 'USB_DP', '6': 'USB_DP', '3': 'USB_DN', '4': 'USB_DN', 'VBUS': 'VBUS', 'GND': 'GND'},
@@ -157,7 +157,7 @@ def sheet_mcu():
 def sheet_hv():
     sh = Sheet('HV supply', 'hv_supply.kicad_sch', 'electroNIX-USB - 170 V supply (boost + multiplier)', 4)
     sh.box(20, 25, 150, 120, 'Boost switch (as PCB-036)')
-    C(sh, '22u 10V', 35, 60, '+5V', 'GND', fp=FP_C1206)
+    CP(sh, '22u 35V tant.', 35, 60, '+5V', 'GND', 'Capacitor_Tantalum_SMD:CP_EIA-7343-31_Kemet-D')   # tantalum as PCB-036 (damps USB hot-plug ringing)
     C(sh, '100n', 47, 60, '+5V', 'GND')
     sh.part(ref('L'), 'Device', 'L', '33u WE 7447715330' if TUBES == 4 else '22u WE 7447715220', 70, 50, {'1': '+5V', '2': 'HV_SW'}, 0,
             'Inductor_SMD:L_Wuerth_WE-PD-Typ-LS')
