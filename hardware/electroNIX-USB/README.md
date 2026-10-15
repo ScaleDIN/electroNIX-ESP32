@@ -7,8 +7,9 @@ A Z566M variant comes later.
 
 **Status (work in progress):** schematics are done for 4 and 6 tubes. The
 4-tube PCB (`kicad/electroNIX-USB.kicad_pcb`, 102 × 66 mm, the original
-kit's size) is **placed but not routed yet**. Routing is next, then the
-6-tube board.
+kit's size) and the 6-tube PCB (`kicad-6tube/`, 150 × 66 mm) are **placed
+but not routed**. Route them in KiCad (Freerouting plugin, fanout off),
+then add the GND pours on both layers.
 
 | Path | Contents |
 |---|---|
@@ -31,8 +32,12 @@ over hand edits.
 1. **Power & USB:** USB-C receptacle wired as a 5 V sink (5k1 on CC1/CC2),
    polyfuse, SMBJ5.0CA TVS, USBLC6-2SC6 on D+/D−, AMS1117-3.3, and CH340C
    for programming and serial log.
-2. **ESP32:** ESP32-WROOM-32E, EN/BOOT buttons, two-transistor DTR/RTS
-   auto-reset, light sensor, SET button. No buzzer and no RTC: time
+2. **ESP32:** ESP32-WROOM-32E, two-transistor DTR/RTS auto-reset, and the
+   light sensor. **No switches:** the firmware is set up from its web UI
+   and reads no button. The CH340C resets the chip and puts it into
+   download mode, and unplugging USB is the reset. If auto-reset ever
+   fails, short the IO0 pull-up to GND while plugging in. No buzzer and
+   no RTC: time
    comes from NTP.
 3. **HV supply:** the PCB-036 converter. IO2 drives an IRLR3110Z into a
    33 µH WE 7447715330 (22 µH on the 6-tube build). The switch node feeds a
@@ -119,13 +124,13 @@ time from NTP, and UART0 left to the CH340C for USB flashing.
 | Anodes W_5 / W_6 | IO12 / IO15 left open | **12 / 15** |
 | SEC_0 / SEC_1 neons | 4 / 5: NE1, NE2 | 4 / 5: NE1+NE2 upper dots, NE3+NE4 lower dots |
 | HV PWM / KOMP_170V / JASNOSC | 2 / 35 / 34 | same |
-| SET button | 36 (firmware: optional) | same |
-| IO0 | 10k pull-up, BOOT button, auto-reset | same |
+| IO36 | not connected | same |
+| IO0 | 10k pull-up, auto-reset | same |
 | IO1 / IO3 | CH340C | same |
 
 Notes:
 - The firmware still drives **GPIO0** as its buzzer pin after boot.
-  Nothing is attached apart from the pull-up and the BOOT button, so it
+  Nothing is attached apart from the pull-up and the auto-reset, so it
   does no harm. Leave `cfg.buzzerEn` off.
 - **Strapping, 4-tube build:** IO12 and IO15 are open, so the ESP32's
   internal pull-down and pull-up give the right reset defaults.
@@ -173,12 +178,21 @@ Notes:
   4-tube board each lamp has its own output (SEC_0 upper, SEC_1 lower). On
   the 6-tube board the HH:MM pair is on SEC_0 and the MM:SS pair on SEC_1.
 - **Bottom side:** everything else, kept clear of the socket-pin rings.
-  - Back edge: boost converter, USB-C (centre), regulator, CH340C, and the
-    ESP32 module with its antenna over the back edge and a no-copper
-    keepout under it.
-  - SET is a right-angle tact switch facing out of the back edge.
-  - Front band: the multiplier ladder, 10 cathode switches, and one anode
-    cluster per tube.
+  - Back-left, the boost converter as one compact loop: +5V comes in on
+    the left (input caps, L1 pin 1), and the switch node (L1 pin 2, FET
+    drain tab) faces right into the multiplier. The multiplier's diode and
+    capacitor columns run in chain order from the switch node (top) to
+    +170 V (bottom). The gate resistor and pull-down sit at the FET gate.
+  - Back-centre: USB-C with its fuse, TVS, ESD array, CC resistors and
+    the AMS1117 with its caps.
+  - Back-right: CH340C and auto-reset transistors next to the module's
+    TXD/RXD/IO0 pins, and the ESP32 with its antenna over the back edge
+    (no-copper keepout). Between the module's right-hand pins and the
+    edge: 3V3 decoupling at pin 2, the EN RC at pin 3, and the HV
+    feedback divider, filter and clamp at IO35.
+  - Front band: the output cap and KBIAS at the left, 10 cathode
+    switches (base resistor, transistor, clamp diode), and one anode
+    cluster under each tube.
 - **Net classes:** HV (0.4 mm clearance) for +170 V, anodes, the ladder
   and the neon nets; Power (0.5 mm track) for GND/+5V/+3V3/VBUS.
 

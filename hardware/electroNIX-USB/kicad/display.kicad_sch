@@ -1001,7 +1001,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "9561d829-5434-58b3-be82-e45b7ca4afc4"))
+    (uuid "ba4269c4-be74-5ffe-899b-6f6e007544ab"))
   (wire
     (pts
       (xy 52.07 85.09)
@@ -1017,7 +1017,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "cd2d386b-f1f3-5fd8-8fcd-63e1a9a951ee"))
+    (uuid "57b5e4a6-eee2-5b5b-bb2e-0b7703ad8d3c"))
   (wire
     (pts
       (xy 59.69 62.23)
@@ -1033,7 +1033,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "e7eff997-2efd-5197-b108-3b7058e4adae"))
+    (uuid "999ac566-dc45-506a-bae8-ffaa6721ca3a"))
   (junction
     (at 52.07 67.31)
     (diameter 0)
@@ -1046,7 +1046,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "c7d7a704-5820-52b3-b406-426fd30532b7"))
+    (uuid "cc376644-484f-532e-ba74-f9f05cd4b906"))
   (wire
     (pts
       (xy 142.24 85.09)
@@ -1062,7 +1062,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "63da5d3f-a9a0-5bb7-892f-cfb31fdbfa6b"))
+    (uuid "b6d71234-eb26-521d-82d6-54cf06654de8"))
   (wire
     (pts
       (xy 149.86 62.23)
@@ -1078,7 +1078,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "9978cb1f-00a8-5511-a178-51208e2c4b57"))
+    (uuid "4485006c-f6cc-596a-8946-02af2a8f4995"))
   (junction
     (at 142.24 67.31)
     (diameter 0)
@@ -1091,7 +1091,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "be9facfa-ee30-53f8-be5c-61d97806e2d4"))
+    (uuid "b04f5f29-feb6-593e-a2bc-440306322fdc"))
   (wire
     (pts
       (xy 232.41 85.09)
@@ -1107,7 +1107,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "73fd984e-0edf-5fd9-a0d8-475907e63000"))
+    (uuid "6e463c2e-674a-5506-a967-05b0324874e3"))
   (wire
     (pts
       (xy 240.03 62.23)
@@ -1123,7 +1123,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "76803658-7102-5fbd-b7e9-8a99efef2acb"))
+    (uuid "7d4b6871-9d81-57c3-9404-ba4cdacfe278"))
   (junction
     (at 232.41 67.31)
     (diameter 0)
@@ -1136,7 +1136,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "58921d55-ad40-5ea2-994e-3945bd6f4369"))
+    (uuid "3e73962b-72e3-5eb0-aabc-f72551abe087"))
   (wire
     (pts
       (xy 322.58 85.09)
@@ -1152,7 +1152,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "ffe80500-7603-5d05-ad9e-958e6cd5f474"))
+    (uuid "33df3522-7231-50b3-a842-be34a5791313"))
   (wire
     (pts
       (xy 330.2 62.23)
@@ -1168,7 +1168,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "990254c6-9532-5595-97a9-2477420f3bf3"))
+    (uuid "f1a2bdd3-c27b-5f3b-9a6c-178e6af0c24e"))
   (junction
     (at 322.58 67.31)
     (diameter 0)
@@ -1557,7 +1557,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "c519ae8f-8bfc-5b4d-880c-89588e97de9b"))
+    (uuid "4f723475-94d1-5a16-8900-4aab420bdf82"))
   (wire
     (pts
       (xy 46.99 275.59)
@@ -1581,7 +1581,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "0c7402b7-cffb-5c47-8b0f-d4dcde858a89"))
+    (uuid "9b23a248-9b2a-5151-83d5-80f47cce0cc5"))
   (wire
     (pts
       (xy 83.82 275.59)
@@ -1605,7 +1605,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "1a1686ae-d617-5f54-b129-d9f20f838346"))
+    (uuid "4e1796bd-5da9-5d53-b6cd-c1b65c97c571"))
   (wire
     (pts
       (xy 119.38 275.59)
@@ -1629,7 +1629,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "ac66857a-7bf4-526f-9ac1-41aa51fdf4fe"))
+    (uuid "41f6e939-00e2-501a-a7a4-75dc7cb5e19c"))
   (wire
     (pts
       (xy 154.94 275.59)
@@ -1653,7 +1653,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "d2ac0a27-8c6f-529e-b251-59780beb5769"))
+    (uuid "fb0132c5-0575-5fb4-91c8-38570c4cab1d"))
   (wire
     (pts
       (xy 191.77 275.59)
@@ -1677,7 +1677,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "350408c1-6ef6-541e-922a-d404e5d27f4c"))
+    (uuid "37bfe8dc-7ef9-5d03-926a-20018848ed5b"))
   (wire
     (pts
       (xy 227.33 275.59)
@@ -1701,7 +1701,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "f4a03102-b62a-5ab2-b6c0-75a3557ea699"))
+    (uuid "cb8c228c-4997-5506-956f-107b7a37a235"))
   (wire
     (pts
       (xy 264.16 275.59)
@@ -1725,7 +1725,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "9a85ec27-95f6-5a73-8f14-218e535b9c88"))
+    (uuid "431ccab7-1940-532d-b578-e2afb1cd7a53"))
   (wire
     (pts
       (xy 299.72 275.59)
@@ -1749,7 +1749,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "5852bdb2-728b-578c-92db-26fb38b1d7ad"))
+    (uuid "1b0068ff-b72b-5f23-8272-cba1a9f1a4f3"))
   (wire
     (pts
       (xy 335.28 275.59)
@@ -1773,7 +1773,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "3b354cbf-da9b-562a-ab21-f0bed6e1e935"))
+    (uuid "e0c78dc8-172e-58f0-a01d-b710de8d8067"))
   (wire
     (pts
       (xy 372.11 275.59)
@@ -1797,7 +1797,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "6d101d66-3eee-525c-98f5-7b0bcea8cb4a"))
+    (uuid "e7ad31f3-dace-5e9b-a693-cdf6d13ffb6d"))
   (wire
     (pts
       (xy 441.96 115.57)
@@ -1829,7 +1829,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "919742ba-3b3d-58bf-8a08-9ead44f77947"))
+    (uuid "9de7905c-33e2-5f6a-b59e-9c29c43cb886"))
   (wire
     (pts
       (xy 497.84 110.49)
@@ -1837,7 +1837,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "25c17033-ee99-55e7-ba05-4421bdf10280"))
+    (uuid "529dd40a-1c9c-5302-ad6f-e6785f5e3209"))
   (wire
     (pts
       (xy 513.08 115.57)
@@ -1869,7 +1869,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "51f37b92-a586-5f44-8fd7-360c74178d90"))
+    (uuid "e149adc6-b211-52e3-9dd3-d35b5d8c5243"))
   (wire
     (pts
       (xy 425.45 195.58)
@@ -2082,7 +2082,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "f978160a-82f7-55b2-98f7-9e526608273c"))
+    (uuid "20a86a9e-4718-55aa-8ce9-c72d39766177"))
   (wire
     (pts
       (xy 449.58 254)
@@ -2090,7 +2090,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "255a9b99-4055-58ff-b490-1f8ba88509bb"))
+    (uuid "d74b3137-2c54-5b03-ac1c-d94e4fcdcade"))
   (wire
     (pts
       (xy 469.9 246.38)
@@ -2098,7 +2098,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "2bc12c58-d561-5f82-a653-6041113c2dd0"))
+    (uuid "a521d510-b4fa-5c7b-b004-0be50a9f5141"))
   (wire
     (pts
       (xy 469.9 254)
@@ -2106,7 +2106,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "b25ab50e-e711-50a7-85af-2e7213fef390"))
+    (uuid "9e103e61-96c8-5088-95a3-f77e685f728e"))
   (wire
     (pts
       (xy 490.22 246.38)
@@ -2114,7 +2114,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "7fc2742a-975f-569d-b16b-26a17c3d49de"))
+    (uuid "1d2374eb-41e4-50f3-8c63-2d80b252a913"))
   (wire
     (pts
       (xy 490.22 254)
@@ -2122,7 +2122,7 @@
     (stroke
       (width 0)
       (type default))
-    (uuid "9790cdf9-0049-5614-b73c-aff3346c7f69"))
+    (uuid "86140123-753a-566f-88e2-0b3c82867279"))
   (global_label "W_1"
     (shape passive)
     (at 34.29 80.01 180)
@@ -2131,7 +2131,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "7200acc3-8ad0-5f9a-8424-4a08b51a9f6a")
+    (uuid "19d95821-f830-5c43-8a35-3dde164dfa24")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 34.29 80.01 0)
       (effects
@@ -2144,7 +2144,7 @@
       (font
         (size 1.27 1.27))
       (justify right bottom))
-    (uuid "6fab3995-4a3b-57b3-9614-5627c640b16d"))
+    (uuid "d1bb0b52-d00b-5c46-a1cb-55f74d375ccb"))
   (global_label "W_2"
     (shape passive)
     (at 124.46 80.01 180)
@@ -2153,7 +2153,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "8c81c661-0c59-5195-ae12-782237b2362c")
+    (uuid "aeeee200-08df-5b21-b5bf-be542dee0e3f")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 124.46 80.01 0)
       (effects
@@ -2166,7 +2166,7 @@
       (font
         (size 1.27 1.27))
       (justify right bottom))
-    (uuid "54b0c494-06ce-51e8-9db6-371589c82014"))
+    (uuid "6bcfca79-813a-59e1-a809-7a306dc0b277"))
   (global_label "W_3"
     (shape passive)
     (at 214.63 80.01 180)
@@ -2175,7 +2175,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "6b647570-277f-5d46-86c6-105956514743")
+    (uuid "1647c319-2e23-58e7-8e7a-292a57bb6682")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 214.63 80.01 0)
       (effects
@@ -2188,7 +2188,7 @@
       (font
         (size 1.27 1.27))
       (justify right bottom))
-    (uuid "7821f877-97fa-5256-8241-93d09d555c04"))
+    (uuid "8547cab0-58f1-594e-bb48-324ac6ae26df"))
   (global_label "W_4"
     (shape passive)
     (at 304.8 80.01 180)
@@ -2197,7 +2197,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "3a9cc369-2d20-5cdd-97ce-6bf7dd5f1e6f")
+    (uuid "bab29589-e571-50d1-9a02-2b8c9a9b4c90")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 304.8 80.01 0)
       (effects
@@ -2210,7 +2210,7 @@
       (font
         (size 1.27 1.27))
       (justify right bottom))
-    (uuid "ce98ca73-6ca6-5209-9b42-8fcf47dee324"))
+    (uuid "2a0f885c-383a-5bed-a62b-5c461746e6fb"))
   (label "K_0"
     (at 45.72 172.72 270)
     (fields_autoplaced)
@@ -2571,7 +2571,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "29ce89b9-ed90-5cef-bb3e-9c2d0ec0fe3c")
+    (uuid "57accd6f-beb9-570c-91e3-4f2028a2bcee")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 29.21 270.51 0)
       (effects
@@ -2593,7 +2593,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "a6cfe045-8d2d-5247-98f6-f56cd07be416")
+    (uuid "5a7f41a2-7a01-5082-846f-6a8a2d9c4227")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 66.04 270.51 0)
       (effects
@@ -2615,7 +2615,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "a7f172bc-41a8-5ee3-b27b-ca4d42466a65")
+    (uuid "d1a51e7a-e149-55b6-a379-629a9e2356d2")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 101.6 270.51 0)
       (effects
@@ -2637,7 +2637,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "9a930217-0563-5845-8e0a-108cfb1ce318")
+    (uuid "d2ce4145-d358-5f4a-8ef7-bc6ad2466441")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 137.16 270.51 0)
       (effects
@@ -2659,7 +2659,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "ff2b8669-f759-5a49-a85d-d6370be3d461")
+    (uuid "289be5bc-39bf-5cac-bcc1-b54d801e6f48")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 173.99 270.51 0)
       (effects
@@ -2681,7 +2681,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "3b990c5d-e409-582b-8518-0b08f9cf9627")
+    (uuid "71ab7055-c751-58c1-8684-0f31202bb0f9")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 209.55 270.51 0)
       (effects
@@ -2703,7 +2703,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "089cdf2b-3103-5c89-921f-71baee9441e6")
+    (uuid "93dc67e7-277a-5cea-a82e-8af1a2abdcbb")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 246.38 270.51 0)
       (effects
@@ -2725,7 +2725,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "5447dc8c-8659-54ee-9995-7378c8921eca")
+    (uuid "f9670f17-d4e9-5455-bfd1-523fbbf37560")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 281.94 270.51 0)
       (effects
@@ -2747,7 +2747,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "469fd423-fdae-5e93-a141-3e646ab1ed98")
+    (uuid "360525e1-8485-5ed9-9322-ce6778bc22e9")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 317.5 270.51 0)
       (effects
@@ -2769,7 +2769,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "2906153e-99fd-5052-b93a-71074f97cd7e")
+    (uuid "7916d248-647a-5472-bffe-4d52cc7bf5d6")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 354.33 270.51 0)
       (effects
@@ -2791,7 +2791,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "47d235b0-ff54-5551-abcc-87740b9300a3")
+    (uuid "afc01d4a-adfa-567f-8c6f-7bec86b2e99f")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 424.18 110.49 0)
       (effects
@@ -2821,7 +2821,7 @@
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "ad6b8d05-8cca-513d-b6f5-7a17aa93ac43")
+    (uuid "526954d7-7200-501a-9e96-341efa3795a7")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
       (at 495.3 110.49 0)
       (effects
@@ -2938,7 +2938,7 @@
       (font
         (size 1.27 1.27))
       (justify right bottom))
-    (uuid "9af3641f-b8e2-5538-92c6-12e9e3dfbcae"))
+    (uuid "436a3f14-9a81-51c7-805c-d0693ba45b08"))
   (label "KBIAS"
     (at 469.9 243.84 90)
     (fields_autoplaced)
@@ -2946,7 +2946,7 @@
       (font
         (size 1.27 1.27))
       (justify left bottom))
-    (uuid "13c6d505-9448-5691-ba42-6594be5df9a7"))
+    (uuid "50aa6e16-fa41-595d-9d1a-e697d1f9f088"))
   (label "KBIAS"
     (at 490.22 243.84 90)
     (fields_autoplaced)
@@ -2954,7 +2954,7 @@
       (font
         (size 1.27 1.27))
       (justify left bottom))
-    (uuid "6f829bd0-b58e-52b5-a50b-22a9ca036609"))
+    (uuid "587bea47-2883-5482-81cb-4ee07b360d29"))
   (rectangle
     (start 20 25)
     (end 400 105)
@@ -3070,8 +3070,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "a6e577ec-91f4-55b5-9e92-766f1e869d65")
-    (property "Reference" "R13"
+    (uuid "2ab8ddef-b9e4-5097-a283-3fd7f75f80a9")
+    (property "Reference" "R12"
       (at 40.64 77.47 90)
       (effects
         (font
@@ -3094,13 +3094,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "f29ef675-0a51-53d8-92a7-9712011c2ee3"))
+      (uuid "8e54e45a-3549-5d85-aeb7-489a6e97c7c1"))
     (pin "2"
-      (uuid "a60aaac4-4ee6-5f9b-b29c-2a90591bbc99"))
+      (uuid "59a0b304-b5e9-5cf5-8bd6-c7d71f222dd8"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R13")
+          (reference "R12")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -3187,8 +3187,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "9816e40c-20c9-544b-baf7-ddaa76c3dc5c")
-    (property "Reference" "R14"
+    (uuid "a6e577ec-91f4-55b5-9e92-766f1e869d65")
+    (property "Reference" "R13"
       (at 53.34 69.85 0)
       (effects
         (font
@@ -3213,13 +3213,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "ed21027b-cd8f-5e99-b997-efbd71782500"))
+      (uuid "f29ef675-0a51-53d8-92a7-9712011c2ee3"))
     (pin "2"
-      (uuid "c50d3be6-ee04-528a-be1a-99d4f345bdab"))
+      (uuid "a60aaac4-4ee6-5f9b-b29c-2a90591bbc99"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R14")
+          (reference "R13")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -3228,7 +3228,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "d0481674-ae9d-5633-a006-dc4e1d3effee")
+    (uuid "b63ac211-2f7d-5d43-8e67-dbb42c7959fe")
     (property "Reference" "#PWR5004"
       (at 52.07 57.15 0)
       (effects
@@ -3250,7 +3250,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "246b1742-bae3-5178-a132-7af920197d7b"))
+      (uuid "32340763-6d06-5dc2-838f-dad5cd5f05c6"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -3263,8 +3263,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "e961e43a-ffd0-54b8-a7d9-e934c88bc7fb")
-    (property "Reference" "R15"
+    (uuid "9816e40c-20c9-544b-baf7-ddaa76c3dc5c")
+    (property "Reference" "R14"
       (at 53.34 62.23 0)
       (effects
         (font
@@ -3289,13 +3289,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "dd42ec43-0706-55b7-adfd-075f459523d3"))
+      (uuid "ed21027b-cd8f-5e99-b997-efbd71782500"))
     (pin "2"
-      (uuid "fea08cce-2b7c-58fc-8284-665728fbdcde"))
+      (uuid "c50d3be6-ee04-528a-be1a-99d4f345bdab"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R15")
+          (reference "R14")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -3383,8 +3383,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "1e3d14f1-d11d-5979-9dd2-4a1f88a74b0b")
-    (property "Reference" "R16"
+    (uuid "e961e43a-ffd0-54b8-a7d9-e934c88bc7fb")
+    (property "Reference" "R15"
       (at 60.96 74.93 0)
       (effects
         (font
@@ -3409,13 +3409,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "c86dc6c8-4dc2-5b09-a615-cd007c915dc2"))
+      (uuid "dd42ec43-0706-55b7-adfd-075f459523d3"))
     (pin "2"
-      (uuid "c0c73d8f-62ca-5633-a391-2239548ee155"))
+      (uuid "fea08cce-2b7c-58fc-8284-665728fbdcde"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R16")
+          (reference "R15")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3424,8 +3424,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "d61b1f25-156a-59c0-9af3-86df65722c18")
-    (property "Reference" "R17"
+    (uuid "1e3d14f1-d11d-5979-9dd2-4a1f88a74b0b")
+    (property "Reference" "R16"
       (at 130.81 77.47 90)
       (effects
         (font
@@ -3448,13 +3448,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "ce37e410-289b-501c-9d12-3dcc98a9807a"))
+      (uuid "c86dc6c8-4dc2-5b09-a615-cd007c915dc2"))
     (pin "2"
-      (uuid "d34f08bd-ed0e-5fff-ae44-da4996a5d8bd"))
+      (uuid "c0c73d8f-62ca-5633-a391-2239548ee155"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R17")
+          (reference "R16")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -3541,8 +3541,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "14f9e455-892e-5287-adc4-ff5b0c88815e")
-    (property "Reference" "R18"
+    (uuid "d61b1f25-156a-59c0-9af3-86df65722c18")
+    (property "Reference" "R17"
       (at 143.51 69.85 0)
       (effects
         (font
@@ -3567,13 +3567,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "5aeeab2f-3bbb-51e1-bc96-39a74c49b4d1"))
+      (uuid "ce37e410-289b-501c-9d12-3dcc98a9807a"))
     (pin "2"
-      (uuid "e724be6e-644f-5cec-abb6-9e469890efa4"))
+      (uuid "d34f08bd-ed0e-5fff-ae44-da4996a5d8bd"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R18")
+          (reference "R17")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -3582,7 +3582,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "d6a9ad2a-4959-59a5-85d9-4adab4c4b193")
+    (uuid "947e6158-511f-5d89-8dcd-d29066bd1416")
     (property "Reference" "#PWR5013"
       (at 142.24 57.15 0)
       (effects
@@ -3604,7 +3604,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "b5ae6876-5c16-595a-aa64-19822b424fc1"))
+      (uuid "b1fa860b-354c-5ad8-8542-d2792b025b00"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -3617,8 +3617,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "e383cf0d-7ebf-56bd-becd-b73ed40484ef")
-    (property "Reference" "R19"
+    (uuid "14f9e455-892e-5287-adc4-ff5b0c88815e")
+    (property "Reference" "R18"
       (at 143.51 62.23 0)
       (effects
         (font
@@ -3643,13 +3643,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "7e5cc429-0b7a-5cde-be40-cdf3d3fdee83"))
+      (uuid "5aeeab2f-3bbb-51e1-bc96-39a74c49b4d1"))
     (pin "2"
-      (uuid "ab70b12a-d1e6-55a1-9c5d-797fe514a732"))
+      (uuid "e724be6e-644f-5cec-abb6-9e469890efa4"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R19")
+          (reference "R18")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -3737,8 +3737,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "0a0de5df-3cc0-5e99-8ed9-4a2f4141b793")
-    (property "Reference" "R20"
+    (uuid "e383cf0d-7ebf-56bd-becd-b73ed40484ef")
+    (property "Reference" "R19"
       (at 151.13 74.93 0)
       (effects
         (font
@@ -3763,13 +3763,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "59ab9cd7-fb04-579e-969a-067afc2084a5"))
+      (uuid "7e5cc429-0b7a-5cde-be40-cdf3d3fdee83"))
     (pin "2"
-      (uuid "9b68681f-aa6b-555b-a0b4-1f548ec61d29"))
+      (uuid "ab70b12a-d1e6-55a1-9c5d-797fe514a732"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R20")
+          (reference "R19")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3778,8 +3778,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "ce0cf57d-68ec-5d27-bf55-4652d37125cb")
-    (property "Reference" "R21"
+    (uuid "0a0de5df-3cc0-5e99-8ed9-4a2f4141b793")
+    (property "Reference" "R20"
       (at 220.98 77.47 90)
       (effects
         (font
@@ -3802,13 +3802,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "1ee5d818-1d1f-5a6c-8a0e-6d5f259d2fa2"))
+      (uuid "59ab9cd7-fb04-579e-969a-067afc2084a5"))
     (pin "2"
-      (uuid "0b3fd107-9318-5788-9284-a1debedb340c"))
+      (uuid "9b68681f-aa6b-555b-a0b4-1f548ec61d29"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R21")
+          (reference "R20")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -3895,8 +3895,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "f907ff3b-11e2-57f9-b25e-bd60a02893cf")
-    (property "Reference" "R22"
+    (uuid "ce0cf57d-68ec-5d27-bf55-4652d37125cb")
+    (property "Reference" "R21"
       (at 233.68 69.85 0)
       (effects
         (font
@@ -3921,13 +3921,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "70b5e4e7-a23c-5fa1-9cac-254389012043"))
+      (uuid "1ee5d818-1d1f-5a6c-8a0e-6d5f259d2fa2"))
     (pin "2"
-      (uuid "c204af9b-a855-5594-87af-e157c89bf949"))
+      (uuid "0b3fd107-9318-5788-9284-a1debedb340c"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R22")
+          (reference "R21")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -3936,7 +3936,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "c5167a30-55e0-5f63-8951-503d6251bf54")
+    (uuid "195302c1-568f-55f3-8148-3fbd08c1186b")
     (property "Reference" "#PWR5022"
       (at 232.41 57.15 0)
       (effects
@@ -3958,7 +3958,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "825616f7-037d-58f0-98a8-82edcdbc11ab"))
+      (uuid "12b29a87-b3aa-553f-948d-d638d7b4a200"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -3971,8 +3971,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "363e6131-f213-5219-8dd9-6b99b7a8942e")
-    (property "Reference" "R23"
+    (uuid "f907ff3b-11e2-57f9-b25e-bd60a02893cf")
+    (property "Reference" "R22"
       (at 233.68 62.23 0)
       (effects
         (font
@@ -3997,13 +3997,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "4f94dc03-79b3-52f3-b9e1-d74979fc2d8a"))
+      (uuid "70b5e4e7-a23c-5fa1-9cac-254389012043"))
     (pin "2"
-      (uuid "e66c429f-8751-54ab-993a-b445b29eac15"))
+      (uuid "c204af9b-a855-5594-87af-e157c89bf949"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R23")
+          (reference "R22")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -4091,8 +4091,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "12d80850-6c29-5090-8af8-00731e046937")
-    (property "Reference" "R24"
+    (uuid "363e6131-f213-5219-8dd9-6b99b7a8942e")
+    (property "Reference" "R23"
       (at 241.3 74.93 0)
       (effects
         (font
@@ -4117,13 +4117,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "938f15f8-9071-52f9-a350-eb9701e0c394"))
+      (uuid "4f94dc03-79b3-52f3-b9e1-d74979fc2d8a"))
     (pin "2"
-      (uuid "99a9813f-f45f-5299-b53e-5f9c3683a58e"))
+      (uuid "e66c429f-8751-54ab-993a-b445b29eac15"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R24")
+          (reference "R23")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -4132,8 +4132,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "cb203e28-6cb9-5b2b-ab34-eafb7c92b89c")
-    (property "Reference" "R25"
+    (uuid "12d80850-6c29-5090-8af8-00731e046937")
+    (property "Reference" "R24"
       (at 311.15 77.47 90)
       (effects
         (font
@@ -4156,13 +4156,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "06883d59-02bf-56f8-9d1e-2fafda8ad608"))
+      (uuid "938f15f8-9071-52f9-a350-eb9701e0c394"))
     (pin "2"
-      (uuid "a29ca7d3-94fb-5c4d-9fc5-88345b785af1"))
+      (uuid "99a9813f-f45f-5299-b53e-5f9c3683a58e"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R25")
+          (reference "R24")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -4249,8 +4249,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "758fc4f3-5371-5947-9478-81e80251e3b8")
-    (property "Reference" "R26"
+    (uuid "cb203e28-6cb9-5b2b-ab34-eafb7c92b89c")
+    (property "Reference" "R25"
       (at 323.85 69.85 0)
       (effects
         (font
@@ -4275,13 +4275,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "2416cf97-74e1-5583-bcc1-d38d56c369e4"))
+      (uuid "06883d59-02bf-56f8-9d1e-2fafda8ad608"))
     (pin "2"
-      (uuid "a1f244e0-4b46-509b-9807-61e8d599a4e9"))
+      (uuid "a29ca7d3-94fb-5c4d-9fc5-88345b785af1"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R26")
+          (reference "R25")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -4290,7 +4290,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "984ceae1-8feb-508a-a972-002d718f77b4")
+    (uuid "015ad794-e752-5e68-8570-5bbe3fb0f872")
     (property "Reference" "#PWR5031"
       (at 322.58 57.15 0)
       (effects
@@ -4312,7 +4312,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "db7f26a0-1514-5146-bc06-9e3ca50be7a4"))
+      (uuid "53133988-97ae-5fd1-8998-e22a718800f6"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -4325,8 +4325,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "42dd23e3-1dd1-5541-86d2-bf054a56537c")
-    (property "Reference" "R27"
+    (uuid "758fc4f3-5371-5947-9478-81e80251e3b8")
+    (property "Reference" "R26"
       (at 323.85 62.23 0)
       (effects
         (font
@@ -4351,13 +4351,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "0cbc0ec2-4241-515d-9c89-509fcb6322cd"))
+      (uuid "2416cf97-74e1-5583-bcc1-d38d56c369e4"))
     (pin "2"
-      (uuid "9ec4c3b8-da8d-56a8-a3c3-0ce153c8a7b4"))
+      (uuid "a1f244e0-4b46-509b-9807-61e8d599a4e9"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R27")
+          (reference "R26")
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
@@ -4445,8 +4445,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "1b8bd34e-8cf0-5a12-9196-b4aaa6424fee")
-    (property "Reference" "R28"
+    (uuid "42dd23e3-1dd1-5541-86d2-bf054a56537c")
+    (property "Reference" "R27"
       (at 331.47 74.93 0)
       (effects
         (font
@@ -4471,13 +4471,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "b1278372-444d-517a-a431-a9ec264d04fd"))
+      (uuid "0cbc0ec2-4241-515d-9c89-509fcb6322cd"))
     (pin "2"
-      (uuid "0d391c18-2821-5adf-9841-6dcead076dbd"))
+      (uuid "9ec4c3b8-da8d-56a8-a3c3-0ce153c8a7b4"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R28")
+          (reference "R27")
           (unit 1)))))
   (symbol
     (lib_id "electronix:Z573M")
@@ -4738,8 +4738,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "3209937c-d8a6-5b3b-bb28-55c3877397de")
-    (property "Reference" "R29"
+    (uuid "1b8bd34e-8cf0-5a12-9196-b4aaa6424fee")
+    (property "Reference" "R28"
       (at 35.56 267.97 90)
       (effects
         (font
@@ -4762,13 +4762,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "b7e37e35-7527-5b49-922c-c3dc1d7683ff"))
+      (uuid "b1278372-444d-517a-a431-a9ec264d04fd"))
     (pin "2"
-      (uuid "ea0d2ca3-2ac8-5e8b-a1b9-1068bfe7c6d6"))
+      (uuid "0d391c18-2821-5adf-9841-6dcead076dbd"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R29")
+          (reference "R28")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -4855,8 +4855,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "79488256-f3ed-5fed-a01c-4e8c439ae66d")
-    (property "Reference" "R30"
+    (uuid "3209937c-d8a6-5b3b-bb28-55c3877397de")
+    (property "Reference" "R29"
       (at 72.39 267.97 90)
       (effects
         (font
@@ -4879,13 +4879,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "6f2bf90a-6e2a-5790-b102-4924787957f6"))
+      (uuid "b7e37e35-7527-5b49-922c-c3dc1d7683ff"))
     (pin "2"
-      (uuid "553a8c38-b93a-55b6-828c-28528f0983a4"))
+      (uuid "ea0d2ca3-2ac8-5e8b-a1b9-1068bfe7c6d6"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R30")
+          (reference "R29")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -4972,8 +4972,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "ecf6d460-651f-5703-9456-94beed26de3c")
-    (property "Reference" "R31"
+    (uuid "79488256-f3ed-5fed-a01c-4e8c439ae66d")
+    (property "Reference" "R30"
       (at 107.95 267.97 90)
       (effects
         (font
@@ -4996,13 +4996,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "bf3c8a35-482b-5d7e-be08-8081dad370bb"))
+      (uuid "6f2bf90a-6e2a-5790-b102-4924787957f6"))
     (pin "2"
-      (uuid "68347bea-d698-59a1-bfd9-056aa4e60285"))
+      (uuid "553a8c38-b93a-55b6-828c-28528f0983a4"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R31")
+          (reference "R30")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5089,8 +5089,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "94961a1a-c690-5c2f-aa0e-a860510d9631")
-    (property "Reference" "R32"
+    (uuid "ecf6d460-651f-5703-9456-94beed26de3c")
+    (property "Reference" "R31"
       (at 143.51 267.97 90)
       (effects
         (font
@@ -5113,13 +5113,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "ce067bbb-bb37-5604-8352-87158737ea5d"))
+      (uuid "bf3c8a35-482b-5d7e-be08-8081dad370bb"))
     (pin "2"
-      (uuid "0795e3da-4f1a-5bb6-b68a-4a75f332bf20"))
+      (uuid "68347bea-d698-59a1-bfd9-056aa4e60285"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R32")
+          (reference "R31")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5206,8 +5206,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "800e0d2b-7d90-5509-9775-b306cc44835d")
-    (property "Reference" "R33"
+    (uuid "94961a1a-c690-5c2f-aa0e-a860510d9631")
+    (property "Reference" "R32"
       (at 180.34 267.97 90)
       (effects
         (font
@@ -5230,13 +5230,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "f593a83b-539c-5b43-b8aa-370f4924ac28"))
+      (uuid "ce067bbb-bb37-5604-8352-87158737ea5d"))
     (pin "2"
-      (uuid "6d3a5131-e0c3-55f5-a6e0-892fd3ce10c8"))
+      (uuid "0795e3da-4f1a-5bb6-b68a-4a75f332bf20"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R33")
+          (reference "R32")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5323,8 +5323,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "1cb842ba-d28b-5118-864d-6dfcd121cf77")
-    (property "Reference" "R34"
+    (uuid "800e0d2b-7d90-5509-9775-b306cc44835d")
+    (property "Reference" "R33"
       (at 215.9 267.97 90)
       (effects
         (font
@@ -5347,13 +5347,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "b86ed3cc-8311-5eec-b522-97d23107bcdd"))
+      (uuid "f593a83b-539c-5b43-b8aa-370f4924ac28"))
     (pin "2"
-      (uuid "e1ab4aba-101b-59ad-b902-31ef4ce4d4b2"))
+      (uuid "6d3a5131-e0c3-55f5-a6e0-892fd3ce10c8"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R34")
+          (reference "R33")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5440,8 +5440,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "a2014a69-4924-5d67-90d8-ed810cf518e6")
-    (property "Reference" "R35"
+    (uuid "1cb842ba-d28b-5118-864d-6dfcd121cf77")
+    (property "Reference" "R34"
       (at 252.73 267.97 90)
       (effects
         (font
@@ -5464,13 +5464,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "207d8e7d-0bcd-5137-b9e0-2cfb52393b17"))
+      (uuid "b86ed3cc-8311-5eec-b522-97d23107bcdd"))
     (pin "2"
-      (uuid "1286f14c-604b-5e96-a183-b06082da5c61"))
+      (uuid "e1ab4aba-101b-59ad-b902-31ef4ce4d4b2"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R35")
+          (reference "R34")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5557,8 +5557,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "2c0a4628-9f2f-535f-8e35-331144938ec0")
-    (property "Reference" "R36"
+    (uuid "a2014a69-4924-5d67-90d8-ed810cf518e6")
+    (property "Reference" "R35"
       (at 288.29 267.97 90)
       (effects
         (font
@@ -5581,13 +5581,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "6e3e2d3e-8da9-514c-9377-2ead646b3598"))
+      (uuid "207d8e7d-0bcd-5137-b9e0-2cfb52393b17"))
     (pin "2"
-      (uuid "ae2f62f3-d812-5609-a585-68b975ac4541"))
+      (uuid "1286f14c-604b-5e96-a183-b06082da5c61"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R36")
+          (reference "R35")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5674,8 +5674,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "59641216-733f-5dff-b6fb-f7fcd0ee697f")
-    (property "Reference" "R37"
+    (uuid "2c0a4628-9f2f-535f-8e35-331144938ec0")
+    (property "Reference" "R36"
       (at 323.85 267.97 90)
       (effects
         (font
@@ -5698,13 +5698,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "fb9c052a-18b3-53af-bbaa-a3c884e1d235"))
+      (uuid "6e3e2d3e-8da9-514c-9377-2ead646b3598"))
     (pin "2"
-      (uuid "f1b926d9-5da9-56b4-bf4a-19e26fd7d98c"))
+      (uuid "ae2f62f3-d812-5609-a585-68b975ac4541"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R37")
+          (reference "R36")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5791,8 +5791,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "a0e9af6b-bb90-588f-8477-49c294eb6960")
-    (property "Reference" "R38"
+    (uuid "59641216-733f-5dff-b6fb-f7fcd0ee697f")
+    (property "Reference" "R37"
       (at 360.68 267.97 90)
       (effects
         (font
@@ -5815,13 +5815,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "d63ce8ca-afcd-5e19-bcf8-b0cbe6a82533"))
+      (uuid "fb9c052a-18b3-53af-bbaa-a3c884e1d235"))
     (pin "2"
-      (uuid "bd40021d-f391-5491-affd-29530b0dc8c1"))
+      (uuid "f1b926d9-5da9-56b4-bf4a-19e26fd7d98c"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R38")
+          (reference "R37")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -5908,8 +5908,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "b234b7cc-2ad1-54c9-a134-f6f8916291fb")
-    (property "Reference" "R39"
+    (uuid "a0e9af6b-bb90-588f-8477-49c294eb6960")
+    (property "Reference" "R38"
       (at 430.53 107.95 90)
       (effects
         (font
@@ -5932,13 +5932,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "27025179-d416-54b7-ab28-83d91c77bb52"))
+      (uuid "d63ce8ca-afcd-5e19-bcf8-b0cbe6a82533"))
     (pin "2"
-      (uuid "3e076f91-c379-50fe-b334-08905c9230cc"))
+      (uuid "bd40021d-f391-5491-affd-29530b0dc8c1"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R39")
+          (reference "R38")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -6066,7 +6066,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "dba9b5b0-6239-58ba-9ccb-f64a1f38a8e7")
+    (uuid "3ed5c069-112c-51c0-b076-2d5d8cda0049")
     (property "Reference" "#PWR5074"
       (at 452.12 85.09 0)
       (effects
@@ -6088,7 +6088,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "bae37a0d-74ce-551e-9d6e-097302348826"))
+      (uuid "bd51c07c-e075-5c81-b66d-1aa116792ea6"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -6101,8 +6101,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "3276d324-1b58-5ac7-a470-4229ce554d59")
-    (property "Reference" "R40"
+    (uuid "b234b7cc-2ad1-54c9-a134-f6f8916291fb")
+    (property "Reference" "R39"
       (at 453.39 90.17 0)
       (effects
         (font
@@ -6127,13 +6127,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "f486728c-40ba-5de1-b0a1-3d89cc11433f"))
+      (uuid "27025179-d416-54b7-ab28-83d91c77bb52"))
     (pin "2"
-      (uuid "f1f0fd6d-c21c-5ccd-a2c8-de7546791e9b"))
+      (uuid "3e076f91-c379-50fe-b334-08905c9230cc"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R40")
+          (reference "R39")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -6142,8 +6142,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "5b67f319-4c82-5829-bdc1-e79268fc266e")
-    (property "Reference" "R41"
+    (uuid "3276d324-1b58-5ac7-a470-4229ce554d59")
+    (property "Reference" "R40"
       (at 501.65 107.95 90)
       (effects
         (font
@@ -6166,13 +6166,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "d0276734-7e2b-5a3a-91d1-64925824b2bd"))
+      (uuid "f486728c-40ba-5de1-b0a1-3d89cc11433f"))
     (pin "2"
-      (uuid "f27eab73-bb2a-550e-bf87-28e4ded07679"))
+      (uuid "f1f0fd6d-c21c-5ccd-a2c8-de7546791e9b"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R41")
+          (reference "R40")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -6300,7 +6300,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "ac2b8bd2-7ccc-539d-a015-09bac47fbc2b")
+    (uuid "76e3f2b9-d7b5-5ad3-937c-5f516a3c1e0d")
     (property "Reference" "#PWR5080"
       (at 523.24 85.09 0)
       (effects
@@ -6322,7 +6322,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "b34d91ae-fec1-5098-b1a5-910d05823c53"))
+      (uuid "43346fbf-2553-5e06-9447-5f274f1f5557"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -6335,8 +6335,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "d27fa221-3a57-5235-9ab0-190644c35380")
-    (property "Reference" "R42"
+    (uuid "5b67f319-4c82-5829-bdc1-e79268fc266e")
+    (property "Reference" "R41"
       (at 524.51 90.17 0)
       (effects
         (font
@@ -6361,13 +6361,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "9759bcfc-de9b-526f-96e9-a5cb85a704cc"))
+      (uuid "d0276734-7e2b-5a3a-91d1-64925824b2bd"))
     (pin "2"
-      (uuid "e51a16be-d88b-54d3-9830-7df79a807f38"))
+      (uuid "f27eab73-bb2a-550e-bf87-28e4ded07679"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R42")
+          (reference "R41")
           (unit 1)))))
   (symbol
     (lib_id "Device:D")
@@ -6786,7 +6786,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "bca67679-745f-5c61-83bc-7382dd14ae72")
+    (uuid "d6dfb620-82b0-51a6-8f10-c5e8d58d4eed")
     (property "Reference" "#PWR5092"
       (at 449.58 243.84 0)
       (effects
@@ -6808,7 +6808,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "dc00d93b-e7ca-5887-83ca-90ba50e315dc"))
+      (uuid "734c05b4-4fe8-5419-b52d-75efc3b2a1b5"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -6821,8 +6821,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "fc6b7023-4b22-57e8-a40d-fba90e58077c")
-    (property "Reference" "R43"
+    (uuid "d27fa221-3a57-5235-9ab0-190644c35380")
+    (property "Reference" "R42"
       (at 450.85 248.92 0)
       (effects
         (font
@@ -6847,13 +6847,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "861333e5-60ca-5639-ace0-008593c42700"))
+      (uuid "9759bcfc-de9b-526f-96e9-a5cb85a704cc"))
     (pin "2"
-      (uuid "6e9e1c80-4ca5-53d1-b6a0-f177763eb96f"))
+      (uuid "e51a16be-d88b-54d3-9830-7df79a807f38"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R43")
+          (reference "R42")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -6862,7 +6862,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "db356948-c348-5be9-bf5c-72e1d72d4587")
+    (uuid "09fff9d7-f7dd-568f-a330-b7f3d51b92a3")
     (property "Reference" "#PWR5094"
       (at 469.9 256.54 0)
       (effects
@@ -6884,7 +6884,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "d010310c-d20d-5fb6-b1f9-fa7650ee11e6"))
+      (uuid "6be61b9e-fffb-5d91-834f-331eb55358a6"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -6897,8 +6897,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "b7df2be5-8e32-529a-a24a-ed593f8a85d8")
-    (property "Reference" "R44"
+    (uuid "fc6b7023-4b22-57e8-a40d-fba90e58077c")
+    (property "Reference" "R43"
       (at 471.17 248.92 0)
       (effects
         (font
@@ -6923,13 +6923,13 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "839be357-1474-5cec-9946-d116317708a1"))
+      (uuid "861333e5-60ca-5639-ace0-008593c42700"))
     (pin "2"
-      (uuid "7be2fc60-d3b0-5a50-957b-7a7c8dc0dd76"))
+      (uuid "6e9e1c80-4ca5-53d1-b6a0-f177763eb96f"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "R44")
+          (reference "R43")
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
@@ -6938,7 +6938,7 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "62ce315a-31b1-5856-ab35-3f838ec1d0e7")
+    (uuid "71655b10-be96-5315-a984-808f7f610313")
     (property "Reference" "#PWR5096"
       (at 490.22 256.54 0)
       (effects
@@ -6960,7 +6960,7 @@
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "22951add-e9c0-5790-9a88-c2da7c5e81f6"))
+      (uuid "a78c0100-32a6-5658-8bb4-680191ea5589"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -6973,8 +6973,8 @@
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "f73cfbc6-1b01-509e-9045-afe065c210d3")
-    (property "Reference" "C22"
+    (uuid "1b24fb1c-5375-5826-a49a-1f24c5f7dea6")
+    (property "Reference" "C21"
       (at 491.49 248.92 0)
       (effects
         (font
@@ -6999,11 +6999,11 @@
           (size 1.27 1.27))
         (justify left) hide))
     (pin "1"
-      (uuid "6b196a1d-46c8-5371-893d-fd5028f6144c"))
+      (uuid "94c1d57a-3a77-5530-b97a-6152c5431467"))
     (pin "2"
-      (uuid "6efcd7de-7ab8-5d2a-8be8-e50ae57bcbf4"))
+      (uuid "96b9ef26-57d0-56e3-a2dc-2a764cb1d542"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
-          (reference "C22")
+          (reference "C21")
           (unit 1))))))

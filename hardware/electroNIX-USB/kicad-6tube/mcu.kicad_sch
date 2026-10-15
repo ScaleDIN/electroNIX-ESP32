@@ -786,100 +786,6 @@
             (effects
               (font
                 (size 1.27 1.27)))))))
-    (symbol "Switch:SW_Push"
-      (pin_numbers hide)
-      (pin_names
-        (offset 1.016) hide)
-      (in_bom yes)
-      (on_board yes)
-      (property "Reference" "SW"
-        (at 1.27 2.54 0)
-        (effects
-          (font
-            (size 1.27 1.27))
-          (justify left)))
-      (property "Value" "SW_Push"
-        (at 0 -1.524 0)
-        (effects
-          (font
-            (size 1.27 1.27))))
-      (property "Footprint" ""
-        (at 0 5.08 0)
-        (effects
-          (font
-            (size 1.27 1.27)) hide))
-      (property "Datasheet" "~"
-        (at 0 5.08 0)
-        (effects
-          (font
-            (size 1.27 1.27)) hide))
-      (property "ki_keywords" "switch normally-open pushbutton push-button"
-        (at 0 0 0)
-        (effects
-          (font
-            (size 1.27 1.27)) hide))
-      (property "ki_description" "Push button switch, generic, two pins"
-        (at 0 0 0)
-        (effects
-          (font
-            (size 1.27 1.27)) hide))
-      (symbol "SW_Push_0_1"
-        (circle
-          (center -2.032 0)
-          (radius 0.508)
-          (stroke
-            (width 0)
-            (type default))
-          (fill
-            (type none)))
-        (polyline
-          (pts
-            (xy 0 1.27)
-            (xy 0 3.048))
-          (stroke
-            (width 0)
-            (type default))
-          (fill
-            (type none)))
-        (polyline
-          (pts
-            (xy 2.54 1.27)
-            (xy -2.54 1.27))
-          (stroke
-            (width 0)
-            (type default))
-          (fill
-            (type none)))
-        (circle
-          (center 2.032 0)
-          (radius 0.508)
-          (stroke
-            (width 0)
-            (type default))
-          (fill
-            (type none)))
-        (pin passive line
-          (at -5.08 0 0)
-          (length 2.54)
-          (name "1"
-            (effects
-              (font
-                (size 1.27 1.27))))
-          (number "1"
-            (effects
-              (font
-                (size 1.27 1.27)))))
-        (pin passive line
-          (at 5.08 0 180)
-          (length 2.54)
-          (name "2"
-            (effects
-              (font
-                (size 1.27 1.27))))
-          (number "2"
-            (effects
-              (font
-                (size 1.27 1.27)))))))
     (symbol "Transistor_BJT:MMBT3904"
       (pin_names
         (offset 0) hide)
@@ -1333,14 +1239,9 @@
       (width 0)
       (type default))
     (uuid "a1aa04d4-6503-596a-a61a-b3c20bd14874"))
-  (wire
-    (pts
-      (xy 95.25 80.01)
-      (xy 92.71 80.01))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "9b80a722-3c9b-58d2-88e9-131eb1c76229"))
+  (no_connect
+    (at 95.25 80.01)
+    (uuid "2c50ac15-e5f3-5c2f-a25b-4aa9800f6fd3"))
   (no_connect
     (at 95.25 82.55)
     (uuid "282aca8c-d813-560a-8673-3068d11ee97c"))
@@ -1440,38 +1341,6 @@
       (width 0)
       (type default))
     (uuid "3b78b4f2-5725-5fd2-a32e-08e2ed60247f"))
-  (wire
-    (pts
-      (xy 256.54 44.45)
-      (xy 254 44.45))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "f78b740c-5cbe-5110-b681-a20dd0f45d31"))
-  (wire
-    (pts
-      (xy 266.7 44.45)
-      (xy 269.24 44.45))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "bfab209d-54ca-55e4-a634-398c893a4708"))
-  (wire
-    (pts
-      (xy 256.54 64.77)
-      (xy 254 64.77))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "0446ee26-1273-5e7b-a916-0407eb325a2e"))
-  (wire
-    (pts
-      (xy 266.7 64.77)
-      (xy 269.24 64.77))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "303a969a-4118-5ec7-af19-43dcf820650a"))
   (wire
     (pts
       (xy 297.18 49.53)
@@ -1584,54 +1453,6 @@
       (width 0)
       (type default))
     (uuid "d111cf55-1d0c-5902-94b8-34455c743804"))
-  (wire
-    (pts
-      (xy 384.81 120.65)
-      (xy 384.81 118.11))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "f2ef667b-a7a1-5fad-b40c-122efef78e7b"))
-  (wire
-    (pts
-      (xy 384.81 128.27)
-      (xy 384.81 130.81))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "546a02ce-3530-5d3d-9720-2219ee4866db"))
-  (wire
-    (pts
-      (xy 384.81 165.1)
-      (xy 384.81 167.64))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "36cc72a6-b033-5600-9d59-37d1d1acf1d4"))
-  (wire
-    (pts
-      (xy 384.81 154.94)
-      (xy 384.81 152.4))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "59576bf3-bf92-59f5-94b9-07445584a35a"))
-  (wire
-    (pts
-      (xy 394.97 140.97)
-      (xy 394.97 138.43))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "7c1bd8b4-f980-5c8c-8995-8985e952beeb"))
-  (wire
-    (pts
-      (xy 394.97 148.59)
-      (xy 394.97 151.13))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "8143962d-8804-5cef-96f7-f9cc2351b1aa"))
   (global_label "C_5"
     (shape passive)
     (at 128.27 118.11 0)
@@ -1914,14 +1735,6 @@
       (effects
         (font
           (size 1.27 1.27)) hide)))
-  (label "BTN"
-    (at 92.71 80.01 180)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right bottom))
-    (uuid "8133fd91-8473-51c7-b247-87a42209acfb"))
   (label "JASNOSC"
     (at 128.27 130.81 0)
     (fields_autoplaced)
@@ -1988,22 +1801,6 @@
         (size 1.27 1.27))
       (justify left bottom))
     (uuid "40256654-a6e2-5396-8df5-4dd357710227"))
-  (label "EN"
-    (at 254 44.45 180)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right bottom))
-    (uuid "3131d1eb-ac03-58fd-b7d2-b68794a81416"))
-  (label "IO0"
-    (at 254 64.77 180)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right bottom))
-    (uuid "edd76a98-dd6f-558e-a047-6a74a7967a4d"))
   (global_label "DTR"
     (shape passive)
     (at 294.64 49.53 180)
@@ -2108,30 +1905,6 @@
         (size 1.27 1.27))
       (justify left bottom))
     (uuid "c43624af-d93f-54dc-9a52-79526f40f4bd"))
-  (label "BTN"
-    (at 384.81 130.81 270)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right bottom))
-    (uuid "e0934d36-7824-5d8f-9fae-55914c997fe9"))
-  (label "BTN"
-    (at 384.81 167.64 270)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify right bottom))
-    (uuid "213af261-d40b-58b9-beca-32ceb3e7ab19"))
-  (label "BTN"
-    (at 394.97 138.43 90)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify left bottom))
-    (uuid "9e4dfc95-d94e-5d3e-875d-4793848e5691"))
   (rectangle
     (start 20 25)
     (end 205 190)
@@ -2164,13 +1937,20 @@
     (fill
       (type none))
     (uuid "8040e9ea-e73d-51c8-9af4-afcd4ccd7f93"))
-  (text "Reset, boot and auto-program (DTR/RTS)"
+  (text "Reset and auto-program (DTR/RTS) - no RESET/BOOT buttons needed"
     (at 216.27 26.27 0)
     (effects
       (font
         (size 2 2) bold)
       (justify left top))
-    (uuid "55cd00e6-5933-5d3c-be76-b790a538f39f"))
+    (uuid "fc1d0f66-7bc1-51f9-ac95-b997e768e626"))
+  (text "No buttons: the CH340C resets the ESP32 and enters download\nmode through DTR/RTS; unplugging USB is the reset.\nRecovery if auto-reset ever fails: short the IO0 pull-up\n(the 10k on IO0) to GND while plugging in."
+    (at 255 40 0)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left top))
+    (uuid "db521a0e-1613-50f1-8d5a-f93cd16b74a9"))
   (text "DTR RTS | EN IO0\n 1   1  |  1   1\n 0   0  |  1   1\n 1   0  |  0   1\n 0   1  |  1   0"
     (at 300 70 0)
     (effects
@@ -2761,154 +2541,6 @@
           (reference "C8")
           (unit 1)))))
   (symbol
-    (lib_id "power:GND")
-    (at 269.24 44.45 90)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "55e4047a-7a19-5651-a51d-54d8697fecd8")
-    (property "Reference" "#PWR3013"
-      (at 269.24 44.45 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Value" "GND"
-      (at 269.24 44.45 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Footprint" ""
-      (at 269.24 44.45 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Datasheet" ""
-      (at 269.24 44.45 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (pin "1"
-      (uuid "b84c590a-2f53-5c2b-a8e6-94b64cfc3bd7"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3013")
-          (unit 1)))))
-  (symbol
-    (lib_id "Switch:SW_Push")
-    (at 261.62 44.45 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "54836715-148e-5386-af9d-e90505b09403")
-    (property "Reference" "SW1"
-      (at 261.62 41.91 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Value" "RESET"
-      (at 261.62 46.99 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
-      (at 261.62 44.45 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (property "Datasheet" "~"
-      (at 261.62 44.45 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (pin "1"
-      (uuid "38087ebb-0ac4-5d4e-ac28-76e5726dfe26"))
-    (pin "2"
-      (uuid "13f1d04a-8264-5619-bb7a-fc0ede6c2895"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "SW1")
-          (unit 1)))))
-  (symbol
-    (lib_id "power:GND")
-    (at 269.24 64.77 90)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "58884f11-cf9b-5bbe-bee7-a614f1b97b04")
-    (property "Reference" "#PWR3015"
-      (at 269.24 64.77 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Value" "GND"
-      (at 269.24 64.77 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Footprint" ""
-      (at 269.24 64.77 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Datasheet" ""
-      (at 269.24 64.77 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (pin "1"
-      (uuid "e42eae81-b813-53ce-97d2-9adabd5a099e"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3015")
-          (unit 1)))))
-  (symbol
-    (lib_id "Switch:SW_Push")
-    (at 261.62 64.77 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "20ddbcfa-9cb9-502e-a86a-3917fd19cafc")
-    (property "Reference" "SW2"
-      (at 261.62 62.23 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Value" "BOOT"
-      (at 261.62 67.31 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
-      (at 261.62 64.77 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (property "Datasheet" "~"
-      (at 261.62 64.77 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (pin "1"
-      (uuid "a3b0396a-19e4-5dd5-ad76-7b4f035c8494"))
-    (pin "2"
-      (uuid "0470d99c-a378-5d86-a075-adcdaf8cb85f"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "SW2")
-          (unit 1)))))
-  (symbol
     (lib_id "Device:R")
     (at 300.99 49.53 90)
     (unit 1)
@@ -3080,7 +2712,7 @@
     (on_board yes)
     (dnp no)
     (uuid "351e1484-a6a6-520e-8ada-36f9cc53fcce")
-    (property "Reference" "#PWR3021"
+    (property "Reference" "#PWR3017"
       (at 234.95 118.11 0)
       (effects
         (font
@@ -3105,7 +2737,7 @@
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3021")
+          (reference "#PWR3017")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3156,7 +2788,7 @@
     (on_board yes)
     (dnp no)
     (uuid "e9301080-0809-57bc-b27c-d46d75b26ea8")
-    (property "Reference" "#PWR3023"
+    (property "Reference" "#PWR3019"
       (at 355.6 118.11 0)
       (effects
         (font
@@ -3181,7 +2813,7 @@
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3023")
+          (reference "#PWR3019")
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
@@ -3232,7 +2864,7 @@
     (on_board yes)
     (dnp no)
     (uuid "b7d7a085-e0fd-5e16-ba58-6fa964e4cf9b")
-    (property "Reference" "#PWR3025"
+    (property "Reference" "#PWR3021"
       (at 359.41 149.86 0)
       (effects
         (font
@@ -3257,7 +2889,7 @@
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3025")
+          (reference "#PWR3021")
           (unit 1)))))
   (symbol
     (lib_id "Device:D_Photo")
@@ -3308,7 +2940,7 @@
     (on_board yes)
     (dnp no)
     (uuid "49e5775e-881e-5dbe-936e-09bd4fc42f37")
-    (property "Reference" "#PWR3027"
+    (property "Reference" "#PWR3023"
       (at 372.11 151.13 0)
       (effects
         (font
@@ -3333,7 +2965,7 @@
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3027")
+          (reference "#PWR3023")
           (unit 1)))))
   (symbol
     (lib_id "Device:C")
@@ -3375,232 +3007,4 @@
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
           (reference "C9")
-          (unit 1)))))
-  (symbol
-    (lib_id "power:+3V3")
-    (at 384.81 118.11 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "47aa4a03-1b09-5d27-b6f5-c6a5a3931f64")
-    (property "Reference" "#PWR3029"
-      (at 384.81 118.11 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Value" "+3V3"
-      (at 384.81 114.91 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Footprint" ""
-      (at 384.81 118.11 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Datasheet" ""
-      (at 384.81 118.11 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (pin "1"
-      (uuid "a12e1b59-1381-5640-a195-df231236dd49"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3029")
-          (unit 1)))))
-  (symbol
-    (lib_id "Device:R")
-    (at 384.81 124.46 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "585e86a9-5479-5816-93ba-fb6c2ec1aa53")
-    (property "Reference" "R8"
-      (at 386.08 123.19 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left)))
-    (property "Value" "10k"
-      (at 386.08 125.73 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left)))
-    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-      (at 384.81 124.46 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (property "Datasheet" "~"
-      (at 384.81 124.46 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (pin "1"
-      (uuid "fb5ca9d9-6b0c-5b31-b248-f4a117a60cce"))
-    (pin "2"
-      (uuid "a630edec-81d5-55c7-9d44-9757ebbd482f"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "R8")
-          (unit 1)))))
-  (symbol
-    (lib_id "power:GND")
-    (at 384.81 152.4 180)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "92853d0f-7925-56a2-ae6c-f4f509a089a8")
-    (property "Reference" "#PWR3031"
-      (at 384.81 152.4 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Value" "GND"
-      (at 384.81 152.4 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Footprint" ""
-      (at 384.81 152.4 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Datasheet" ""
-      (at 384.81 152.4 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (pin "1"
-      (uuid "fba19ccd-8575-5052-8a60-9ac37585275f"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3031")
-          (unit 1)))))
-  (symbol
-    (lib_id "Switch:SW_Push")
-    (at 384.81 160.02 90)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "e0a87685-358d-537c-902a-69330b834644")
-    (property "Reference" "SW3"
-      (at 386.08 158.75 90)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left)))
-    (property "Value" "SET"
-      (at 386.08 161.29 90)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left)))
-    (property "Footprint" "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx31-2LFS"
-      (at 384.81 160.02 90)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (property "Datasheet" "~"
-      (at 384.81 160.02 90)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (pin "1"
-      (uuid "01b82fe4-2d21-5f52-818e-e1053ab4644f"))
-    (pin "2"
-      (uuid "c9c4a465-8403-5c43-acbd-55d26bb22fc2"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "SW3")
-          (unit 1)))))
-  (symbol
-    (lib_id "power:GND")
-    (at 394.97 151.13 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "b702193b-e464-5109-b7e9-dd14f1552198")
-    (property "Reference" "#PWR3033"
-      (at 394.97 151.13 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Value" "GND"
-      (at 394.97 154.33 0)
-      (effects
-        (font
-          (size 1.27 1.27))))
-    (property "Footprint" ""
-      (at 394.97 151.13 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (property "Datasheet" ""
-      (at 394.97 151.13 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide))
-    (pin "1"
-      (uuid "7e906998-7948-5e45-9b74-2df886f4c5ce"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "#PWR3033")
-          (unit 1)))))
-  (symbol
-    (lib_id "Device:C")
-    (at 394.97 144.78 0)
-    (unit 1)
-    (in_bom yes)
-    (on_board yes)
-    (dnp no)
-    (uuid "91c5275a-d961-5e92-b3f3-042420f88935")
-    (property "Reference" "C10"
-      (at 396.24 143.51 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left)))
-    (property "Value" "100n"
-      (at 396.24 146.05 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left)))
-    (property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-      (at 394.97 144.78 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (property "Datasheet" "~"
-      (at 394.97 144.78 0)
-      (effects
-        (font
-          (size 1.27 1.27))
-        (justify left) hide))
-    (pin "1"
-      (uuid "9f340d61-eb88-5360-a793-f515ac96c439"))
-    (pin "2"
-      (uuid "3dd3cd8b-4643-527f-9b5a-2cbf09bbd0e2"))
-    (instances
-      (project "electroNIX-USB"
-        (path "/af167dc7-e2c9-570c-bdf4-28156a519677/8d4ed13a-c701-5bd9-9f90-dd62e40aa6af"
-          (reference "C10")
           (unit 1))))))

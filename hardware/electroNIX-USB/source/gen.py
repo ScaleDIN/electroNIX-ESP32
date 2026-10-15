@@ -101,7 +101,7 @@ def sheet_mcu():
           'IO25': 'C_5', 'IO26': 'C_6', 'IO27': 'C_7', 'IO32': 'C_8', 'IO33': 'C_9',
           'IO16': 'W_1', 'IO17': 'W_2', 'IO18': 'W_3', 'IO19': 'W_4',
           'IO4': 'SEC_0', 'IO5': 'SEC_1', 'IO2': 'PWM', 'IO35': 'KOMP_170V', 'IO34': 'JASNOSC',
-          'SENSOR_VP': 'BTN', 'IO0': 'IO0',
+          'IO0': 'IO0',
           'RXD0/IO3': 'U0RXD', 'TXD0/IO1': 'U0TXD', 'EN': 'EN', 'VDD': '+3V3', 'GND': 'GND'}
     if TUBES == 4:   # IO12 / IO15 left open: they are anodes 5/6 on the 6-tube build
         boxt = 'ESP32 module (GPIO map = stock firmware BOARD_ELECTRONIX_3)'
@@ -127,11 +127,11 @@ def sheet_mcu():
     sh.text('Strapping pins at reset:\n' + straps +
             ' IO5  SEC_1 neon driver base - default state is harmless', 25, 160)
 
-    sh.box(215, 25, 400, 95, 'Reset, boot and auto-program (DTR/RTS)')
+    sh.box(215, 25, 400, 95, 'Reset and auto-program (DTR/RTS) - no RESET/BOOT buttons needed')
     R(sh, '10k', 230, 50, '+3V3', 'EN')
     C(sh, '1u', 242, 50, 'EN', 'GND')
-    sh.part(ref('SW'), 'Switch', 'SW_Push', 'RESET', 262, 45, {'1': 'EN', '2': 'GND'}, fp='Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2')
-    sh.part(ref('SW'), 'Switch', 'SW_Push', 'BOOT', 262, 65, {'1': IO0, '2': 'GND'}, fp='Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2')
+    sh.text('No buttons: the CH340C resets the ESP32 and enters download\nmode through DTR/RTS; unplugging USB is the reset.\n'
+            'Recovery if auto-reset ever fails: short the IO0 pull-up\n(the 10k on IO0) to GND while plugging in.', 255, 40)
     # classic two-transistor auto-reset
     R(sh, '10k', 301.11, 50, 'DTR', '-', rot=90)
     NPN(sh, 'MMBT3904', 310, 50, '-', 'EN', 'RTS', sym='MMBT3904')
@@ -148,11 +148,7 @@ def sheet_mcu():
     sh.part(ref('D'), 'Device', 'D_Photo', 'BPW34 / HPDB3J', 360, 145, {'K': 'JASNOSC', 'A': 'GND'}, 270,
             'OptoDevice:Osram_DIL2_4.3x4.65mm_P5.08mm')
     C(sh, '100n', 372, 145, 'JASNOSC', 'GND')
-    # user button
-    R(sh, '10k', 385, 125, '+3V3', 'BTN')
-    sh.part(ref('SW'), 'Switch', 'SW_Push', 'SET', 385, 160, {'1': 'BTN', '2': 'GND'}, 90,
-            'Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx31-2LFS')
-    C(sh, '100n', 395, 145, 'BTN', 'GND')
+    # no user button: the firmware is configured from its web UI and reads no button
     return sh
 
 # =============================================================================

@@ -97,45 +97,58 @@ def placement(nl, tubes):
                          [(4, 4), (W - 4, 4), (4, H - 4), (W - 4, H - 4)]):
         put(r, x, y, 0, 'F')
 
-    # ---------------- back band, left: boost converter
-    L = nl.one('HV_SW', 'L'); put(L, 15.5, 8.0, 0)
-    Q = nl.one('HV_SW', 'Q'); put(Q, 14.5, 21.0, 0)
-    Rg = nl.one(nl.pnet(Q, '1'), 'R'); put(Rg, 4.0, 14.5, 90)
-    put([r for r in nl.on('PWM', 'R') if r != Rg][0], 4.0, 18.8, 90)
-    put(pk('HV', '22u 10V'), 26.5, 12.0, 90); put(pk('HV', '100n', '+5V'), 29.6, 12.0, 90)
-    Cout = [r for r in nl.on('+170V', 'C') if '250V' in val(r)][0]; put(Cout, 26.0, 21.0, 0)
-    # SET button, actuator through the back edge
-    put(nl.one('BTN', 'SW'), 31.5, 3.2, 0)
-    put(pk('ESP32', '10k', 'BTN'), 34.0, 9.6, 0); put(pk('ESP32', '100n', 'BTN'), 34.0, 12.4, 0)
+    # ---------------- back band, left: boost converter (compact switching loop)
+    # +5V enters on the left (input caps, L1 pin 1); the switch node (L1 pin 2,
+    # FET drain tab) faces right, straight into the ladder's first diode.
+    L = nl.one('HV_SW', 'L'); put(L, 14.5, 8.0, 180)
+    Q = nl.one('HV_SW', 'Q'); put(Q, 15.5, 21.0, 180)
+    put(pk('HV', '22u 10V'), 3.6, 11.2, 90); put(pk('HV', '100n', '+5V'), 3.6, 15.4, 90)
+    Rg = nl.one(nl.pnet(Q, '1'), 'R')
+    put(Rg, 6.6, 19.0, 90); put([r for r in nl.on('PWM', 'R') if r != Rg][0], 3.6, 21.0, 90)
+    # multiplier ladder right beside the switch: diode column + capacitor column,
+    # in chain order from the switch node (top) to +170 V (bottom)
+    cw_d = {nl.pnet(r, '2'): r for r in nl.comps if r.startswith('D') and val(r) == '10MQ100N'}   # anode net -> diode
+    chain, node = [], 'HV_SW'
+    while node in cw_d:
+        d = cw_d[node]; chain.append(d); node = nl.pnet(d, '1')
+    for i, d in enumerate(chain): put(d, 26.0, 2.2 + i * 3.7, 0)
+    caps = [r for r in nl.comps if r.startswith('C') and val(r) == '2u2 100V']
+    order = ['HV_SW', 'CW_T1', 'CW_B1', 'CW_T2', 'CW_B2', 'CW_T3', 'CW_B3', '+170V']
+    rank = lambda c: min(order.index(nl.pnet(c, p)) if nl.pnet(c, p) in order else 9 for p in ('1', '2'))
+    for i, c in enumerate(sorted(caps, key=lambda c: (rank(c), c))): put(c, 33.4, 2.2 + i * 3.7, 0)
 
     # ---------------- back band, centre: USB-C, protection, LDO
     put(nl.one('CC1', 'J'), mid, 3.675, 180)
     put(nl.one('CC1', 'R'), mid - 6.0, 12.0, 90); put(nl.one('CC2', 'R'), mid + 6.0, 12.0, 90)
     put([r for r in nl.on('USB_DP', 'U') if val(r).startswith('USBLC6')][0], mid, 12.0, 0)
     put(nl.one('VBUS', 'F'), mid - 9.5, 5.5, 90)
-    put(pk('Power', '22u 10V'), mid - 13.5, 10.8, 90)
-    put([r for r in nl.on('+5V', 'D') if 'SMBJ' in val(r)][0], mid - 15.0, 17.5, 90)
-    put([r for r in nl.on('+3V3', 'U') if 'AMS1117' in val(r)][0], mid - 4.5, 19.5, 0)
-    put(pk('Power', '10u'), mid - 11.0, 21.0, 90)
-    put(pk('Power', '22u'), mid + 2.5, 19.5, 90); put(pk('Power', '100n', '+3V3'), mid + 5.3, 19.5, 90)
-    # light sensor pull-up + filter, next to the BPW34 pads
-    put(pk('ESP32', '1M'), colons[0] - 8.0, 25.0, 0); put(pk('ESP32', '100n', 'JASNOSC'), colons[0] + 5.0, 23.5, 0)
+    put(pk('Power', '22u 10V'), mid - 12.2, 5.5, 90)
+    put([r for r in nl.on('+5V', 'D') if 'SMBJ' in val(r)][0], mid - 10.8, 11.5, 0)
+    put(pk('Power', '10u'), mid - 11.0, 20.0, 90)
+    put([r for r in nl.on('+3V3', 'U') if 'AMS1117' in val(r)][0], mid - 4.5, 20.0, 0)
+    put(pk('Power', '22u'), mid + 2.3, 20.0, 90); put(pk('Power', '100n', '+3V3'), mid + 5.2, 20.0, 90)
+    # light sensor pull-up + filter beside the BPW34 pads
+    put(pk('ESP32', '1M'), colons[0] - 7.0, 25.8, 0); put(pk('ESP32', '100n', 'JASNOSC'), colons[0] + 7.0, 25.8, 0)
 
     # ---------------- back band, right: CH340C, auto-reset, ESP32
-    EX = W - 17.0
-    U3 = [r for r in nl.on('USB_DP', 'U') if val(r) == 'CH340C'][0]; put(U3, EX - 20.5, 9.0, 90)
-    put(pk('Power', '100n', '+3V3'), EX - 20.5, 15.0, 0)
-    put(nl.one('IO0', 'SW'), EX - 20.5, 19.6, 0)
-    sx = EX - 12.5                         # strip between CH340C and the module
+    EX = W - 18.5
+    U3 = [r for r in nl.on('USB_DP', 'U') if val(r) == 'CH340C'][0]; put(U3, EX - 19.5, 9.0, 90)
+    put(pk('Power', '100n', '+3V3'), EX - 19.5, 15.0, 0)
+    sx = EX - 11.6                         # between CH340C (TXD/RXD side) and the module's UART/IO0 pins
     q1 = nl.one('EN', 'Q', '3'); q2 = nl.one('IO0', 'Q', '3')
     put(q1, sx, 3.2, 0); put(nl.one(nl.pnet(q1, '1'), 'R'), sx, 6.9, 0)
     put(q2, sx, 10.4, 0); put(nl.one(nl.pnet(q2, '1'), 'R'), sx, 14.1, 0)
-    put(pk('ESP32', '10k', 'IO0'), sx, 16.9, 0)
-    put(nl.one('EN', 'SW'), sx, 22.8, 90)
+    put(pk('ESP32', '10k', 'IO0'), sx, 23.0, 0)                 # IO0 pull-up, next to pin 25
     U4 = nl.one('EN', 'U'); put(U4, EX, 15.79, 0)
-    rx = W - 3.7                            # strip right of the module (3V3/EN pins are on this side)
-    put(pk('ESP32', '22u'), rx, 10.6, 90); put(pk('ESP32', '100n', '+3V3'), rx, 14.8, 90)
-    put(pk('ESP32', '10k', 'EN'), rx, 18.6, 90); put(pk('ESP32', '1u'), rx, 22.4, 90)
+    # strip between the module's right-hand pins (3V3, EN, IO34, IO35) and the board edge
+    ca, cb = EX + 10.9, EX + 14.5
+    put(pk('ESP32', '100n', '+3V3'), ca, 9.4, 90); put(pk('ESP32', '22u'), cb, 10.2, 90)       # 3V3, pin 2
+    put(pk('ESP32', '1u'), ca, 13.0, 90); put(pk('ESP32', '10k', 'EN'), cb, 14.4, 90)          # EN RC, pin 3
+    Rtop = [r for r in nl.on('KOMP_170V', 'R') if val(r) == '430k'][0]                           # HV sense at IO35
+    put(nl.one('KOMP_170V', 'C'), ca, 16.6, 90)
+    put([r for r in nl.on('KOMP_170V', 'R') if r != Rtop][0], ca, 20.2, 90)
+    put(nl.on('KOMP_170V', 'D')[0], cb, 18.6, 90)
+    put(Rtop, cb, 23.6, 90)
 
     # ---------------- colon gap(s): neon drivers
     for i in range(2):
@@ -149,33 +162,26 @@ def placement(nl, tubes):
             xx = x if tubes == 4 else cx + 5.3
             put(rs, xx, 39.4 if tubes == 4 else 30.5 + j * 6.0, 90)
 
-    # ---------------- front band, left: multiplier ladder, feedback, KBIAS
-    cw_c = sorted((r for r in nl.comps if r.startswith('C') and val(r) == '2u2 100V'), key=lambda s: int(s[1:]))
-    cw_d = sorted((r for r in nl.comps if r.startswith('D') and val(r) == '10MQ100N'), key=lambda s: int(s[1:]))
-    for i, r in enumerate(cw_c): put(r, 3.6 + i * 4.1, 46.0, 90)
-    for i, r in enumerate(cw_d): put(r, 3.6 + i * 4.1, 52.9, 90)
-    Rtop = [r for r in nl.on('KOMP_170V', 'R') if val(r) == '430k'][0]
-    put(Rtop, 11.0, 59.4, 0); put([r for r in nl.on('KOMP_170V', 'R') if r != Rtop][0], 10.5, 62.8, 0)
-    put(nl.one('KOMP_170V', 'C'), 14.6, 62.8, 0); put(nl.on('KOMP_170V', 'D')[0], 16.3, 59.3, 0)
+    # ---------------- front band: output cap + KBIAS at the left end
+    Cout = [r for r in nl.on('+170V', 'C') if '250V' in val(r)][0]; put(Cout, 6.6, 47.5, 0)
     kr = nl.on('KBIAS', 'R'); kr430 = [r for r in kr if val(r) == '430k'][0]; kr100 = [r for r in kr if r != kr430][0]
-    put(kr430, 21.8, 59.4, 0); put(kr100, 18.7, 62.8, 0); put(nl.one('KBIAS', 'C'), 23.6, 62.8, 0)
+    put(kr430, 4.8, 53.2, 0); put(nl.one('KBIAS', 'C'), 4.8, 56.4, 0); put(kr100, 8.6, 54.6, 90)
 
-    # ---------------- front band: cathode switches (R | Q over D)
-    x0, x1 = 35.0, W - 7.6
+    # ---------------- front band: cathode switches (R | Q over clamp D)
+    x0, x1 = 14.0, W - 8.0
     for k in range(10):
         x = x0 + k * (x1 - x0) / 9
         q = nl.one(f'K_{k}', 'Q'); put(q, x, 46.0, 0)
         put(nl.one(nl.pnet(q, '1'), 'R'), x - 3.1, 46.0, 90)
         put(nl.one(f'K_{k}', 'D'), x, 50.6, 90)
 
-    # ---------------- front band: anode switches, one cluster per tube
-    a0, a1 = 39.5, W - 16.0
+    # ---------------- front band: anode switches, one cluster under each tube
     for i in range(tubes):
         rb = nl.one(f'W_{i + 1}', 'R'); qlo = nl.one(nl.pnet(rb, '2'), 'Q')
         r430 = nl.one(nl.pnet(qlo, '3'), 'R'); qhi = nl.on(nl.pnet(r430, '1'), 'Q')[0]
         r100 = [r for r in nl.on(nl.pnet(qhi, '1'), 'R') if r != r430][0]
         ra = nl.one(f'A_{i + 1}', 'R')
-        cx = a0 + i * (a1 - a0) / (tubes - 1)
+        cx = min(max(tx[i], 19.5), W - 13.0)
         put(rb, cx - 5.5, 56.6, 0); put(qlo, cx - 1.0, 56.6, 0); put(qhi, cx + 3.6, 56.6, 0)
         put(r430, cx - 4.6, 61.2, 0); put(r100, cx + 0.4, 61.2, 0); put(ra, cx + 4.4, 61.2, 0)
 
