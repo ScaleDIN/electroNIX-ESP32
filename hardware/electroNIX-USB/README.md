@@ -3,8 +3,12 @@
 A new KiCad design: an ESP32 version of the TESTA-QUADRA **electroNIXclock 3**
 (PCB-036, 2013). That was the micro-USB powered board; its schematic is filed as
 `original electronix clock/z573m/schema_204xZ573M.pdf`. The tube is the RFT Z573M.
-A Z566M variant comes later. This revision is the **schematic plus the
-tube footprint**; the PCB layout is the next step.
+A Z566M variant comes later.
+
+**Status (work in progress):** schematics are done for 4 and 6 tubes. The
+4-tube PCB (`kicad/electroNIX-USB.kicad_pcb`, 102 × 66 mm, the original
+kit's size) is **placed but not routed yet**. Routing is next, then the
+6-tube board.
 
 | Path | Contents |
 |---|---|
@@ -13,6 +17,8 @@ tube footprint**; the PCB layout is the next step.
 | `electroNIX-USB-{4,6}tube-schematic.pdf` | Plots of all 5 sheets |
 | `electroNIX-USB-{4,6}tube-bom.csv` | BOMs grouped by value and footprint |
 | `source/gen.py` | Generator: `python3 source/gen.py kicad` or `python3 source/gen.py kicad-6tube --tubes 6` |
+| `source/pcb.py` | Board builder: places parts from the netlist, autoroutes with Freerouting, pours GND, runs DRC (`--place-only` stops after placement) |
+| `source/fab.sh` | Gerbers, drill files and pick-and-place zip for a board |
 | `source/footprint.py` | Writes the Z573M footprint: `python3 source/footprint.py kicad/electronix.pretty` |
 
 The files are in KiCad 7 format, so KiCad 7, 8 and 9 all open them (8 and 9
@@ -150,6 +156,31 @@ Notes:
 - Off-cathode bias filter: one 2.2 µF/50 V cap instead of 4 × 470 nF.
 - A second colon neon (SEC_1) is fitted from the start. The original Z573M
   kit had one; leave NE2 off for a single dot.
+
+## PCB (4-tube, in progress)
+
+- **Outline:** 102 × 66 mm with 3 mm corner radius and M3 holes in the
+  corners. This is the original kit's footprint (case 102 × 66 mm).
+- **Top side:** only the tubes, the colon neons and the BPW34 light
+  sensor.
+- **Tubes:** each sits on an electroNIX-2 socket adapter. The main board
+  takes your bare socket pins on the adapter's 13-pin Ø12.6 mm outer ring
+  (2.80 mm pitch, 1.55 mm holes, 2.25 mm pads).
+  `electronix:Nixie_RFT_Z573M` is the alternative footprint, with pins
+  directly on the tube's Ø9.53 mm circle. It is tight: 2.12 mm pitch and
+  ~0.3 mm between pads, with the anode next to k0.
+- **Colon:** 0.1" two-lead neon footprints, two stacked in the gap. On the
+  4-tube board each lamp has its own output (SEC_0 upper, SEC_1 lower). On
+  the 6-tube board the HH:MM pair is on SEC_0 and the MM:SS pair on SEC_1.
+- **Bottom side:** everything else, kept clear of the socket-pin rings.
+  - Back edge: boost converter, USB-C (centre), regulator, CH340C, and the
+    ESP32 module with its antenna over the back edge and a no-copper
+    keepout under it.
+  - SET is a right-angle tact switch facing out of the back edge.
+  - Front band: the multiplier ladder, 10 cathode switches, and one anode
+    cluster per tube.
+- **Net classes:** HV (0.4 mm clearance) for +170 V, anodes, the ladder
+  and the neon nets; Power (0.5 mm track) for GND/+5V/+3V3/VBUS.
 
 ## Open points (check before or during layout)
 

@@ -1,0 +1,6 @@
+# generated while building the boards
+*/.route/
+*/netlist.xml
+*.kicad_prl
+*-backups/
+fp-info-cache

@@ -2813,7 +2813,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Footprint" "Button_Switch_SMD:SW_SPST_PTS645"
+    (property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
       (at 261.62 44.45 0)
       (effects
         (font
@@ -2887,7 +2887,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Footprint" "Button_Switch_SMD:SW_SPST_PTS645"
+    (property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2"
       (at 261.62 64.77 0)
       (effects
         (font
@@ -3507,7 +3507,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Button_Switch_THT:SW_PUSH_6mm"
+    (property "Footprint" "Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx31-2LFS"
       (at 384.81 160.02 90)
       (effects
         (font

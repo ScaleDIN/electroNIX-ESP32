@@ -3026,20 +3026,20 @@
     (fill
       (type none))
     (uuid "8b3f5505-1522-5d88-b4de-1d594b704d91"))
-  (text "Colon neons (SEC_0 upper / SEC_1 lower)"
+  (text "Colon neons (4 tubes: SEC_0 upper / SEC_1 lower dot.  6 tubes: SEC_0 = HH:MM colon, SEC_1 = MM:SS colon)"
     (at 411.27 26.27 0)
     (effects
       (font
         (size 2 2) bold)
       (justify left top))
-    (uuid "51b23fe8-09ec-5b3e-9cd2-e950675d7836"))
-  (text "Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\nFirmware drives SEC_0/SEC_1 independently. 150k per neon: ~0.6 mA at 170 V."
+    (uuid "7bdddabe-3f1c-59cc-b8ee-bca96fef02e7"))
+  (text "Two lamps stacked one above the other in the colon gap, each on its own output.\nFirmware drives SEC_0/SEC_1 independently (BOARD_DUAL_NEON). 150k per lamp: ~0.6 mA at 170 V."
     (at 415 125 0)
     (effects
       (font
         (size 1.27 1.27))
       (justify left top))
-    (uuid "97435a87-c8c8-507d-9c71-8be0e1725cb0"))
+    (uuid "0c3a64cb-cb8f-5ad2-aa44-7aabc18198e8"))
   (rectangle
     (start 410 150)
     (end 575 300)
@@ -3276,7 +3276,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 52.07 63.5 0)
       (effects
         (font
@@ -3396,7 +3396,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 59.69 76.2 0)
       (effects
         (font
@@ -3630,7 +3630,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 142.24 63.5 0)
       (effects
         (font
@@ -3750,7 +3750,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 149.86 76.2 0)
       (effects
         (font
@@ -3984,7 +3984,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 232.41 63.5 0)
       (effects
         (font
@@ -4104,7 +4104,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 240.03 76.2 0)
       (effects
         (font
@@ -4338,7 +4338,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 322.58 63.5 0)
       (effects
         (font
@@ -4458,7 +4458,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 330.2 76.2 0)
       (effects
         (font
@@ -4499,7 +4499,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 59.69 160.02 0)
       (effects
         (font
@@ -4562,7 +4562,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 149.86 160.02 0)
       (effects
         (font
@@ -4625,7 +4625,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 240.03 160.02 0)
       (effects
         (font
@@ -4688,7 +4688,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 330.2 160.02 0)
       (effects
         (font
@@ -6038,7 +6038,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Neon_P2.54mm"
       (at 452.12 100.33 0)
       (effects
         (font
@@ -6272,7 +6272,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Neon_P2.54mm"
       (at 523.24 100.33 0)
       (effects
         (font

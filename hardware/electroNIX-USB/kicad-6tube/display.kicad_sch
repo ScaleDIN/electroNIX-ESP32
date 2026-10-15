@@ -3572,20 +3572,20 @@
     (fill
       (type none))
     (uuid "8b3f5505-1522-5d88-b4de-1d594b704d91"))
-  (text "Colon neons (SEC_0 upper / SEC_1 lower)"
+  (text "Colon neons (4 tubes: SEC_0 upper / SEC_1 lower dot.  6 tubes: SEC_0 = HH:MM colon, SEC_1 = MM:SS colon)"
     (at 411.27 26.27 0)
     (effects
       (font
         (size 2 2) bold)
       (justify left top))
-    (uuid "51b23fe8-09ec-5b3e-9cd2-e950675d7836"))
-  (text "Both colon positions in parallel: SEC_0 = upper dots, SEC_1 = lower dots.\nFirmware drives SEC_0/SEC_1 independently. 150k per neon: ~0.6 mA at 170 V."
+    (uuid "7bdddabe-3f1c-59cc-b8ee-bca96fef02e7"))
+  (text "Each colon = two stacked lamps in parallel: NE1+NE2 (HH:MM) on SEC_0, NE3+NE4 (MM:SS) on SEC_1.\nFirmware drives SEC_0/SEC_1 independently (BOARD_DUAL_NEON). 150k per lamp: ~0.6 mA at 170 V."
     (at 415 125 0)
     (effects
       (font
         (size 1.27 1.27))
       (justify left top))
-    (uuid "fa1003f7-e2f6-5fb6-bc45-328b0a0972b7"))
+    (uuid "27055027-c96e-5a9c-9c0a-f269633a4f91"))
   (rectangle
     (start 410 150)
     (end 575 300)
@@ -3822,7 +3822,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 52.07 63.5 0)
       (effects
         (font
@@ -3942,7 +3942,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 59.69 76.2 0)
       (effects
         (font
@@ -4176,7 +4176,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 114.3 63.5 0)
       (effects
         (font
@@ -4296,7 +4296,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 121.92 76.2 0)
       (effects
         (font
@@ -4530,7 +4530,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 176.53 63.5 0)
       (effects
         (font
@@ -4650,7 +4650,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 184.15 76.2 0)
       (effects
         (font
@@ -4884,7 +4884,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 238.76 63.5 0)
       (effects
         (font
@@ -5004,7 +5004,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 246.38 76.2 0)
       (effects
         (font
@@ -5238,7 +5238,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 300.99 63.5 0)
       (effects
         (font
@@ -5358,7 +5358,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 308.61 76.2 0)
       (effects
         (font
@@ -5592,7 +5592,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 361.95 63.5 0)
       (effects
         (font
@@ -5712,7 +5712,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
       (at 369.57 76.2 0)
       (effects
         (font
@@ -5753,7 +5753,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 59.69 160.02 0)
       (effects
         (font
@@ -5816,7 +5816,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 121.92 160.02 0)
       (effects
         (font
@@ -5879,7 +5879,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 184.15 160.02 0)
       (effects
         (font
@@ -5942,7 +5942,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 246.38 160.02 0)
       (effects
         (font
@@ -6005,7 +6005,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 308.61 160.02 0)
       (effects
         (font
@@ -6068,7 +6068,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "electronix:Nixie_RFT_Z573M"
+    (property "Footprint" "electronix:Nixie_RFT_Z573M_Adapter"
       (at 369.57 160.02 0)
       (effects
         (font
@@ -7418,7 +7418,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Neon_P2.54mm"
       (at 452.12 100.33 0)
       (effects
         (font
@@ -7535,7 +7535,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Neon_P2.54mm"
       (at 467.36 100.33 0)
       (effects
         (font
@@ -7769,7 +7769,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Neon_P2.54mm"
       (at 523.24 100.33 0)
       (effects
         (font
@@ -7886,7 +7886,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" ""
+    (property "Footprint" "electronix:Neon_P2.54mm"
       (at 538.48 100.33 0)
       (effects
         (font

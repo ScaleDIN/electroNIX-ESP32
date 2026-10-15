@@ -130,8 +130,8 @@ def sheet_mcu():
     sh.box(215, 25, 400, 95, 'Reset, boot and auto-program (DTR/RTS)')
     R(sh, '10k', 230, 50, '+3V3', 'EN')
     C(sh, '1u', 242, 50, 'EN', 'GND')
-    sh.part(ref('SW'), 'Switch', 'SW_Push', 'RESET', 262, 45, {'1': 'EN', '2': 'GND'}, fp='Button_Switch_SMD:SW_SPST_PTS645')
-    sh.part(ref('SW'), 'Switch', 'SW_Push', 'BOOT', 262, 65, {'1': IO0, '2': 'GND'}, fp='Button_Switch_SMD:SW_SPST_PTS645')
+    sh.part(ref('SW'), 'Switch', 'SW_Push', 'RESET', 262, 45, {'1': 'EN', '2': 'GND'}, fp='Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2')
+    sh.part(ref('SW'), 'Switch', 'SW_Push', 'BOOT', 262, 65, {'1': IO0, '2': 'GND'}, fp='Button_Switch_SMD:SW_Push_1P1T_NO_CK_KMR2')
     # classic two-transistor auto-reset
     R(sh, '10k', 301.11, 50, 'DTR', '-', rot=90)
     NPN(sh, 'MMBT3904', 310, 50, '-', 'EN', 'RTS', sym='MMBT3904')
@@ -151,7 +151,7 @@ def sheet_mcu():
     # user button
     R(sh, '10k', 385, 125, '+3V3', 'BTN')
     sh.part(ref('SW'), 'Switch', 'SW_Push', 'SET', 385, 160, {'1': 'BTN', '2': 'GND'}, 90,
-            'Button_Switch_THT:SW_PUSH_6mm')
+            'Button_Switch_THT:SW_Tactile_SPST_Angled_PTS645Vx31-2LFS')
     C(sh, '100n', 395, 145, 'BTN', 'GND')
     return sh
 
@@ -219,10 +219,10 @@ def sheet_display():
         R(sh, '15k', X - 8.89, Y, W[n], '-', rot=90)
         NPN(sh, 'MMBTA42', X, Y, '-', '-', 'GND')
         R(sh, '430k', X + 2.54, Y - 8.89, '-', '-', fp=FP_RHV)
-        R(sh, '100k', X + 2.54, Y - 16.51, '+170V', '-', fp=FP_RHV)
+        R(sh, '100k', X + 2.54, Y - 16.51, '+170V', '-')   # only V_BE across it
         sh.part(ref('Q'), 'Transistor_BJT', 'MMBTA92', 'MMBTA92', X + 7.62, Y - 12.7,
                 {'B': '-', 'E': '+170V', 'C': '-'}, 0, FP_SOT23, mirror='x')
-        R(sh, RA, X + 10.16, Y - 3.81, '-', f'A_{n+1}', fp=FP_RHV)
+        R(sh, RA, X + 10.16, Y - 3.81, '-', f'A_{n+1}')       # <= 30 V across, ~40 mW avg
         sh.junction(round(X + 2.54, 2), round(Y - 12.7, 2))
     sh.text(f'W_n high -> tube n anode at +170V through {RA}: ~{30/(5.6 if T == 4 else 3.9):.1f} mA peak at 170 V, '
             f'~{30/(5.6 if T == 4 else 3.9)/T:.1f} mA average per tube (Z573M: 1.5-2.5 mA cont., 12 mA pulse).\n'
@@ -235,7 +235,7 @@ def sheet_display():
         conns = {'13': f'A_{n+1}', '12': 'K_0', '1': 'K_1', '2': 'K_2', '3': 'K_3', '5': 'K_4',
                  '6': 'K_5', '7': 'K_6', '8': 'K_7', '9': 'K_8', '11': 'K_9'}
         tx = r1(60 + n * pitch)
-        sh.part(ref('N'), 'electronix', 'Z573M', 'Z573M', tx, 160, conns, 0, 'electronix:Nixie_RFT_Z573M',
+        sh.part(ref('N'), 'electronix', 'Z573M', 'Z573M', tx, 160, conns, 0, 'electronix:Nixie_RFT_Z573M_Adapter',
                 refpos=(tx - 16, 151), valpos=(tx + 4, 151), byname=False)
     sh.text('Pin 4 = internal connection (leave open). Pin 10 = decimal point (unused).\n'
             'Pinout per RFT data book (frank.pocnet.net/sheets/084/z/Z573M.pdf).', 25, 195)
@@ -245,7 +245,7 @@ def sheet_display():
         X, Y = r1(45 + k * 36), r1(270)
         npn_driver(sh, X, Y, f'C_{k}', f'K_{k}')
 
-    sh.box(410, 25, 575, 140, 'Colon neons (SEC_0 upper / SEC_1 lower)')
+    sh.box(410, 25, 575, 140, 'Colon neons (4 tubes: SEC_0 upper / SEC_1 lower dot.  6 tubes: SEC_0 = HH:MM colon, SEC_1 = MM:SS colon)')
     per = 1 if T == 4 else 2          # 6 tubes: HH:MM and MM:SS colons in parallel
     for i in range(2):
         X, Y = r1(440 + i * 70), r1(110)
@@ -253,11 +253,12 @@ def sheet_display():
         NPN(sh, 'MMBTA42', X, Y, '-', f'NEK_{i}', 'GND')
         for j in range(per):
             nx = r1(X + 12.7 + j * 15.24)
-            sh.part(ref('NE'), 'Device', 'Lamp_Neon', 'NE-2 / INS-1', nx, Y - 10.16, {'1': f'NEK_{i}', '2': '-'}, 0, '')
+            sh.part(ref('NE'), 'Device', 'Lamp_Neon', 'NE-2 / INS-1', nx, Y - 10.16, {'1': f'NEK_{i}', '2': '-'}, 0,
+                    'electronix:Neon_P2.54mm')
             R(sh, '150k', nx, Y - 19.05, '+170V', '-', fp=FP_RHV)
-    sh.text(('Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\n'
-             if T == 4 else 'Both colon positions in parallel: SEC_0 = upper dots, SEC_1 = lower dots.\n')
-            + 'Firmware drives SEC_0/SEC_1 independently. 150k per neon: ~0.6 mA at 170 V.', 415, 125)
+    sh.text(('Two lamps stacked one above the other in the colon gap, each on its own output.\n'
+             if T == 4 else 'Each colon = two stacked lamps in parallel: NE1+NE2 (HH:MM) on SEC_0, NE3+NE4 (MM:SS) on SEC_1.\n')
+            + 'Firmware drives SEC_0/SEC_1 independently (BOARD_DUAL_NEON). 150k per lamp: ~0.6 mA at 170 V.', 415, 125)
 
     sh.box(410, 150, 575, 300, 'Off-cathode clamp (anti-ghosting, as PCB-036)')
     xs = [r1(425 + k * 13.97) for k in range(10)]
