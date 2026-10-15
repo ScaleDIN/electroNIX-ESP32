@@ -306,6 +306,70 @@ def build(kdir, tubes):
          rule=True, name='ESP32 antenna keepout')
     return board, nl, P, (W, H), geo
 
+def place_refs(board, size=0.7, min_size=0.5, margin=0.15):
+    """Move every silkscreen reference to a free spot next to its part:
+    no overlap with other references, pads, silkscreen outlines or the board
+    edge. Shrinks the text if nothing fits at full size."""
+    M = FM(margin)
+    edge = board.GetBoardEdgesBoundingBox()
+    edge = pcbnew.BOX2I(pcbnew.VECTOR2I(edge.GetLeft() + FM(0.5), edge.GetTop() + FM(0.5)),
+                        pcbnew.VECTOR2I(edge.GetWidth() - FM(1.0), edge.GetHeight() - FM(1.0)))
+    obst = {pcbnew.F_SilkS: [], pcbnew.B_SilkS: []}
+    cu = {pcbnew.F_SilkS: pcbnew.F_Cu, pcbnew.B_SilkS: pcbnew.B_Cu}
+    def grow(bb, m):
+        return pcbnew.BOX2I(pcbnew.VECTOR2I(bb.GetLeft() - m, bb.GetTop() - m),
+                            pcbnew.VECTOR2I(bb.GetWidth() + 2 * m, bb.GetHeight() + 2 * m))
+    for f in board.GetFootprints():
+        for p in f.Pads():
+            for sl, c in cu.items():
+                if p.IsOnLayer(c): obst[sl].append(grow(p.GetBoundingBox(), M))
+        for g in f.GraphicalItems():
+            if g.GetLayer() in obst and g.IsVisible() if hasattr(g, 'IsVisible') else True:
+                if g.GetLayer() in obst and g.GetClass() != 'PCB_TEXT':
+                    obst[g.GetLayer()].append(grow(g.GetBoundingBox(), M))
+                elif g.GetLayer() in obst:
+                    obst[g.GetLayer()].append(grow(g.GetBoundingBox(), M))
+        for z in []: pass
+    # holes without copper (mounting holes)
+    fps = sorted(board.GetFootprints(), key=lambda f: -f.GetBoundingBox(False, False).GetArea())
+    failed = []
+    for f in fps:
+        t = f.Reference()
+        if not t.IsVisible(): continue
+        sl = t.GetLayer()
+        if sl not in obst: continue
+        body = f.GetBoundingBox(False, False)         # silk + pads, no texts
+        cx, cy = body.GetCenter().x, body.GetCenter().y
+        placed = False
+        for sz in [size, 0.6, min_size]:
+            t.SetTextSize(pcbnew.VECTOR2I(FM(sz), FM(sz))); t.SetTextThickness(FM(sz * 0.15))
+            gap = FM(0.25) + FM(sz) // 2
+            cands = []
+            for ang in (0, 90):
+                t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
+                tb = t.GetBoundingBox(); hw, hh = tb.GetWidth() // 2, tb.GetHeight() // 2
+                for dx, dy in ((0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (1, -1), (-1, 1), (1, 1)):
+                    x = cx + dx * (body.GetWidth() // 2 + hw + FM(0.2))
+                    y = cy + dy * (body.GetHeight() // 2 + hh + FM(0.2))
+                    cands.append((abs(dx) + abs(dy) + (0.5 if ang else 0), ang, x, y))
+                for k in range(1, 4):              # further out, straight above/below
+                    for dy in (-1, 1):
+                        cands.append((3 + k, ang, cx, cy + dy * (body.GetHeight() // 2 + hh + FM(0.2) + k * FM(1.2))))
+            for _, ang, x, y in sorted(cands):
+                t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(int(x), int(y)))
+                tb = grow(t.GetBoundingBox(), FM(0.05))
+                if not edge.Contains(tb): continue
+                if any(tb.Intersects(o) for o in obst[sl]): continue
+                placed = True; break
+            if placed: break
+        if placed:
+            obst[sl].append(grow(t.GetBoundingBox(), M))
+        else:
+            failed.append(f.GetReference())
+            t.SetTextAngleDegrees(0); t.SetPosition(pcbnew.VECTOR2I(cx, cy))   # fall back to the centre
+            obst[sl].append(grow(t.GetBoundingBox(), M))
+    return failed
+
 def courtyard_overlaps(board):
     fps = list(board.GetFootprints()); out = []
     polys = {}
@@ -428,6 +492,7 @@ if __name__ == '__main__':
         board, nl, P, (W, H), geo = build(kdir, tubes)
         ov = courtyard_overlaps(board)
         print('courtyard overlaps:', len(ov)); [print('  ', o) for o in ov]
+        print('references that did not fit beside their part:', place_refs(board))
         board.Save(pcbpath)
         write_project(kdir, nl)        # after Save: saving rewrites the .kicad_pro
         if '--place-only' in sys.argv: sys.exit(0)
