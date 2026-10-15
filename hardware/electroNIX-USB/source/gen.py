@@ -23,6 +23,7 @@ FP_SOD123 = 'Diode_SMD:D_SOD-123'
 FP_SMA = 'Diode_SMD:D_SMA'
 
 _cnt = {}
+TUBES = 4          # 4 (HH:MM) or 6 (HH:MM:SS); set with --tubes
 def ref(p):
     _cnt[p] = _cnt.get(p, 0) + 1
     return f'{p}{_cnt[p]}'
@@ -71,7 +72,7 @@ def sheet_power():
             fp='Package_TO_SOT_SMD:SOT-23-6', refpos=(124, 93), valpos=(124, 118))
     sh.text('VBUS feeds the boost converter and the 3.3 V LDO only.\n'
             'Budget from a 500 mA port: ESP32 ~250 mA avg (500 mA WiFi peaks),\n'
-            'HV supply ~150 mA at 4 tubes. A USB-C source gives 1.5-3 A at 5V.', 25, 140)
+            'HV supply ~150 mA (multiplexed: same for 4 or 6 tubes). A USB-C source gives 1.5-3 A at 5V.', 25, 140)
 
     sh.box(185, 25, 300, 95, '3.3 V regulator')
     C(sh, '10u', 200, 60, '+5V', 'GND', fp=FP_C1206)
@@ -99,49 +100,68 @@ def sheet_mcu():
           'IO25': 'C_5', 'IO26': 'C_6', 'IO27': 'C_7', 'IO32': 'C_8', 'IO33': 'C_9',
           'IO16': 'W_1', 'IO17': 'W_2', 'IO18': 'W_3', 'IO19': 'W_4',
           'IO4': 'SEC_0', 'IO5': 'SEC_1', 'IO2': 'PWM', 'IO35': 'KOMP_170V', 'IO34': 'JASNOSC',
-          'IO12': 'MEL', 'IO15': 'IO15_SDA', 'IO0': 'IO0_SCL', 'SENSOR_VP': 'BTN',
+          'SENSOR_VP': 'BTN',
           'RXD0/IO3': 'U0RXD', 'TXD0/IO1': 'U0TXD', 'EN': 'EN', 'VDD': '+3V3', 'GND': 'GND'}
-    sh.box(20, 25, 205, 190, 'ESP32 module (GPIO map = firmware BOARD_ELECTRONIX_3, except MEL/RTC)')
+    if TUBES == 4:
+        io.update({'IO12': 'MEL', 'IO15': 'IO15_SDA', 'IO0': 'IO0_SCL'})
+        boxt = 'ESP32 module (GPIO map = firmware BOARD_ELECTRONIX_3, except MEL/RTC)'
+    else:
+        io.update({'IO12': 'W_5', 'IO15': 'W_6', 'IO0': 'IO0'})
+        boxt = 'ESP32 module (GPIO map = firmware BOARD_ELECTRONIX_4_6T, unchanged)'
+    IO0 = io['IO0']
+    sh.box(20, 25, 205, 190, boxt)
     sh.part(ref('U'), 'RF_Module', 'ESP32-WROOM-32E', 'ESP32-WROOM-32E-N4', 110, 105, io,
             fp='RF_Module:ESP32-WROOM-32D', refpos=(100, 66), valpos=(115, 148))
     C(sh, '22u', 40, 55, '+3V3', 'GND', fp=FP_C1206)
     C(sh, '100n', 52, 55, '+3V3', 'GND')
-    sh.text('Strapping pins at reset:\n'
-            ' IO0  high = run   (4k7 SCL pull-up; BOOT / auto-reset pull it low)\n'
-            ' IO2  low/float    (boost gate pull-down on HV sheet)\n'
-            ' IO12 low = 3.3 V flash  (100k pull-down on MEL)\n'
-            ' IO15 high         (4k7 SDA pull-up)\n'
+    if TUBES == 4:
+        straps = (' IO0  high = run   (4k7 SCL pull-up; BOOT / auto-reset pull it low)\n'
+                  ' IO2  low/float    (boost gate pull-down on HV sheet)\n'
+                  ' IO12 low = 3.3 V flash  (100k pull-down on MEL)\n'
+                  ' IO15 high         (4k7 SDA pull-up)\n')
+    else:
+        straps = (' IO0  high = run   (10k pull-up; BOOT / auto-reset pull it low)\n'
+                  ' IO2  low/float    (boost gate pull-down on HV sheet)\n'
+                  ' IO12 low = 3.3 V flash  (W_5 anode driver base holds it low)\n'
+                  ' IO15 low via W_6 driver base: only silences the ROM boot log.\n'
+                  '      No pull-up here - 10k against the 15k base path would sit mid-rail.\n')
+    sh.text('Strapping pins at reset:\n' + straps +
             ' IO5  SEC_1 neon driver base - default state is harmless', 25, 160)
 
     sh.box(215, 25, 400, 95, 'Reset, boot and auto-program (DTR/RTS)')
     R(sh, '10k', 230, 50, '+3V3', 'EN')
     C(sh, '1u', 242, 50, 'EN', 'GND')
     sh.part(ref('SW'), 'Switch', 'SW_Push', 'RESET', 262, 45, {'1': 'EN', '2': 'GND'}, fp='Button_Switch_SMD:SW_SPST_PTS645')
-    sh.part(ref('SW'), 'Switch', 'SW_Push', 'BOOT', 262, 65, {'1': 'IO0_SCL', '2': 'GND'}, fp='Button_Switch_SMD:SW_SPST_PTS645')
+    sh.part(ref('SW'), 'Switch', 'SW_Push', 'BOOT', 262, 65, {'1': IO0, '2': 'GND'}, fp='Button_Switch_SMD:SW_SPST_PTS645')
     # classic two-transistor auto-reset
     R(sh, '10k', 301.11, 50, 'DTR', '-', rot=90)
     NPN(sh, 'MMBT3904', 310, 50, '-', 'EN', 'RTS', sym='MMBT3904')
     R(sh, '10k', 341.11, 50, 'RTS', '-', rot=90)
-    NPN(sh, 'MMBT3904', 350, 50, '-', 'IO0_SCL', 'DTR', sym='MMBT3904')
+    NPN(sh, 'MMBT3904', 350, 50, '-', IO0, 'DTR', sym='MMBT3904')
     sh.text('DTR RTS | EN IO0\n 1   1  |  1   1\n 0   0  |  1   1\n 1   0  |  0   1\n 0   1  |  1   0', 300, 70)
 
     sh.box(215, 105, 400, 190, 'Peripherals')
-    # RTC
-    sh.part(ref('U'), 'Timer_RTC', 'DS3231M', 'DS3231M', 255, 135,
-            {'VCC': '+3V3', 'GND': 'GND', 'VBAT': 'VBAT', 'SDA': 'IO15_SDA', 'SCL': 'IO0_SCL'},
-            fp='Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', refpos=(270, 145), valpos=(270, 148))
-    C(sh, '100n', 235, 160, '+3V3', 'GND')
-    R(sh, '4k7', 225, 125, '+3V3', 'IO15_SDA')
-    R(sh, '4k7', 235, 125, '+3V3', 'IO0_SCL')
-    sh.part(ref('BT'), 'Device', 'Battery_Cell', 'CR2032', 285, 160, {'+': 'VBAT', '-': 'GND'},
-            fp='Battery:BatteryHolder_Keystone_3034_1x20mm')
-    sh.text('DS3231M: optional (DNP for NTP-only builds).\nI2C on IO15 (SDA) / IO0 (SCL).', 222, 178)
-    # buzzer
-    sh.part(ref('LS'), 'Device', 'Buzzer', '5 V magnetic', 320, 125, {'+': '+5V', '-': 'BUZ_N'},
-            fp='Buzzer_Beeper:Buzzer_12x9.5RM7.6')
-    D(sh, '1N4148W', 330, 125, '+5V', 'BUZ_N', rot=270)
-    npn_driver(sh, 325, 145, 'MEL', 'BUZ_N', rb='1k', val='BC847', sym='BC847')
-    R(sh, '100k', 305, 155, 'MEL', 'GND')
+    if TUBES == 4:
+        # RTC
+        sh.part(ref('U'), 'Timer_RTC', 'DS3231M', 'DS3231M', 255, 135,
+                {'VCC': '+3V3', 'GND': 'GND', 'VBAT': 'VBAT', 'SDA': 'IO15_SDA', 'SCL': 'IO0_SCL'},
+                fp='Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm', refpos=(270, 145), valpos=(270, 148))
+        C(sh, '100n', 235, 160, '+3V3', 'GND')
+        R(sh, '4k7', 225, 125, '+3V3', 'IO15_SDA')
+        R(sh, '4k7', 235, 125, '+3V3', 'IO0_SCL')
+        sh.part(ref('BT'), 'Device', 'Battery_Cell', 'CR2032', 285, 160, {'+': 'VBAT', '-': 'GND'},
+                fp='Battery:BatteryHolder_Keystone_3034_1x20mm')
+        sh.text('DS3231M: optional (DNP for NTP-only builds).\nI2C on IO15 (SDA) / IO0 (SCL).', 222, 178)
+        # buzzer
+        sh.part(ref('LS'), 'Device', 'Buzzer', '5 V magnetic', 320, 125, {'+': '+5V', '-': 'BUZ_N'},
+                fp='Buzzer_Beeper:Buzzer_12x9.5RM7.6')
+        D(sh, '1N4148W', 330, 125, '+5V', 'BUZ_N', rot=270)
+        npn_driver(sh, 325, 145, 'MEL', 'BUZ_N', rb='1k', val='BC847', sym='BC847')
+        R(sh, '100k', 305, 155, 'MEL', 'GND')
+    else:
+        R(sh, '10k', 235, 125, '+3V3', 'IO0')
+        sh.text('6-tube build: no buzzer, no RTC (IO12/IO15 drive anodes 5/6).\n'
+                'Time comes from NTP. IO0 keeps its 10k pull-up for normal boot.', 222, 178)
     # light sensor
     R(sh, '1M', 355, 125, '+3V3', 'JASNOSC')
     sh.part(ref('D'), 'Device', 'D_Photo', 'BPW34 / HPDB3J', 360, 145, {'K': 'JASNOSC', 'A': 'GND'}, 270,
@@ -205,11 +225,14 @@ def sheet_hv():
 # Sheet 5: tubes, anode/cathode drivers, colon neons
 # =============================================================================
 def sheet_display():
-    sh = Sheet('Display', 'display.kicad_sch', 'electroNIX-USB - 4 x Z573M, multiplexed', 5, paper='A2')
+    T = TUBES
+    W = {n: f'W_{n+1}' for n in range(6)}
+    pitch = 90 if T == 4 else 62
+    sh = Sheet('Display', 'display.kicad_sch', f'electroNIX-USB - {T} x Z573M, multiplexed', 5, paper='A2')
     sh.box(20, 25, 400, 105, 'Anode switches (one per tube, MMBTA42 level shift + MMBTA92 high side)')
-    for n in range(4):
-        X, Y = r1(50 + n * 90), r1(80)
-        R(sh, '15k', X - 8.89, Y, f'W_{n+1}', '-', rot=90)
+    for n in range(T):
+        X, Y = r1(50 + n * pitch), r1(80)
+        R(sh, '15k', X - 8.89, Y, W[n], '-', rot=90)
         NPN(sh, 'MMBTA42', X, Y, '-', '-', 'GND')
         R(sh, '430k', X + 2.54, Y - 8.89, '-', '-', fp=FP_RHV)
         R(sh, '100k', X + 2.54, Y - 16.51, '+170V', '-', fp=FP_RHV)
@@ -217,14 +240,17 @@ def sheet_display():
                 {'B': '-', 'E': '+170V', 'C': '-'}, 0, FP_SOT23, mirror='x')
         R(sh, '10k', X + 10.16, Y - 3.81, '-', f'A_{n+1}', fp=FP_RHV)
         sh.junction(round(X + 2.54, 2), round(Y - 12.7, 2))
-    sh.text('W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak.', 25, 98)
+    sh.text('W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak.'
+            + ('  W_5/W_6 = IO12/IO15 (seconds tubes).' if T == 6 else
+               '  6-tube build (--tubes 6): two more of these on IO12/IO15.'), 25, 98)
 
     sh.box(20, 115, 400, 210, 'Tubes (RFT Z573M, B13D base, pin 7 at front)')
-    for n in range(4):
+    for n in range(T):
         conns = {'13': f'A_{n+1}', '12': 'K_0', '1': 'K_1', '2': 'K_2', '3': 'K_3', '5': 'K_4',
                  '6': 'K_5', '7': 'K_6', '8': 'K_7', '9': 'K_8', '11': 'K_9'}
-        sh.part(ref('N'), 'electronix', 'Z573M', 'Z573M', 60 + n * 90, 160, conns, 0, '',
-                refpos=(60 + n * 90 - 16, 151), valpos=(60 + n * 90 + 4, 151), byname=False)
+        tx = r1(60 + n * pitch)
+        sh.part(ref('N'), 'electronix', 'Z573M', 'Z573M', tx, 160, conns, 0, '',
+                refpos=(tx - 16, 151), valpos=(tx + 4, 151), byname=False)
     sh.text('Pin 4 = internal connection (leave open). Pin 10 = PR sign (unused).\n'
             'Pinout from tube-tester.com Z573M page; check against a real tube before layout.', 25, 195)
 
@@ -234,14 +260,18 @@ def sheet_display():
         npn_driver(sh, X, Y, f'C_{k}', f'K_{k}')
 
     sh.box(410, 25, 575, 140, 'Colon neons (SEC_0 upper / SEC_1 lower)')
+    per = 1 if T == 4 else 2          # 6 tubes: HH:MM and MM:SS colons in parallel
     for i in range(2):
-        X, Y = r1(450 + i * 60), r1(110)
-        R(sh, '100k', X - 8.89, Y, f'SEC_{i}', '-', rot=90)
-        NPN(sh, 'MMBTA42', X, Y, '-', '-', 'GND')
-        sh.part(ref('NE'), 'Device', 'Lamp_Neon', 'NE-2 / INS-1', X + 2.54, Y - 10.16, {'1': '-', '2': '-'}, 0, '')
-        R(sh, '150k', X + 2.54, Y - 19.05, '+170V', '-', fp=FP_RHV)
-    sh.text('Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\n'
-            'firmware drives them independently. 150k: ~0.6 mA at 170 V.', 415, 125)
+        X, Y = r1(440 + i * 70), r1(110)
+        R(sh, '47k', X - 8.89, Y, f'SEC_{i}', '-', rot=90)
+        NPN(sh, 'MMBTA42', X, Y, '-', f'NEK_{i}', 'GND')
+        for j in range(per):
+            nx = r1(X + 12.7 + j * 15.24)
+            sh.part(ref('NE'), 'Device', 'Lamp_Neon', 'NE-2 / INS-1', nx, Y - 10.16, {'1': f'NEK_{i}', '2': '-'}, 0, '')
+            R(sh, '150k', nx, Y - 19.05, '+170V', '-', fp=FP_RHV)
+    sh.text(('Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\n'
+             if T == 4 else 'Both colon positions in parallel: SEC_0 = upper dots, SEC_1 = lower dots.\n')
+            + 'Firmware drives SEC_0/SEC_1 independently. 150k per neon: ~0.6 mA at 170 V.', 415, 125)
 
     sh.box(410, 150, 575, 300, 'Off-cathode clamp (anti-ghosting, as PCB-036)')
     xs = [r1(425 + k * 13.97) for k in range(10)]
@@ -261,7 +291,7 @@ def sheet_display():
 
 # =============================================================================
 def root(sheets):
-    sh = Sheet('Root', 'electroNIX-USB.kicad_sch', 'electroNIX-USB (Z573M) - overview', 1)
+    sh = Sheet('Root', 'electroNIX-USB.kicad_sch', f'electroNIX-USB (Z573M, {TUBES} tubes) - overview', 1)
     blocks = []
     for i, s in enumerate(sheets):
         x, y, w, h = 30 + (i % 2) * 120, 50 + (i // 2) * 60, 90, 40
@@ -271,7 +301,8 @@ def root(sheets):
                        [Sym('property'), 'Sheetname', s.name, [Sym('at'), x, y - 0.7, 0], txt(justify='left bottom')],
                        [Sym('property'), 'Sheetfile', s.fname, [Sym('at'), x, y + h + 0.6, 0], txt(justify='left top')],
                        [Sym('instances'), [Sym('project'), kisch.PROJECT, [Sym('path'), f'/{kisch.ROOT_UUID}', [Sym('page'), str(s.page)]]]]])
-    sh.text('electroNIX-USB: USB-C powered ESP32 nixie clock, 4 x Z573M\n\n'
+    sh.text(f'electroNIX-USB: USB-C powered ESP32 nixie clock, {TUBES} x Z573M\n'
+            '(one generator, 4- or 6-tube build: python3 source/gen.py OUTDIR --tubes 6)\n\n'
             'Electrical design follows TESTA-QUADRA electroNIXclock 3 (PCB-036, 2013),\n'
             'the micro-USB powered board: 5 V boost + 7-diode multiplier to 170 V,\n'
             'MMBTA42/MMBTA92 discrete tube drivers, neon colon, buzzer, light sensor.\n\n'
@@ -314,4 +345,8 @@ def main(out):
     print('single-sheet label nets:', single)
 
 if __name__ == '__main__':
-    main(sys.argv[1])
+    args = sys.argv[1:]
+    if '--tubes' in args:
+        i = args.index('--tubes'); TUBES = int(args[i + 1]); del args[i:i + 2]
+        assert TUBES in (4, 6)
+    main(args[0])

@@ -2403,7 +2403,7 @@
         (size 2 2) bold)
       (justify left top))
     (uuid "23d508c5-47e7-5e71-9eaa-34ca21d451dd"))
-  (text "VBUS feeds the boost converter and the 3.3 V LDO only.\nBudget from a 500 mA port: ESP32 ~250 mA avg (500 mA WiFi peaks),\nHV supply ~150 mA at 4 tubes. A USB-C source gives 1.5-3 A at 5V."
+  (text "VBUS feeds the boost converter and the 3.3 V LDO only.\nBudget from a 500 mA port: ESP32 ~250 mA avg (500 mA WiFi peaks),\nHV supply ~150 mA (multiplexed: same for 4 or 6 tubes). A USB-C source gives 1.5-3 A at 5V."
     (at 25 140 0)
     (effects
       (font

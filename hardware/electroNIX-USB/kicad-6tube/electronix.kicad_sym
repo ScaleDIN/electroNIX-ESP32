@@ -1,0 +1,128 @@
+(kicad_symbol_lib (version 20220914) (generator kicad_symbol_editor)
+  (symbol "Z573M" (pin_names (offset 0.508)) (in_bom yes) (on_board yes)
+    (property "Reference" "N" (at -15.24 7.62 0) (effects (font (size 1.27 1.27)) (justify left)))
+    (property "Value" "Z573M" (at 3.81 7.62 0) (effects (font (size 1.27 1.27)) (justify left)))
+    (property "Footprint" "" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "Datasheet" "https://www.tube-tester.com/sites/nixie/data/z573m/z573m.htm" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "ki_description" "RFT Z573M top-view nixie, 13 mm digits, B13D base (pin 7 at front). Pin 4 internal connection - do not connect. Pin 10 = PR sign." (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (property "ki_keywords" "nixie tube RFT Z573M ZM1080" (at 0 0 0) (effects (font (size 1.27 1.27)) hide))
+    (symbol "Z573M_0_1"
+      (rectangle (start -16.51 6.35) (end 16.51 -6.35) (stroke (width 0.254) (type default)) (fill (type background)))
+      (circle (center 0 0) (radius 4.445) (stroke (width 0.254) (type default)) (fill (type none)))
+      (text "Z573M" (at 0 0 0) (effects (font (size 1.27 1.27))))
+    )
+    (symbol "Z573M_1_1"
+      (pin passive line (at -13.97 -10.16 90) (length 3.81)
+        (name "0" (effects (font (size 1.016 1.016))))
+        (number "12" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at -11.43 -10.16 90) (length 3.81)
+        (name "1" (effects (font (size 1.016 1.016))))
+        (number "1" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at -8.89 -10.16 90) (length 3.81)
+        (name "2" (effects (font (size 1.016 1.016))))
+        (number "2" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at -6.35 -10.16 90) (length 3.81)
+        (name "3" (effects (font (size 1.016 1.016))))
+        (number "3" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at -3.81 -10.16 90) (length 3.81)
+        (name "4" (effects (font (size 1.016 1.016))))
+        (number "5" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at -1.27 -10.16 90) (length 3.81)
+        (name "5" (effects (font (size 1.016 1.016))))
+        (number "6" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at 1.27 -10.16 90) (length 3.81)
+        (name "6" (effects (font (size 1.016 1.016))))
+        (number "7" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at 3.81 -10.16 90) (length 3.81)
+        (name "7" (effects (font (size 1.016 1.016))))
+        (number "8" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at 6.35 -10.16 90) (length 3.81)
+        (name "8" (effects (font (size 1.016 1.016))))
+        (number "9" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at 8.89 -10.16 90) (length 3.81)
+        (name "9" (effects (font (size 1.016 1.016))))
+        (number "11" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at 11.43 -10.16 90) (length 3.81)
+        (name "PR" (effects (font (size 1.016 1.016))))
+        (number "10" (effects (font (size 1.016 1.016)))))
+      (pin no_connect line (at 13.97 -10.16 90) (length 3.81)
+        (name "IC" (effects (font (size 1.016 1.016))))
+        (number "4" (effects (font (size 1.016 1.016)))))
+      (pin passive line (at 0 10.16 270) (length 3.81)
+        (name "A" (effects (font (size 1.016 1.016))))
+        (number "13" (effects (font (size 1.016 1.016)))))
+    )
+  )
+  (symbol "+170V"
+    (power)
+    (pin_names
+      (offset 0))
+    (in_bom yes)
+    (on_board yes)
+    (property "Reference" "#PWR"
+      (at 0 3.048 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Value" "+170V"
+      (at 0 2.286 0)
+      (effects
+        (font
+          (size 1.27 1.27))))
+    (property "Footprint" ""
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "Datasheet" ""
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "ki_keywords" "global power"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (property "ki_description" "Power symbol creates a global label with name \"+170V\" (nixie high voltage)"
+      (at 0 0 0)
+      (effects
+        (font
+          (size 1.27 1.27)) hide))
+    (symbol "+170V_0_0"
+      (pin power_in line
+        (at 0 0 90)
+        (length 0) hide
+        (name "+170V"
+          (effects
+            (font
+              (size 1.27 1.27))))
+        (number "1"
+          (effects
+            (font
+              (size 1.27 1.27))))))
+    (symbol "+170V_0_1"
+      (polyline
+        (pts
+          (xy 0 0)
+          (xy 0 1.016)
+          (xy 0 1.016))
+        (stroke
+          (width 0)
+          (type default))
+        (fill
+          (type none)))
+      (polyline
+        (pts
+          (xy 0 1.016)
+          (xy 0.508 0.508)
+          (xy 0 1.778)
+          (xy -0.508 0.508)
+          (xy 0 1.016)
+          (xy 0 1.016))
+        (stroke
+          (width 0)
+          (type default))
+        (fill
+          (type none)))))
+)

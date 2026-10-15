@@ -4,7 +4,7 @@
   (uuid "af167dc7-e2c9-570c-bdf4-28156a519677")
   (paper "A3")
   (title_block
-    (title "electroNIX-USB (Z573M) - overview")
+    (title "electroNIX-USB (Z573M, 4 tubes) - overview")
     (date "2026-10-15")
     (rev "0.1")
     (company "electroNIX-USB (Z573M)")
@@ -60,7 +60,7 @@
             (type default))
           (fill
             (type none))))))
-  (text "electroNIX-USB: USB-C powered ESP32 nixie clock, 4 x Z573M\n\nElectrical design follows TESTA-QUADRA electroNIXclock 3 (PCB-036, 2013),\nthe micro-USB powered board: 5 V boost + 7-diode multiplier to 170 V,\nMMBTA42/MMBTA92 discrete tube drivers, neon colon, buzzer, light sensor.\n\nChanges from PCB-036:\n - ATmega16 replaced by ESP32-WROOM-32E with the firmware's electroNIX 3 GPIO map\n - USB-C (5k1 sink) + polyfuse + TVS + USBLC6, CH340C for programming\n - DS3231M + CR2032 instead of the 32 kHz crystal and supercap\n - HV feedback clamp to 3V3, base resistors resized for 3.3 V drive\n - buzzer moved IO0 -> IO12 (IO0 pull-down through the buzzer base forced download mode)\n - two independent colon neons (SEC_0, SEC_1)"
+  (text "electroNIX-USB: USB-C powered ESP32 nixie clock, 4 x Z573M\n(one generator, 4- or 6-tube build: python3 source/gen.py OUTDIR --tubes 6)\n\nElectrical design follows TESTA-QUADRA electroNIXclock 3 (PCB-036, 2013),\nthe micro-USB powered board: 5 V boost + 7-diode multiplier to 170 V,\nMMBTA42/MMBTA92 discrete tube drivers, neon colon, buzzer, light sensor.\n\nChanges from PCB-036:\n - ATmega16 replaced by ESP32-WROOM-32E with the firmware's electroNIX 3 GPIO map\n - USB-C (5k1 sink) + polyfuse + TVS + USBLC6, CH340C for programming\n - DS3231M + CR2032 instead of the 32 kHz crystal and supercap\n - HV feedback clamp to 3V3, base resistors resized for 3.3 V drive\n - buzzer moved IO0 -> IO12 (IO0 pull-down through the buzzer base forced download mode)\n - two independent colon neons (SEC_0, SEC_1)"
     (at 30 180 0)
     (effects
       (font

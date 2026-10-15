@@ -1792,20 +1792,36 @@
     (uuid "ae3e3c6b-468c-5f4f-8769-64aab07ad18e"))
   (wire
     (pts
-      (xy 436.88 110.49)
-      (xy 434.34 110.49))
+      (xy 426.72 110.49)
+      (xy 424.18 110.49))
     (stroke
       (width 0)
       (type default))
-    (uuid "ff184c72-3d29-5231-8244-7bf822d7dfd2"))
+    (uuid "12b6c7e0-9f36-5929-bbfc-4f903fde9a0a"))
   (wire
     (pts
-      (xy 452.12 115.57)
-      (xy 452.12 118.11))
+      (xy 441.96 115.57)
+      (xy 441.96 118.11))
     (stroke
       (width 0)
       (type default))
-    (uuid "75106b56-b2b0-50c4-b289-174978b347a4"))
+    (uuid "38e4574c-a7b3-5ef5-b6f1-c16781aa682f"))
+  (wire
+    (pts
+      (xy 441.96 105.41)
+      (xy 441.96 102.87))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "62d6a887-ebeb-5b43-b770-e7ec70bea9a1"))
+  (wire
+    (pts
+      (xy 452.12 105.41)
+      (xy 452.12 107.95))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "cc1afae1-ed4b-588f-ad37-3b255cdf499e"))
   (wire
     (pts
       (xy 452.12 87.63)
@@ -1832,12 +1848,28 @@
     (uuid "3da93faf-b89e-56b6-b3e6-8a6190a29952"))
   (wire
     (pts
-      (xy 513.08 87.63)
-      (xy 513.08 85.09))
+      (xy 513.08 105.41)
+      (xy 513.08 102.87))
     (stroke
       (width 0)
       (type default))
-    (uuid "f7f0699a-7200-562b-9b91-3382af3cf2c2"))
+    (uuid "d5d98031-7fb0-57bc-b6a6-46bebcf0d6d8"))
+  (wire
+    (pts
+      (xy 523.24 105.41)
+      (xy 523.24 107.95))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "4d93edda-909e-5c9c-a12d-c3a34ac82039"))
+  (wire
+    (pts
+      (xy 523.24 87.63)
+      (xy 523.24 85.09))
+    (stroke
+      (width 0)
+      (type default))
+    (uuid "0e35f8ac-f153-5731-8d57-0f43b67ecdb6"))
   (wire
     (pts
       (xy 425.45 195.58)
@@ -2753,18 +2785,34 @@
     (uuid "79882711-7558-526d-857a-36791f916e76"))
   (global_label "SEC_0"
     (shape passive)
-    (at 434.34 110.49 180)
+    (at 424.18 110.49 180)
     (fields_autoplaced)
     (effects
       (font
         (size 1.27 1.27))
       (justify right))
-    (uuid "df817d37-9af3-56fc-9e32-b77abc7cf1bb")
+    (uuid "b04e1f90-f9cb-5fbc-a35d-a0db562c8e64")
     (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 434.34 110.49 0)
+      (at 424.18 110.49 0)
       (effects
         (font
           (size 1.27 1.27)) hide)))
+  (label "NEK_0"
+    (at 441.96 102.87 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "beb391b2-7d74-5ee8-baab-3df3ace61f4b"))
+  (label "NEK_0"
+    (at 452.12 107.95 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "c0aab765-9cf3-572d-8b69-8925f6e33327"))
   (global_label "SEC_1"
     (shape passive)
     (at 495.3 110.49 180)
@@ -2779,6 +2827,22 @@
       (effects
         (font
           (size 1.27 1.27)) hide)))
+  (label "NEK_1"
+    (at 513.08 102.87 90)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify left bottom))
+    (uuid "7b6d2ef4-456d-5605-9320-075a2cb5e939"))
+  (label "NEK_1"
+    (at 523.24 107.95 270)
+    (fields_autoplaced)
+    (effects
+      (font
+        (size 1.27 1.27))
+      (justify right bottom))
+    (uuid "f17607c8-bc2d-5cb4-82d1-18c7f0dc4668"))
   (label "K_0"
     (at 425.45 193.04 90)
     (fields_autoplaced)
@@ -2907,7 +2971,7 @@
         (size 2 2) bold)
       (justify left top))
     (uuid "5fbf3bfc-8af3-5fd3-9b38-6f0c6d0e7c4b"))
-  (text "W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak."
+  (text "W_n high -> tube n anode at +170V through 10k. Anode current ~2 mA peak.  6-tube build (--tubes 6): two more of these on IO12/IO15."
     (at 25 98 0)
     (effects
       (font
@@ -2969,7 +3033,7 @@
         (size 2 2) bold)
       (justify left top))
     (uuid "51b23fe8-09ec-5b3e-9cd2-e950675d7836"))
-  (text "Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\nfirmware drives them independently. 150k: ~0.6 mA at 170 V."
+  (text "Original Z573M kit fits one neon (SEC_0). Fit the second for a two-dot colon;\nFirmware drives SEC_0/SEC_1 independently. 150k per neon: ~0.6 mA at 170 V."
     (at 415 125 0)
     (effects
       (font
@@ -4424,13 +4488,13 @@
     (dnp no)
     (uuid "58d0f3d3-804c-5b4f-ba6c-b619677b0974")
     (property "Reference" "N1"
-      (at 44 151 0)
+      (at 43.69 151 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "Z573M"
-      (at 64 151 0)
+      (at 63.69 151 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -4487,13 +4551,13 @@
     (dnp no)
     (uuid "5d387b0d-151d-5926-ae1b-3b4b7a5b53ac")
     (property "Reference" "N2"
-      (at 134 151 0)
+      (at 133.86 151 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "Z573M"
-      (at 154 151 0)
+      (at 153.86 151 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -4550,13 +4614,13 @@
     (dnp no)
     (uuid "3ed7b2cc-2a42-5b80-afde-fdba46cb3512")
     (property "Reference" "N3"
-      (at 224 151 0)
+      (at 224.03 151 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "Z573M"
-      (at 244 151 0)
+      (at 244.03 151 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -4613,13 +4677,13 @@
     (dnp no)
     (uuid "23bb6260-70e9-5c62-bde2-f356bd9589d4")
     (property "Reference" "N4"
-      (at 314 151 0)
+      (at 314.2 151 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "Z573M"
-      (at 334 151 0)
+      (at 334.2 151 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -5839,30 +5903,30 @@
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
-    (at 440.69 110.49 90)
+    (at 430.53 110.49 90)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "d27fa221-3a57-5235-9ab0-190644c35380")
     (property "Reference" "R42"
-      (at 440.69 107.95 90)
+      (at 430.53 107.95 90)
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "100k"
-      (at 440.69 113.03 90)
+    (property "Value" "47k"
+      (at 430.53 113.03 90)
       (effects
         (font
           (size 1.27 1.27))))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-      (at 440.69 110.49 90)
+      (at 430.53 110.49 90)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 440.69 110.49 90)
+      (at 430.53 110.49 90)
       (effects
         (font
           (size 1.27 1.27))
@@ -5878,34 +5942,34 @@
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
-    (at 452.12 118.11 0)
+    (at 441.96 118.11 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "7465c0d8-9241-5b51-93df-f6ac908100bc")
+    (uuid "1c91b300-7f59-5ad4-aed1-1b00d31d0154")
     (property "Reference" "#PWR5071"
-      (at 452.12 118.11 0)
+      (at 441.96 118.11 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (property "Value" "GND"
-      (at 452.12 121.31 0)
+      (at 441.96 121.31 0)
       (effects
         (font
           (size 1.27 1.27))))
     (property "Footprint" ""
-      (at 452.12 118.11 0)
+      (at 441.96 118.11 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (property "Datasheet" ""
-      (at 452.12 118.11 0)
+      (at 441.96 118.11 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "44f3198d-5835-5f45-8f31-2306396c08a1"))
+      (uuid "d45ed4ed-7347-59bc-bda7-8136ec38d15d"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -5913,32 +5977,32 @@
           (unit 1)))))
   (symbol
     (lib_id "Transistor_BJT:MMBTA42")
-    (at 449.58 110.49 0)
+    (at 439.42 110.49 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "b131a3e0-1519-5c08-832a-3da979147a07")
     (property "Reference" "Q23"
-      (at 453.39 109.22 0)
+      (at 443.23 109.22 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "MMBTA42"
-      (at 453.39 111.76 0)
+      (at 443.23 111.76 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-      (at 449.58 110.49 0)
+      (at 439.42 110.49 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 449.58 110.49 0)
+      (at 439.42 110.49 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -6084,7 +6148,7 @@
       (effects
         (font
           (size 1.27 1.27))))
-    (property "Value" "100k"
+    (property "Value" "47k"
       (at 501.65 113.03 90)
       (effects
         (font
@@ -6190,32 +6254,32 @@
           (unit 1)))))
   (symbol
     (lib_id "Device:Lamp_Neon")
-    (at 513.08 100.33 0)
+    (at 523.24 100.33 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "a36fa567-454c-5890-8c83-ba5bcec472e3")
     (property "Reference" "NE2"
-      (at 514.35 99.06 0)
+      (at 524.51 99.06 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "NE-2 / INS-1"
-      (at 514.35 101.6 0)
+      (at 524.51 101.6 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" ""
-      (at 513.08 100.33 0)
+      (at 523.24 100.33 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 513.08 100.33 0)
+      (at 523.24 100.33 0)
       (effects
         (font
           (size 1.27 1.27))
@@ -6231,34 +6295,34 @@
           (unit 1)))))
   (symbol
     (lib_id "electronix:+170V")
-    (at 513.08 85.09 0)
+    (at 523.24 85.09 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "1dbce290-56db-573a-a2d1-965e4f24ae88")
+    (uuid "5f695208-8baa-5a42-bd44-ed384b0bf45f")
     (property "Reference" "#PWR5080"
-      (at 513.08 85.09 0)
+      (at 523.24 85.09 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (property "Value" "+170V"
-      (at 513.08 81.89 0)
+      (at 523.24 81.89 0)
       (effects
         (font
           (size 1.27 1.27))))
     (property "Footprint" ""
-      (at 513.08 85.09 0)
+      (at 523.24 85.09 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (property "Datasheet" ""
-      (at 513.08 85.09 0)
+      (at 523.24 85.09 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "cf5c3327-edf4-50be-b743-bf4f18cbaa8c"))
+      (uuid "f1be7eee-0dd4-55eb-8993-93e58efe6e38"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/e1c1bd65-1db2-544e-8cf9-3d73564eba6a"
@@ -6266,32 +6330,32 @@
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
-    (at 513.08 91.44 0)
+    (at 523.24 91.44 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "3e97d90e-457d-54fe-9440-ea020969f3ca")
     (property "Reference" "R45"
-      (at 514.35 90.17 0)
+      (at 524.51 90.17 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "150k"
-      (at 514.35 92.71 0)
+      (at 524.51 92.71 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "Resistor_SMD:R_1206_3216Metric"
-      (at 513.08 91.44 0)
+      (at 523.24 91.44 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 513.08 91.44 0)
+      (at 523.24 91.44 0)
       (effects
         (font
           (size 1.27 1.27))

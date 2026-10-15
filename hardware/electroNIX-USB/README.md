@@ -1,4 +1,4 @@
-# electroNIX-USB — USB-C powered ESP32 nixie clock (4 × Z573M)
+# electroNIX-USB — USB-C powered ESP32 nixie clock (4 or 6 × Z573M)
 
 A new KiCad design: an ESP32 version of the TESTA-QUADRA **electroNIXclock 3**
 (PCB-036, 2013). That was the micro-USB powered board; its schematic is filed as
@@ -8,10 +8,11 @@ the next step.
 
 | Path | Contents |
 |---|---|
-| `kicad/` | KiCad project: root sheet plus 4 sub-sheets, project symbol library (`electronix.kicad_sym`: Z573M, `+170V`) |
-| `electroNIX-USB-schematic.pdf` | Plot of all 5 sheets |
-| `electroNIX-USB-bom.csv` | BOM grouped by value and footprint |
-| `source/gen.py` | Generator that writes `kicad/` (`python3 source/gen.py kicad`) |
+| `kicad/` | **4-tube** KiCad project (HH:MM): root sheet plus 4 sub-sheets, project symbol library (`electronix.kicad_sym`: Z573M, `+170V`) |
+| `kicad-6tube/` | **6-tube** KiCad project (HH:MM:SS), same layout of sheets |
+| `electroNIX-USB-{4,6}tube-schematic.pdf` | Plots of all 5 sheets |
+| `electroNIX-USB-{4,6}tube-bom.csv` | BOMs grouped by value and footprint |
+| `source/gen.py` | Generator: `python3 source/gen.py kicad` or `python3 source/gen.py kicad-6tube --tubes 6` |
 
 The files are in KiCad 7 format, so KiCad 7, 8 and 9 all open them (8 and 9
 upgrade on save). Once you start editing in KiCad, the KiCad files are the
@@ -34,7 +35,45 @@ over hand edits.
    switches. The 1N4148 off-cathode clamp to a ~32 V bias is kept from
    PCB-036. Two colon neons.
 
-## GPIO map
+## 4 and 6 tubes
+
+Both builds use the same circuit. Six tubes need only two more anode
+switches and two more neons. Nothing else changes:
+- **HV supply:** the tubes are multiplexed, so one tube is lit at a time
+  and the converter's load is the same for 4 or 6.
+- **Cathode drivers:** shared by all tubes.
+- **Anti-ghosting clamp, ESP32, USB and power:** identical.
+
+The cost is two GPIOs. Every output-capable pin is already used on the
+4-tube build, so the 6-tube build **drops the buzzer and the DS3231**:
+
+| | 4-tube (`kicad/`) | 6-tube (`kicad-6tube/`) |
+|---|---|---|
+| IO12 | MEL buzzer | W_5 anode (seconds tens) |
+| IO15 | DS3231 SDA | W_6 anode (seconds units) |
+| IO0 | DS3231 SCL (4k7 pull-up) | 10k pull-up only |
+| Colon | NE1 (SEC_0), NE2 (SEC_1) | NE1+NE2 on SEC_0 (upper dots), NE3+NE4 on SEC_1 (lower dots) |
+| Firmware | `BOARD_ELECTRONIX_3` + 4 overrides (see below) | **stock `BOARD_ELECTRONIX_4_6T`, no changes** |
+| Time source | NTP + DS3231 | NTP |
+
+The 6-tube map is the existing electroNIX 4+S map, `ANODE_PINS {16, 17,
+18, 19, 12, 15}`. The firmware still drives GPIO0 as the buzzer pin; with
+nothing fitted that does no harm. UART0 stays with the CH340C on both
+builds, so USB flashing and the serial log keep working.
+
+Strapping on the 6-tube build:
+- IO12 is held low by the W_5 driver base, which is the 3.3 V flash
+  setting it needs.
+- IO15 is pulled low by the W_6 driver base. The only effect is that the
+  ROM boot log is silenced. Don't add the 10k pull-up that `board.h`
+  suggests for retrofits: against the 15k base path it would leave IO15
+  mid-rail.
+
+With 1/6 duty the tubes are about a third dimmer than at 1/4. If that
+shows, drop the anode resistors (10k → 6k8). Average HV current stays
+the same.
+
+## GPIO map (4-tube build)
 
 Matches the firmware's `BOARD_ELECTRONIX_3` profile, with three exceptions:
 
@@ -73,7 +112,8 @@ The firmware therefore needs a small new board profile: `PIN_BUZZER 12`,
   5 V.
 - Base resistors are 15k for 3.3 V drive. The original 33k gives only
   ~80 µA of base current at 3.3 V.
-- Neons have a 100k base resistor and 150k series resistor (~0.6 mA). The
+- Neons have a 47k base resistor and 150k series resistor per neon
+  (~0.6 mA each; one driver handles two neons on the 6-tube build). The
   original 430k base resistor leaves the transistor current-limited at
   3.3 V.
 - Off-cathode bias filter: one 2.2 µF/50 V cap instead of 4 × 470 nF.
@@ -82,7 +122,9 @@ The firmware therefore needs a small new board profile: `PIN_BUZZER 12`,
 
 ## Open points (check before or during layout)
 
-- **Z573M pinout** is taken from the tube-tester.com Z573M page: B13D base,
+- **Z573M pinout** is taken from the tube-tester.com Z573M page (the
+  frank.pocnet.net Z573M sheet is the better source, but the build
+  environment couldn't reach it yet): B13D base,
   pin 7 at front, 1–3 = digits 1–3, 4 = internal connection, 5–9 = digits
   4–8, 10 = PR, 11 = 9, 12 = 0, 13 = anode. I couldn't open the original
   RFT sheet. **Check it with a tube** (light each pin from a current-limited
@@ -102,6 +144,6 @@ The firmware therefore needs a small new board profile: `PIN_BUZZER 12`,
 
 ## Z566M and other tubes
 
-Only sheet 5 changes: the tube symbol and footprint, the anode resistor,
-and the number of tubes. Z566M is a 30 mm top-view tube (pin 8 at front
+Only sheet 5 changes: the tube symbol and footprint, and the anode
+resistor. The tube count is already a generator option. Z566M is a 30 mm top-view tube (pin 8 at front
 according to the RFT data table). Its full pinout still has to be found.

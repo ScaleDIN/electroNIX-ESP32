@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "electronix")(type "KiCad")(uri "${KIPRJMOD}/electronix.kicad_sym")(options "")(descr "electroNIX project symbols"))
+)
