@@ -30,7 +30,7 @@ over hand edits.
 ## Sheets
 
 1. **Power & USB:** USB-C receptacle wired as a 5 V sink (5k1 on CC1/CC2),
-   polyfuse, SMBJ5.0CA TVS, USBLC6-2SC6 on D+/D−, AMS1117-3.3, and CH340C
+   polyfuse, SMBJ5.0CA TVS, 22 µF/35 V tantalum bulk, USBLC6-2SC6 on D+/D−, AMS1117-3.3, and CH340C
    for programming and serial log.
 2. **ESP32:** ESP32-WROOM-32E, two-transistor DTR/RTS auto-reset, and the
    light sensor. **No switches:** the firmware is set up from its web UI
@@ -149,7 +149,7 @@ Block by block against `schema_204xZ573M.pdf`:
 - **Same topology as PCB-036:** anode switches (MMBTA42 → 430k → MMBTA92
   with 100k B–E, series anode resistor), cathode switches, the off-cathode
   clamp (10 × 1N4148 to KBIAS; 430k/100k with 4 × 470 nF in series), the
-  boost stage (22 µ + 100 n in, L, IRLR3110Z, 10R gate, 10k gate–source),
+  boost stage (22 µF/35 V tantalum + 100 n in, L, IRLR3110Z, 10R gate, 10k gate–source),
   the 7-diode / 7-capacitor multiplier (diode for diode), the 430k/6k2
   feedback with 100 n, the neon driver, and the light sensor.
 - **Intentional differences** are listed below.
