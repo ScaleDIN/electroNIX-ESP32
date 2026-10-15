@@ -25,7 +25,8 @@ over hand edits.
    polyfuse, SMBJ5.0CA TVS, USBLC6-2SC6 on D+/D−, AMS1117-3.3, and CH340C
    for programming and serial log.
 2. **ESP32:** ESP32-WROOM-32E, EN/BOOT buttons, two-transistor DTR/RTS
-   auto-reset, DS3231M + CR2032, buzzer, light sensor, SET button.
+   auto-reset, light sensor, SET button. No buzzer and no RTC: time
+   comes from NTP.
 3. **HV supply:** the PCB-036 converter, unchanged. IO2 drives an IRLR3110Z
    into a 33 µH WE 7447715330. The switch node feeds a 7-diode / 7-capacitor
    Cockcroft-Walton ladder (10MQ100N, 1 µF/100 V) that makes 170 V. Feedback
@@ -44,70 +45,40 @@ switches and two more neons. Nothing else changes:
 - **Cathode drivers:** shared by all tubes.
 - **Anti-ghosting clamp, ESP32, USB and power:** identical.
 
-The cost is two GPIOs. Every output-capable pin is already used on the
-4-tube build, so the 6-tube build **drops the buzzer and the DS3231**:
+Both builds run **stock firmware, unchanged**: no buzzer and no RTC,
+time from NTP, and UART0 left to the CH340C for USB flashing.
 
 | | 4-tube (`kicad/`) | 6-tube (`kicad-6tube/`) |
 |---|---|---|
-| IO12 | MEL buzzer | W_5 anode (seconds tens) |
-| IO15 | DS3231 SDA | W_6 anode (seconds units) |
-| IO0 | DS3231 SCL (4k7 pull-up) | 10k pull-up only |
-| Colon | NE1 (SEC_0), NE2 (SEC_1) | NE1+NE2 on SEC_0 (upper dots), NE3+NE4 on SEC_1 (lower dots) |
-| Firmware | `BOARD_ELECTRONIX_3` + 4 overrides (see below) | **stock `BOARD_ELECTRONIX_4_6T`, no changes** |
-| Time source | NTP + DS3231 | NTP |
-
-The 6-tube map is the existing electroNIX 4+S map, `ANODE_PINS {16, 17,
-18, 19, 12, 15}`. The firmware still drives GPIO0 as the buzzer pin; with
-nothing fitted that does no harm. UART0 stays with the CH340C on both
-builds, so USB flashing and the serial log keep working.
-
-Strapping on the 6-tube build:
-- IO12 is held low by the W_5 driver base, which is the 3.3 V flash
-  setting it needs.
-- IO15 is pulled low by the W_6 driver base. The only effect is that the
-  ROM boot log is silenced. Don't add the 10k pull-up that `board.h`
-  suggests for retrofits: against the 15k base path it would leave IO15
-  mid-rail.
-
-With 1/6 duty the tubes are about a third dimmer than at 1/4. If that
-shows, drop the anode resistors (10k → 6k8). Average HV current stays
-the same.
-
-## GPIO map (4-tube build)
-
-Matches the firmware's `BOARD_ELECTRONIX_3` profile, with three exceptions:
-
-| Function | GPIO | vs. `BOARD_ELECTRONIX_3` |
-|---|---|---|
+| Firmware profile | `BOARD_ELECTRONIX_3` | `BOARD_ELECTRONIX_4_6T` |
 | Cathodes C_0…C_9 | 13, 14, 21, 22, 23, 25, 26, 27, 32, 33 | same |
 | Anodes W_1…W_4 | 16, 17, 18, 19 | same |
-| SEC_0 / SEC_1 neons | 4 / 5 | same |
-| HV PWM | 2 | same |
-| KOMP_170V (HV sense) | 35 | same |
-| JASNOSC (light) | 34 | same |
-| SET button | 36 | same |
-| **MEL buzzer** | **12** | was 0 |
-| **DS3231 SDA / SCL** | **15 / 0** | was 1 / 3 |
-| USB-UART | 1 (TX), 3 (RX) | now used by the CH340C |
+| Anodes W_5 / W_6 | IO12 / IO15 left open | **12 / 15** |
+| SEC_0 / SEC_1 neons | 4 / 5: NE1, NE2 | 4 / 5: NE1+NE2 upper dots, NE3+NE4 lower dots |
+| HV PWM / KOMP_170V / JASNOSC | 2 / 35 / 34 | same |
+| SET button | 36 (firmware: optional) | same |
+| IO0 | 10k pull-up, BOOT button, auto-reset | same |
+| IO1 / IO3 | CH340C | same |
 
-Why the changes:
-- **The buzzer moved off GPIO0.** IO0 needs a pull-up to boot normally.
-  With the buzzer transistor's base resistor hanging on it, a 10k pull-up
-  only reaches about 1.1 V at reset, which reads as low, so the chip enters
-  download mode. GPIO12 has to be *low* at reset (3.3 V flash), and a
-  transistor base plus a 100k pull-down holds it there.
-- **The RTC moved off GPIO1/3** because those pins are now the USB-UART.
-  The I²C pull-ups help here: IO15 is meant to be high at reset and IO0 has
-  to be high to run.
-
-The firmware therefore needs a small new board profile: `PIN_BUZZER 12`,
-`BOARD_RTC_SDA 15`, `BOARD_RTC_SCL 0`, `BOARD_HAS_RTC 1`, and
-`BOARD_USE_SERIAL 1`. That isn't written yet.
+Notes:
+- The firmware still drives **GPIO0** as its buzzer pin after boot.
+  Nothing is attached apart from the pull-up and the BOOT button, so it
+  does no harm. Leave `cfg.buzzerEn` off.
+- **Strapping, 4-tube build:** IO12 and IO15 are open, so the ESP32's
+  internal pull-down and pull-up give the right reset defaults.
+- **Strapping, 6-tube build:** the W_5 driver base holds IO12 low, which
+  is the 3.3 V flash setting it needs. The W_6 driver base pulls IO15
+  low, which only silences the ROM boot log. Don't add the 10k IO15
+  pull-up that `board.h` suggests for retrofits: against the 15k base
+  path it would leave IO15 mid-rail.
+- With 1/6 duty the tubes are about a third dimmer than at 1/4. If that
+  shows, drop the anode resistors (10k → 6k8). Average HV current stays
+  the same.
 
 ## Other changes from PCB-036
 
 - The ATmega16, its 32 kHz crystal, the 0.047 F supercap and the ZANIK
-  power-fail divider are gone. Time comes from NTP and the DS3231.
+  power-fail divider are gone, and so is the buzzer. Time comes from NTP.
 - The feedback clamp now goes to **3V3** (BAT54S); the original clamped to
   5 V.
 - Base resistors are 15k for 3.3 V drive. The original 33k gives only

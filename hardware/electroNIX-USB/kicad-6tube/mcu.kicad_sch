@@ -2141,14 +2141,14 @@
     (fill
       (type none))
     (uuid "dafaf41c-80ef-51cf-aa50-9b27b86e7c54"))
-  (text "ESP32 module (GPIO map = firmware BOARD_ELECTRONIX_4_6T, unchanged)"
+  (text "ESP32 module (GPIO map = stock firmware BOARD_ELECTRONIX_4_6T)"
     (at 21.27 26.27 0)
     (effects
       (font
         (size 2 2) bold)
       (justify left top))
-    (uuid "1e4c5dbd-f5d1-50ee-969c-00df050d8a3e"))
-  (text "Strapping pins at reset:\n IO0  high = run   (10k pull-up; BOOT / auto-reset pull it low)\n IO2  low/float    (boost gate pull-down on HV sheet)\n IO12 low = 3.3 V flash  (W_5 anode driver base holds it low)\n IO15 low via W_6 driver base: only silences the ROM boot log.\n      No pull-up here - 10k against the 15k base path would sit mid-rail.\n IO5  SEC_1 neon driver base - default state is harmless"
+    (uuid "25362a53-fe59-56af-a105-a46359de10ec"))
+  (text "Strapping pins at reset:\n IO0  high = run   (10k pull-up; BOOT / auto-reset pull it low).\n      Firmware drives IO0 as its (unfitted) buzzer pin after boot - harmless.\n IO2  low/float    (boost gate pull-down on HV sheet)\n IO12 low = 3.3 V flash  (W_5 anode driver base holds it low)\n IO15 low via W_6 driver base: only silences the ROM boot log.\n      No pull-up here - 10k against the 15k base path would sit mid-rail.\n IO5  SEC_1 neon driver base - default state is harmless"
     (at 25 160 0)
     (effects
       (font
@@ -2194,13 +2194,13 @@
         (size 2 2) bold)
       (justify left top))
     (uuid "044345fb-5448-59c9-bc73-36ba3a3be5ad"))
-  (text "6-tube build: no buzzer, no RTC (IO12/IO15 drive anodes 5/6).\nTime comes from NTP. IO0 keeps its 10k pull-up for normal boot."
+  (text "No buzzer and no RTC: time comes from NTP (firmware BOARD_HAS_RTC 0).\nIO0 has a 10k pull-up so it boots normally."
     (at 222 178 0)
     (effects
       (font
         (size 1.27 1.27))
       (justify left top))
-    (uuid "963dc46c-8bc0-571c-91de-4492f804ef25"))
+    (uuid "3d0a1b8b-5de6-5d1f-87d1-bdc37bacbd7e"))
   (symbol
     (lib_id "power:GND")
     (at 110.49 143.51 0)
