@@ -136,12 +136,12 @@ def placement(nl, tubes):
     put(pk('Power', '100n', '+3V3'), EX - 19.5, 15.0, 0)
     sx = EX - 11.6                         # between CH340C (TXD/RXD side) and the module's UART/IO0 pins
     q1 = nl.one('EN', 'Q', '3'); q2 = nl.one('IO0', 'Q', '3')
-    put(q1, sx, 3.2, 0); put(nl.one(nl.pnet(q1, '1'), 'R'), sx, 6.9, 0)
-    put(q2, sx, 10.4, 0); put(nl.one(nl.pnet(q2, '1'), 'R'), sx, 14.1, 0)
-    put(pk('ESP32', '10k', 'IO0'), sx, 23.0, 0)                 # IO0 pull-up, next to pin 25
+    put(q1, sx, 2.6, 0); put(nl.one(nl.pnet(q1, '1'), 'R'), sx, 6.3, 0)
+    put(q2, sx, 11.8, 0); put(nl.one(nl.pnet(q2, '1'), 'R'), sx, 15.6, 0)
+    put(pk('ESP32', '10k', 'IO0'), sx, 21.5, 0)                 # IO0 pull-up, next to pin 25
     U4 = nl.one('EN', 'U'); put(U4, EX, 16.1, 0)       # antenna end 0.3 mm inside the edge
     # strip between the module's right-hand pins (3V3, EN, IO34, IO35) and the board edge
-    ca, cb = EX + 10.9, EX + 14.5
+    ca, cb = EX + 10.9, EX + 15.1
     put(pk('ESP32', '100n', '+3V3'), ca, 9.4, 90); put(pk('ESP32', '22u'), cb, 10.2, 90)       # 3V3, pin 2
     put(pk('ESP32', '1u'), ca, 13.0, 90); put(pk('ESP32', '10k', 'EN'), cb, 14.4, 90)          # EN RC, pin 3
     Rtop = [r for r in nl.on('KOMP_170V', 'R') if val(r) == '430k'][0]                           # HV sense at IO35
@@ -166,17 +166,18 @@ def placement(nl, tubes):
     # output electrolytic lies flat along the left edge, body toward the front
     Cout = [r for r in nl.on('+170V', 'C') if '250V' in val(r)][0]; put(Cout, 5.75, 43.8, 0)
     kr = nl.on('KBIAS', 'R'); kr430 = [r for r in kr if val(r) == '430k'][0]; kr100 = [r for r in kr if r != kr430][0]
-    put(kr430, 10.2, 45.6, 90); put(kr100, 13.8, 45.6, 90)
+    kx = colons[0]                          # under the (first) colon, between anode clusters
+    put(kr430, kx - 3.0, 56.6, 0); put(kr100, kx + 3.0, 56.6, 0)
     # 4 x 470n in series, KBIAS -> GND, as a short row
     c, node, string = nl.one('KBIAS', 'C'), 'KBIAS', []
     while True:
         string.append(c); pin = '2' if nl.pnet(c, '1') == node else '1'; node = nl.pnet(c, pin)
         if node == 'GND': break
         c = [x for x in nl.on(node, 'C') if x not in string][0]
-    for i, c in enumerate(string): put(c, (10.2, 13.8)[i % 2], 49.6 + (i // 2) * 3.9, 90)
+    for i, c in enumerate(string): put(c, kx - 4.8 + i * 3.2, 61.0, 90)
 
     # ---------------- front band: cathode switches (R | Q over clamp D)
-    x0, x1 = 19.0, W - 8.0
+    x0, x1 = 16.5, W - 8.0
     for k in range(10):
         x = x0 + k * (x1 - x0) / 9
         q = nl.one(f'K_{k}', 'Q'); put(q, x, 46.0, 0)
@@ -322,7 +323,7 @@ def build(kdir, tubes):
          rule=True, name='ESP32 antenna keepout')
     return board, nl, P, (W, H), geo
 
-def place_refs(board, size=0.8, margin=0.15):
+def place_refs(board, size=0.8, margin=0.15, first=()):
     """Move every silkscreen reference to a free spot next to its part, clear
     of other references, of every part's silkscreen extent and pads, and of
     the board edge. Last resort: inside its own part, between the pads."""
@@ -350,7 +351,13 @@ def place_refs(board, size=0.8, margin=0.15):
                     else: ext.Merge(bb)
             if ext is not None: bodies[sl].append((f.GetReference(), grow(ext, M)))
     labels = {sl: [] for sl in SIDES}
-    fps = sorted(board.GetFootprints(), key=lambda f: -f.GetBoundingBox(False, False).GetArea())
+    def ink(t, ang, m):
+        # KiCad's text box includes line spacing; trim it to the inked area
+        bb = t.GetBoundingBox()
+        tw, th = (FM(0.1), FM(0.25)) if int(ang) % 180 == 0 else (FM(0.25), FM(0.1))
+        return pcbnew.BOX2I(pcbnew.VECTOR2I(bb.GetLeft() + tw - m, bb.GetTop() + th - m),
+                            pcbnew.VECTOR2I(bb.GetWidth() - 2 * tw + 2 * m, bb.GetHeight() - 2 * th + 2 * m))
+    fps = sorted(board.GetFootprints(), key=lambda f: (f.GetReference() not in first, -f.GetBoundingBox(False, False).GetArea()))
     failed = []
     for f in fps:
         t = f.Reference()
@@ -367,24 +374,41 @@ def place_refs(board, size=0.8, margin=0.15):
             if any(tb.Intersects(o) for o in (rawpads[sl] if inside else pads[sl])): return False
             if not inside and any(tb.Intersects(o) for o in own): return False
             return True
+        allbodies = [(r, bb) for r, bb in bodies[sl]]
+        def nearest_is_own(tb):
+            c = tb.GetCenter()
+            def d(bb):
+                dx = max(bb.GetLeft() - c.x, 0, c.x - bb.GetRight()); dy = max(bb.GetTop() - c.y, 0, c.y - bb.GetBottom())
+                return math.hypot(dx, dy)
+            mine = min([d(bb) for r, bb in allbodies if r == f.GetReference()] or [d(body)])
+            theirs = min([d(bb) for r, bb in allbodies if r != f.GetReference()] or [1e18])
+            return mine <= theirs
         cands = []
         for ang in (0, 90):
             t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
             tb = t.GetBoundingBox(); hw, hh = tb.GetWidth() // 2, tb.GetHeight() // 2
-            for k in range(0, 14):
+            for k in range(0, 6):                  # beside the part (k > 2 tried after 'inside')
                 for j in range(16):
                     th = 2 * math.pi * j / 16
                     x = cx + math.cos(th) * (body.GetWidth() // 2 + hw + FM(0.2) + k * FM(0.5))
                     y = cy + math.sin(th) * (body.GetHeight() // 2 + hh + FM(0.2) + k * FM(0.5))
-                    cands.append((k + abs(math.sin(2 * th)) * 0.3 + (0.2 if ang else 0), ang, x, y, False))
-            cands.append((99 + (0 if ang else 0.5), ang, cx, cy, True))     # inside, between the pads
+                    cands.append(((k if k < 3 else 20 + k) + abs(math.sin(2 * th)) * 0.3 + (0.2 if ang else 0), ang, x, y, False))
+            # inside the footprint: centre, then nudged along both axes
+            for i, (ox, oy) in enumerate([(0, 0), (0.6, 0), (-0.6, 0), (0, 0.6), (0, -0.6), (1.2, 0), (-1.2, 0), (0, 1.2), (0, -1.2)]):
+                cands.append((10 + i * 0.1 + (0 if ang else 0.05), ang, cx + FM(ox), cy + FM(oy), True))
         ok = False
-        for _, ang, x, y, inside in sorted(cands):
-            t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(int(x), int(y)))
-            if free(grow(t.GetBoundingBox(), FM(0 if inside else 0.05)), inside): ok = True; break
+        for sz in (size, 0.6):                 # 0.6 mm only inside a part that has no room otherwise
+            t.SetTextSize(pcbnew.VECTOR2I(FM(sz), FM(sz))); t.SetTextThickness(FM(0.15 if sz >= 0.8 else 0.12))
+            for _, ang, x, y, inside in sorted(cands):
+                if sz < size and not inside: continue
+                t.SetTextAngleDegrees(ang); t.SetPosition(pcbnew.VECTOR2I(int(x), int(y)))
+                tb = ink(t, ang, FM(0 if inside else 0.05))
+                if free(tb, inside) and (inside or nearest_is_own(tb)): ok = True; break
+            if ok: break
+        if ok and sz < size: failed.append(f.GetReference())     # fitted only at 0.6 mm: retry first
         if not ok:
-            failed.append(f.GetReference()); t.SetTextAngleDegrees(0); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
-        labels[sl].append(grow(t.GetBoundingBox(), M))
+            failed.append(f.GetReference() + '!'); t.SetTextAngleDegrees(0); t.SetPosition(pcbnew.VECTOR2I(cx, cy))
+        labels[sl].append(ink(t, t.GetTextAngleDegrees(), M))
     return failed
 
 def courtyard_overlaps(board):
@@ -509,7 +533,14 @@ if __name__ == '__main__':
         board, nl, P, (W, H), geo = build(kdir, tubes)
         ov = courtyard_overlaps(board)
         print('courtyard overlaps:', len(ov)); [print('  ', o) for o in ov]
-        print('references that did not fit beside their part:', place_refs(board))
+        first, best = set(), None
+        for _ in range(5):                     # retry: the hard ones pick their spot first
+            hard = place_refs(board, first=first)
+            if best is None or len(hard) < len(best[0]): best = (hard, set(first))
+            if not hard: break
+            first |= {h.rstrip('!') for h in hard}
+        if hard and best[0] != hard: place_refs(board, first=best[1]); hard = best[0]
+        print('references squeezed inside at 0.6 mm (!: did not fit):', hard)
         board.Save(pcbpath)
         write_project(kdir, nl)        # after Save: saving rewrites the .kicad_pro
         if '--place-only' in sys.argv: sys.exit(0)
