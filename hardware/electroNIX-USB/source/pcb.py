@@ -103,8 +103,8 @@ def placement(nl, tubes):
     L = nl.one('HV_SW', 'L'); put(L, 14.5, 8.0, 180)
     Q = nl.one('HV_SW', 'Q'); put(Q, 15.5, 21.0, 180)
     put(pk('HV', '22u 10V'), 3.6, 11.2, 90); put(pk('HV', '100n', '+5V'), 3.6, 15.4, 90)
-    Rg = nl.one(nl.pnet(Q, '1'), 'R')
-    put(Rg, 6.6, 19.0, 90); put([r for r in nl.on('PWM', 'R') if r != Rg][0], 3.6, 21.0, 90)
+    Rg = nl.one('PWM', 'R')                   # 10R series gate resistor
+    put(Rg, 6.6, 19.0, 90); put([r for r in nl.on(nl.pnet(Q, '1'), 'R') if r != Rg][0], 6.6, 23.6, 90)
     # multiplier ladder right beside the switch: diode column + capacitor column,
     # in chain order from the switch node (top) to +170 V (bottom)
     cw_d = {nl.pnet(r, '2'): r for r in nl.comps if r.startswith('D') and val(r) == '10MQ100N'}   # anode net -> diode

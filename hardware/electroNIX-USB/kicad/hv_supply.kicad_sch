@@ -1321,20 +1321,17 @@
     (uuid "f209a15d-a258-5712-ae71-47cdd9cbc773"))
   (wire
     (pts
-      (xy 85.09 91.44)
-      (xy 85.09 88.9))
+      (xy 95.25 87.63)
+      (xy 95.25 90.17))
     (stroke
       (width 0)
       (type default))
-    (uuid "3111a20e-4ae9-53bf-b5cc-ef8bcc06043f"))
-  (wire
-    (pts
-      (xy 85.09 99.06)
-      (xy 85.09 101.6))
-    (stroke
-      (width 0)
-      (type default))
-    (uuid "81e23d15-fae3-5109-837b-181c92f8278d"))
+    (uuid "cc235351-b37f-5e08-bcb9-ebcf8fb697e3"))
+  (junction
+    (at 94.92 80.01)
+    (diameter 0)
+    (color 0 0 0 0)
+    (uuid "189a964f-2265-5dbb-9fbf-67967e73f18b"))
   (wire
     (pts
       (xy 195.58 49.53)
@@ -1685,20 +1682,6 @@
       (effects
         (font
           (size 1.27 1.27)) hide)))
-  (global_label "PWM"
-    (shape passive)
-    (at 85.09 88.9 90)
-    (fields_autoplaced)
-    (effects
-      (font
-        (size 1.27 1.27))
-      (justify left))
-    (uuid "54ec3348-ea25-5c3d-a633-9e91b044874a")
-    (property "Intersheetrefs" "${INTERSHEET_REFS}"
-      (at 85.09 88.9 0)
-      (effects
-        (font
-          (size 1.27 1.27)) hide)))
   (label "CW_T3"
     (at 205.74 49.53 0)
     (fields_autoplaced)
@@ -1971,7 +1954,7 @@
         (size 2 2) bold)
       (justify left top))
     (uuid "1022c70e-7d9a-578e-bdde-b5c3be64a3d5"))
-  (text "IO2 drives the logic-level FET directly, 32 kHz,\nduty clamped to ~41 % by firmware (HV_DUTY_MAX).\n10k keeps the gate (and IO2) low during boot."
+  (text "IO2 drives the logic-level FET directly, 32 kHz,\nduty clamped to ~41 % by firmware (HV_DUTY_MAX).\n10k gate-source keeps the FET off (and IO2 low) during boot."
     (at 25 105 0)
     (effects
       (font
@@ -2441,34 +2424,34 @@
           (unit 1)))))
   (symbol
     (lib_id "power:GND")
-    (at 85.09 101.6 0)
+    (at 95.25 90.17 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
-    (uuid "90f8e228-04de-5762-ad3c-f8362e2bbcbd")
+    (uuid "d4411e68-a2ea-56df-bf1e-1ab3447ef089")
     (property "Reference" "#PWR4011"
-      (at 85.09 101.6 0)
+      (at 95.25 90.17 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (property "Value" "GND"
-      (at 85.09 104.8 0)
+      (at 95.25 93.37 0)
       (effects
         (font
           (size 1.27 1.27))))
     (property "Footprint" ""
-      (at 85.09 101.6 0)
+      (at 95.25 90.17 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (property "Datasheet" ""
-      (at 85.09 101.6 0)
+      (at 95.25 90.17 0)
       (effects
         (font
           (size 1.27 1.27)) hide))
     (pin "1"
-      (uuid "6fa93318-447f-56b2-b0e8-9085d4f862bb"))
+      (uuid "2e6d4d8d-50a2-598f-9579-623f8381252e"))
     (instances
       (project "electroNIX-USB"
         (path "/af167dc7-e2c9-570c-bdf4-28156a519677/f6fa350a-459e-5361-98c1-1f12d068c3cb"
@@ -2476,32 +2459,32 @@
           (unit 1)))))
   (symbol
     (lib_id "Device:R")
-    (at 85.09 95.25 0)
+    (at 95.25 83.82 0)
     (unit 1)
     (in_bom yes)
     (on_board yes)
     (dnp no)
     (uuid "86708ea4-f871-50d5-b287-c158dda17283")
     (property "Reference" "R9"
-      (at 86.36 93.98 0)
+      (at 96.52 82.55 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Value" "10k"
-      (at 86.36 96.52 0)
+      (at 96.52 85.09 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left)))
     (property "Footprint" "Resistor_SMD:R_0805_2012Metric"
-      (at 85.09 95.25 0)
+      (at 95.25 83.82 0)
       (effects
         (font
           (size 1.27 1.27))
         (justify left) hide))
     (property "Datasheet" "~"
-      (at 85.09 95.25 0)
+      (at 95.25 83.82 0)
       (effects
         (font
           (size 1.27 1.27))

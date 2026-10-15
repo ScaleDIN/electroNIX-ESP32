@@ -143,6 +143,17 @@ Notes:
   shows, drop the anode resistors (10k → 6k8). Average HV current stays
   the same.
 
+## Checked against PCB-036
+
+Block by block against `schema_204xZ573M.pdf`:
+- **Same topology as PCB-036:** anode switches (MMBTA42 → 430k → MMBTA92
+  with 100k B–E, series anode resistor), cathode switches, the off-cathode
+  clamp (10 × 1N4148 to KBIAS; 430k/100k with 4 × 470 nF in series), the
+  boost stage (22 µ + 100 n in, L, IRLR3110Z, 10R gate, 10k gate–source),
+  the 7-diode / 7-capacitor multiplier (diode for diode), the 430k/6k2
+  feedback with 100 n, the neon driver, and the light sensor.
+- **Intentional differences** are listed below.
+
 ## Other changes from PCB-036
 
 - The ATmega16, its 32 kHz crystal, the 0.047 F supercap and the ZANIK

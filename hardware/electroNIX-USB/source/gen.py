@@ -164,9 +164,10 @@ def sheet_hv():
     sh.part(ref('Q'), 'Device', 'Q_NMOS_GDS', 'IRLR3110ZPBF', 100, 80, {'G': '-', 'D': 'HV_SW', 'S': 'GND'}, 0,
             'Package_TO_SOT_SMD:TO-252-2')
     R(sh, '10R', 91.11, 80, 'PWM', '-', rot=90)
-    R(sh, '10k', 85, 95, 'PWM', 'GND')
+    R(sh, '10k', 94.92, 83.81, '-', 'GND')        # gate-source pull-down (R45 on PCB-036)
+    sh.junction(94.92, 80.01)
     sh.text('IO2 drives the logic-level FET directly, 32 kHz,\nduty clamped to ~41 % by firmware (HV_DUTY_MAX).\n'
-            '10k keeps the gate (and IO2) low during boot.', 25, 105)
+            '10k gate-source keeps the FET off (and IO2 low) during boot.', 25, 105)
 
     sh.box(160, 25, 400, 120, 'Cockcroft-Walton multiplier, 7 x 10MQ100N, 7 x 2u2/100V (PCB-036 used 1u)')
     # DC column (top) and AC column (bottom), drawn like the original
