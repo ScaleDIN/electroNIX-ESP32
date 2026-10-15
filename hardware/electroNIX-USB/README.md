@@ -202,7 +202,9 @@ Block by block against `schema_204xZ573M.pdf`:
     (no-copper keepout). Between the module's right-hand pins and the
     edge: 3V3 decoupling at pin 2, the EN RC at pin 3, and the HV
     feedback divider, filter and clamp at IO35.
-  - Front band: the output cap and KBIAS at the left, 10 cathode
+  - Front band: the 2.2 µF/250 V output electrolytic lying flat along the
+    left edge (leads bent 90°, keep-clear for a body up to Ø8 × 12.5 mm),
+    KBIAS next to it, 10 cathode
     switches (base resistor, transistor, clamp diode), and one anode
     cluster under each tube.
 - **Net classes:** HV (0.4 mm clearance) for +170 V, anodes, the ladder

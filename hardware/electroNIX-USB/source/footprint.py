@@ -79,6 +79,26 @@ def neon():
     L.append(')')
     return '\n'.join(L) + '\n'
 
+def cp_lying():
+    """Radial electrolytic folded flat onto the board: leads 2.5 mm apart,
+    body (up to 8 mm dia x 12.5 mm) lying along +Y from 1.5 mm past the pads."""
+    name = 'CP_Radial_D8mm_P2.50mm_Lying'
+    bx0, bx1, by0, by1 = 1.25 - 4.0, 1.25 + 4.0, 1.5, 14.0
+    L = head(name, 'Radial electrolytic, 2.5 mm pitch, bent over to lie flat (body up to 8 x 12.5 mm along +Y)',
+             'capacitor electrolytic radial horizontal lying')
+    L += [text('reference', 'REF**', 1.25, -2.2, 'F.SilkS', 0.8, name + 'ref'),
+          text('value', name, 1.25, 8.0, 'F.Fab', 0.8, name + 'val'),
+          text('user', '+', -1.6, 0, 'F.SilkS', 1.0, name + 'plus'),
+          f'  (fp_rect (start {bx0} {by0}) (end {bx1} {by1}) (stroke (width 0.12) (type solid)) (fill none) (layer "F.SilkS") (tstamp {u(name, "silk")}))',
+          f'  (fp_rect (start {bx0} {by0}) (end {bx1} {by1}) (stroke (width 0.1) (type solid)) (fill none) (layer "F.Fab") (tstamp {u(name, "fab")}))',
+          line(0, 0.8, 0, by0, 'F.Fab', 0.1, name + 'l1'), line(2.5, 0.8, 2.5, by0, 'F.Fab', 0.1, name + 'l2'),
+          f'  (fp_rect (start {bx0 - 0.25} -1.1) (end {bx1 + 0.25} {by1 + 0.25}) (stroke (width 0.05) (type solid)) (fill none) (layer "F.CrtYd") (tstamp {u(name, "crt")}))']
+    for k, x in ((1, 0.0), (2, 2.5)):
+        L.append(f'  (pad "{k}" thru_hole {"rect" if k == 1 else "circle"} (at {x} 0) (size 1.6 1.6) (drill 0.8) '
+                 f'(layers "*.Cu" "*.Mask") (tstamp {u(name, "pad", k)}))')
+    L.append(')')
+    return '\n'.join(L) + '\n'
+
 def main(out):
     os.makedirs(out, exist_ok=True)
     fps = {
@@ -89,6 +109,7 @@ def main(out):
             descr='RFT Z573M on the electroNIX-2 socket adapter: socket pins on the adapter outer ring, '
                   '12.6 mm circle, 2.80 mm pitch, same 13 positions as the tube. Wire 7 at front (+Y). Top view.'),
         'Neon_P2.54mm': neon(),
+        'CP_Radial_D8mm_P2.50mm_Lying': cp_lying(),
     }
     for n, s in fps.items():
         open(os.path.join(out, n + '.kicad_mod'), 'w').write(s)

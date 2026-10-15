@@ -3253,7 +3253,7 @@
         (font
           (size 1.27 1.27))
         (justify left)))
-    (property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+    (property "Footprint" "electronix:CP_Radial_D8mm_P2.50mm_Lying"
       (at 44.45 165.1 0)
       (effects
         (font

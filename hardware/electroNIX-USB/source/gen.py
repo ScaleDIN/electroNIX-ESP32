@@ -188,7 +188,7 @@ def sheet_hv():
     sh.text('Each stage adds one boost peak (~45 V at 170 V out); no part sees more than ~100 V.', 165, 110)
 
     sh.box(20, 130, 400, 200, 'Output, feedback (KOMP_170V) and ADC clamp')
-    CP(sh, '2u2 250V', 45, 165, '+170V', 'GND', 'Capacitor_THT:CP_Radial_D6.3mm_P2.50mm')
+    CP(sh, '2u2 250V', 45, 165, '+170V', 'GND', 'electronix:CP_Radial_D8mm_P2.50mm_Lying')   # lies flat
     flag(sh, '+170V', 60, 150)
     R(sh, '430k', 100, 160, '+170V', 'KOMP_170V', fp=FP_RHV)
     R(sh, '6k2', 100, 180, 'KOMP_170V', 'GND')
