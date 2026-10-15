@@ -3,7 +3,11 @@
 The only sources for this board are one composite top-view JPEG of the
 layout (`source/electroNIX-3a_layout.jpg`, 1200×638, both copper layers
 and silk overlaid) and the schematic (`source/electroNIX-3a_schematic.pdf`,
-"electroNIXclock 3v1", 2013-11-27). **Use `vector/`** — the copper rebuilt as CAD primitives
+"electroNIXclock 3v1", 2013-11-27).
+
+**Superseded — see [`HANDOFF.md`](HANDOFF.md): the board is being redrawn in
+KiCad from the schematic.** What follows documents the reconstruction, now
+kept only as a reference. `vector/` is the copper rebuilt as CAD primitives
 (`source/vectorize.py`). `gerbers/` is the earlier pixel trace
 (`source/jpg2gerber.py`) that the rebuild starts from. **Neither is
 fabrication-ready yet** — see "Status". No silkscreen is produced (not
